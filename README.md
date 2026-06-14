@@ -12,12 +12,19 @@
 
 ## Repository Overview
 
-This repository currently provides **22 skills**, organized into the
+This repository currently provides **24 skills**, organized into the
 following groups. Each skill is a self-contained package: its directory
 contains a `SKILL.md` with the core workflow and usage rules, plus any
 supporting `references/`.
 
 <!-- SKILLS-CATALOG:START -->
+### Learning & Skill-Building
+
+| Skill | Description |
+|---|---|
+| [AI-mental-gym](./AI-mental-gym/) | Guide hands-on coding reps for any build-from-scratch topic via concept briefs, gap-fill skeletons, and critique — without giving away solutions. |
+| [AI-mental-gym-checklist](./AI-mental-gym-checklist/) | Generate a phased CHECKLIST.md of gym-able build items and depth-checkpoint questions for a new build-from-scratch learning project. |
+
 ### Writing & Polishing
 
 | Skill | Description |

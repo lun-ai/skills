@@ -3,6 +3,10 @@
 # tables appear in README.md / README_zh.md. Skills are sorted
 # alphabetically within each category when rendered.
 categories:
+  - name: "Learning & Skill-Building"
+    skills:
+      - AI-mental-gym
+      - AI-mental-gym-checklist
   - name: "Writing & Polishing"
     skills:
       - ai-paper-writing
