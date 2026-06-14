@@ -12,7 +12,7 @@
 
 当前仓库提供 1 个技能包：
 
-- `research-paper-writing/`
+- `ai-paper-writing/`
   - `SKILL.md`：核心流程与使用规则
   - `references/`：按章节拆分的写作指南与模板
   - `agents/openai.yaml`：Agent 元信息
@@ -34,13 +34,13 @@
 
 ```bash
 mkdir -p "$CODEX_HOME/skills"
-cp -R research-paper-writing "$CODEX_HOME/skills/"
+cp -R ai-paper-writing "$CODEX_HOME/skills/"
 ```
 
 使用示例：
 
 ```text
-Use $research-paper-writing to improve my paper's Introduction.
+Use $ai-paper-writing to improve my paper's Introduction.
 ```
 
 ### 2) CC（Claude Code）
@@ -51,17 +51,17 @@ Use $research-paper-writing to improve my paper's Introduction.
 
 ```bash
 mkdir -p "$HOME/.claude/skills"
-cp -R research-paper-writing "$HOME/.claude/skills/"
+cp -R ai-paper-writing "$HOME/.claude/skills/"
 ```
 
 项目级安装：
 
 ```bash
 mkdir -p .claude/skills
-cp -R research-paper-writing .claude/skills/
+cp -R ai-paper-writing .claude/skills/
 ```
 
-使用时建议在提示词中显式指定，例如：`Please use the research-paper-writing skill`。
+使用时建议在提示词中显式指定，例如：`Please use the ai-paper-writing skill`。
 
 ### 3) Gemini
 
@@ -69,7 +69,7 @@ cp -R research-paper-writing .claude/skills/
 
 ```bash
 mkdir -p "$HOME/.gemini/skills"
-cp -R research-paper-writing "$HOME/.gemini/skills/"
+cp -R ai-paper-writing "$HOME/.gemini/skills/"
 ```
 
 随后在 Gemini 中直接给出具体任务（例如：重写 Abstract 并做 claim-evidence 检查）。

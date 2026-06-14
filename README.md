@@ -14,7 +14,7 @@
 
 This repository currently provides one skill package:
 
-- `research-paper-writing/`
+- `ai-paper-writing/`
   - `SKILL.md`: core workflow and usage rules
   - `references/`: section-specific writing guides and templates
   - `agents/openai.yaml`: agent metadata
@@ -36,13 +36,13 @@ Copy the skill into `$CODEX_HOME/skills/`:
 
 ```bash
 mkdir -p "$CODEX_HOME/skills"
-cp -R research-paper-writing "$CODEX_HOME/skills/"
+cp -R ai-paper-writing "$CODEX_HOME/skills/"
 ```
 
 Usage example:
 
 ```text
-Use $research-paper-writing to improve my paper's Introduction.
+Use $ai-paper-writing to improve my paper's Introduction.
 ```
 
 ### 2) CC (Claude Code)
@@ -53,17 +53,17 @@ Global:
 
 ```bash
 mkdir -p "$HOME/.claude/skills"
-cp -R research-paper-writing "$HOME/.claude/skills/"
+cp -R ai-paper-writing "$HOME/.claude/skills/"
 ```
 
 Project-level:
 
 ```bash
 mkdir -p .claude/skills
-cp -R research-paper-writing .claude/skills/
+cp -R ai-paper-writing .claude/skills/
 ```
 
-In prompts, explicitly request this skill, for example: `Please use the research-paper-writing skill`.
+In prompts, explicitly request this skill, for example: `Please use the ai-paper-writing skill`.
 
 ### 3) Gemini
 
@@ -71,7 +71,7 @@ Copy this skill into your Gemini skills directory:
 
 ```bash
 mkdir -p "$HOME/.gemini/skills"
-cp -R research-paper-writing "$HOME/.gemini/skills/"
+cp -R ai-paper-writing "$HOME/.gemini/skills/"
 ```
 
 Then ask concrete tasks in Gemini (for example, rewriting an Abstract with claim-evidence checks).
