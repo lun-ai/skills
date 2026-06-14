@@ -1,0 +1,5 @@
+name: slurm
+version: 1.0.0
+description: >
+  General strategies for orchestrating HPC work through Slurm: submission,
+  resource requests, service management, lifecycle actions, and job observability.

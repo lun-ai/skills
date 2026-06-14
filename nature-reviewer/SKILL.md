@@ -23,6 +23,11 @@ side.
 This skill is for reviewer-style manuscript evaluation, not for drafting the authors'
 response. If the user wants rebuttal writing, route to `nature-response`.
 
+If the target venue is not Nature/CNS-family, or the user wants numeric
+per-dimension scores (novelty/clarity/soundness/impact) calibrated across a
+broad range of conferences and journals, use `ai-paper-reviewer`
+instead.
+
 ## Default stance
 
 - Ground the review only in the local source basis plus manuscript facts supplied by the user.

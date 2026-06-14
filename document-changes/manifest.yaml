@@ -1,0 +1,6 @@
+name: document-changes
+version: 1.0.0
+description: >
+  Create a timestamped markdown note in doc/ documenting recent implementation
+  changes: new files, modified files, architecture, design decisions, and bug
+  fixes. Derives all content from the codebase and git state.
