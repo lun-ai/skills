@@ -1,0 +1,43 @@
+# Maps skill directories to skills-catalog categories for the
+# update-skills-readme skill. Category order here determines the order
+# tables appear in README.md / README_zh.md. Skills are sorted
+# alphabetically within each category when rendered.
+categories:
+  - name: "Writing & Polishing"
+    skills:
+      - ai-paper-writing
+      - nature-polishing
+      - nature-writing
+  - name: "Reviewing & Feedback"
+    skills:
+      - ai-paper-reviewer
+      - nature-response
+      - nature-reviewer
+  - name: "Literature, Reading & Citation"
+    skills:
+      - nature-academic-search
+      - nature-citation
+      - nature-reader
+      - paper-summarizer
+  - name: "Manuscript Pipeline & Data"
+    skills:
+      - document-changes
+      - nature-data
+      - nature-figure
+      - paper-manuscript
+      - programmatic-manuscript-pipeline
+  - name: "Planning & Ideation"
+    skills:
+      - explain-concept
+      - framework-design-alternatives
+      - research-ideation
+  - name: "Presentation"
+    skills:
+      - nature-paper2ppt
+  - name: "Skill & Repo Tooling"
+    skills:
+      - skill-improver
+      - update-skills-readme
+  - name: "HPC & Infrastructure"
+    skills:
+      - slurm
