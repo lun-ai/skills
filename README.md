@@ -12,7 +12,7 @@
 
 ## Repository Overview
 
-This repository currently provides **24 skills**, organized into the
+This repository currently provides **25 skills**, organized into the
 following groups. Each skill is a self-contained package: its directory
 contains a `SKILL.md` with the core workflow and usage rules, plus any
 supporting `references/`.
@@ -67,6 +67,7 @@ supporting `references/`.
 | [explain-concept](./explain-concept/) | Explain a complex or technical concept in an easy-to-understand way using a fable or toy story. |
 | [framework-design-alternatives](./framework-design-alternatives/) | Brainstorm alternative architectures for a software framework, library, SDK, or protocol, with trade-offs for each option. |
 | [research-ideation](./research-ideation/) | Develop a research idea into a concrete proposal, paper plan, or experimental design through structured questioning. |
+| [research-dashboard](./research-dashboard/) | Track a multi-question research/engineering effort as a dashboard of areas, each with its own effort-scoped plan file, updated as work lands. |
 
 ### Presentation
 
