@@ -83,7 +83,14 @@ Sequencing: <which areas are independent, which are blocked, which goes last>
 ## Areas
 
 ### [Area Name →](area_file.md)
-<2-4 sentences: what this area investigates, current state, headline finding if done>
+<what this area investigates, current state, and its headline finding(s). A short paragraph
+(2-4 sentences) if the area has one main finding so far; a short bulleted list — one
+complete-sentence bullet per done question, each leading with "**Qn (status)**" then what was
+done then what it means — once the area covers several done questions each with their own
+number. Use the same three-part bullet order and the same paragraph-vs-list threshold in every
+area's summary within one document; a reader who has learned one area's pattern should be able
+to skim every other area the same way. See references/writing-discipline.md for the full
+format and why the order matters>
 
 ## Cross-cutting notes
 - <shared invariants: "all areas reuse X untouched", "no core-library changes except...">

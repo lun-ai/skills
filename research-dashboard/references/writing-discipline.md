@@ -41,6 +41,38 @@ that re-explains the same setup and re-lists the same caveats, and the file stop
 something a reader can skim. This is a routine failure mode, not an edge case — check for it
 every time you write results back, not just when a document has visibly become unreadable.
 
+- **Reach for structure once a paragraph is carrying more than a couple of distinct facts.**
+  An area summary or a Takeaways block that narrates one finding per done question inside a
+  single run-on paragraph is the same failure as the caveat/setup duplication below, just at
+  the sentence level — the reader has to parse a wall of text to pull out facts that would be
+  obvious as a list. Once a paragraph would need more than about 3-4 sentences to say
+  everything, split it into a short bulleted list, one bullet per question, run, or distinct
+  finding, instead of chaining more clauses onto the same paragraph.
+- **A bulleted breakdown is not license to write fragments.** Every bullet must still be a
+  complete, self-contained sentence — subject, verb, and the actual number or claim — not a
+  compressed keyword string. "SIGNOR: 0.77 acc, tools help" forces the reader to reconstruct
+  what's being compared and why; "On SIGNOR, Claude Science reaches 77% accuracy with Opus 5
+  but only 61% with Sonnet-4.6 under the same batch-wise protocol" doesn't. Comprehensibility
+  comes before brevity: a slightly longer complete sentence beats a shorter fragment that only
+  makes sense with context the reader doesn't have on that bullet alone.
+- **Every area-summary bullet follows the same three-part order: question and status, then
+  action, then interpretation — in that order, every time.**
+  1. **Lead with `**Qn (status)**`** so the reader can match the bullet straight back to its
+     Dashboard row (e.g. `**Q3 (done)**`, `**Q1–Q2 (not started)**`).
+  2. **State the action next** — what was actually run, measured, or compared, as fact (see
+     Facts vs. interpretation, above). This is where the numbers live.
+  3. **Close with the interpretation** — one trailing sentence stating what the result means.
+     This is always the *last* clause in the bullet, never the first and never buried before a
+     trailing fact. Don't open a bullet with the verdict ("is the plan's biggest finding...")
+     before the reader knows what was measured, and don't tack a plain fact onto the end after
+     the interpretation has already been stated — the final clause a reader lands on should be
+     the takeaway, not a stray implementation detail.
+  Apply this order identically across every area's bullets within the same document, including
+  areas that group several sub-questions under one Dashboard row (e.g. `Q1–Q4` together) —
+  give each sub-question its own bullet with its own `Qn (status)` lead rather than folding
+  them into an unlabeled thematic list. Consistent structure is what lets a reader who has
+  learned one area's pattern skim every other area the same way, connecting each action
+  straight to its interpretation without re-learning the shape of the prose each time.
 - **Minimize redundancy for comprehensibility — the general rule the other bullets here apply.**
   State each fact once. Don't restate a number that's already in a table as a sentence of prose
   saying the same thing, don't repeat the same caveat or setup context in multiple places in
