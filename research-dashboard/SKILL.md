@@ -92,6 +92,8 @@ Sequencing: <which areas are independent, which are blocked, which goes last>
 
 **Area file** (one per area):
 
+Below is a general template that can be instantiated/extended depending on the actual task.
+
 ```markdown
 # <Area Name>
 
@@ -110,8 +112,10 @@ as the headline result; don't drop them once the question is answered>
 ### Results
 <tables, numbers, links to notebooks/scripts that produced them>
 
-### Takeaways
+### Takeaways (or situational sections based on the user-specific task)
 <the finding, stated as a claim a reader can act on, not just a data dump>
+
+...
 ```
 
 Keep the dashboard's one-line takeaway and the area file's Takeaways section consistent —
