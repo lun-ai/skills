@@ -110,16 +110,30 @@ Below is a general template that can be instantiated/extended depending on the a
 as the headline result; don't drop them once the question is answered>
 
 ### Results
-<tables, numbers, links to notebooks/scripts that produced them>
+<facts only: tables, numbers, direct comparisons, links to notebooks/scripts that produced
+them. No causal language ("because", "suggests", "likely driven by") here — see
+references/writing-discipline.md>
 
 ### Takeaways (or situational sections based on the user-specific task)
-<the finding, stated as a claim a reader can act on, not just a data dump>
+<interpretation only, and sparse: the 1-3 claims a reader needs to act on, not a running
+commentary on every row above>
 
 ...
 ```
 
 Keep the dashboard's one-line takeaway and the area file's Takeaways section consistent —
-the dashboard line is the compressed version, not a different claim.
+the dashboard line is the compressed version, not a different claim. This one pairing is a
+sanctioned duplication (a summary is supposed to restate the detail, compressed); it's not an
+exception to the redundancy rules below, which target *unintentional* restatement.
+
+**When a question's own detail outgrows its section** (many per-run tables, confusion
+matrices, per-class breakdowns, raw per-item numbers), a companion detail file —
+`<area>_<qN>_detail.md`, linked from the question section ("Full numbers: [...]") and linking
+back up to the area file at its own top — is the usual fix. **Propose the split to the user
+rather than doing it unprompted** (see Judgment calls, below): it changes the document
+structure they navigate, and they may prefer a different split point, a different file, or no
+split at all. See [references/writing-discipline.md](references/writing-discipline.md) for
+when a split is warranted and what stays vs. moves once agreed.
 
 ## The work loop, per question
 
@@ -161,7 +175,21 @@ the dashboard line is the compressed version, not a different claim.
    dashboard row (Status, Effort actuals if they moved, One-line takeaway). Disclose any
    exception to a stated cross-cutting invariant explicitly, in the Cross-cutting notes
    section — don't let a necessary core-library fix pass silently just because the plan said
-   "no core-library changes."
+   "no core-library changes." Before appending, apply
+   [references/writing-discipline.md](references/writing-discipline.md) — check whether this
+   is new content or a restatement of something already written, and whether it's a fact or an
+   interpretation dressed up as one.
+
+## Writing discipline: facts vs. interpretation, length, redundancy
+
+Full rules: [references/writing-discipline.md](references/writing-discipline.md). Read it
+before the first write-back in a session, and re-check it whenever a question's section is
+growing (new run, new backbone, new dataset) rather than being answered for the first time.
+Covers: keeping measured facts and interpretation structurally separate (facts in
+Results/Findings, sparse interpretation confined to Takeaways), and keeping documents
+non-redundant as they grow (extend existing tables/caveats instead of cloning subsections;
+propose — don't unilaterally do — a split into a companion `_detail.md` file once a question's
+section outgrows roughly one screen).
 
 ## Judgment calls that are the user's, not yours
 
@@ -174,6 +202,10 @@ rather than deciding unilaterally when:
   submission, a bugfix landed mid-run) — the fix only helps a fresh run, not the running one.
 - A cheap smoke test surfaced a real behavioral finding that changes the planned scope (e.g.,
   "should we run one config or split into two step-budget variants?").
+- **A question's detail has outgrown its section and needs restructuring** — splitting into a
+  companion `<area>_<qN>_detail.md`, or any other reshuffle of what lives where. This changes
+  the document structure the user navigates and reads from; propose the split (what moves,
+  what stays, what the new file is called) rather than doing it unprompted.
 
 Everything downstream of that decision — implementing it, running it, verifying it — is yours
 to just do.
@@ -196,11 +228,19 @@ monitoring infrastructure and job infrastructure fail independently.
 - **Confirm the partition, not every step.** Get the area/question breakdown and priority
   order signed off once; after that, keep executing the work loop without re-asking at every
   turn, unless you hit one of the judgment calls above.
-- **State findings as claims, not data dumps.** "Source access explains ~4.6x of the overlap
-  gap; step budget explains almost none of the remainder" is a takeaway. A table of eight
-  numbers without that sentence is not.
+- **A question needs its Takeaways stated as claims, not just its Results as a data dump.**
+  "Source access explains ~4.6x of the overlap gap; step budget explains almost none of the
+  remainder" is a takeaway. A table of eight numbers with no such sentence anywhere in the
+  question leaves the reader to do the interpretation themselves. This lives in Takeaways, not
+  Results — see [references/writing-discipline.md](references/writing-discipline.md) for where
+  each belongs.
 - **Keep the dashboard current enough to be trusted at a glance.** A stale Status column
   (says "Not started" after the work shipped) is worse than no dashboard — the next reader
   acts on it.
+- **Keep documents skimmable, not just current.** Being up to date and being dense are
+  independent failures — a document can be fully current and still unreadable because every
+  update appended instead of consolidating. Apply
+  [references/writing-discipline.md](references/writing-discipline.md) on every write-back,
+  not only when asked to.
 - **When updating a document you didn't create this session, scope your edit to your area.**
   Read the whole file for coherence, but only touch the rows/sections your work stream owns.
