@@ -48,6 +48,17 @@ every time you write results back, not just when a document has visibly become u
   obvious as a list. Once a paragraph would need more than about 3-4 sentences to say
   everything, split it into a short bulleted list, one bullet per question, run, or distinct
   finding, instead of chaining more clauses onto the same paragraph.
+- **Performance numbers go in a markdown table, not a paragraph — this is the default, not a
+  judgment call.** Any time a Results section is comparing a metric (accuracy, F1, cost,
+  latency, agreement) across two or more things — reps, systems, datasets, backbones,
+  ablation variants — that comparison belongs in a table with the things-being-compared as
+  rows and metrics as columns, not narrated as "System A scored 0.72 while System B reached
+  0.68, and on the other dataset..." A paragraph is for the one-line interpretation of what the
+  table shows (see Facts vs. interpretation above), never for carrying the numbers themselves.
+  This holds even for a single new row landing in an existing question — extend the table (per
+  "Extend the existing table, don't clone the section" below), don't drop the new numbers into
+  a sentence next to it. Rule of thumb: if you write two or more numeric comparisons in one
+  sentence, or the phrase "vs." more than once in a paragraph, stop and make a table instead.
 - **A bulleted breakdown is not license to write fragments.** Every bullet must still be a
   complete, self-contained sentence — subject, verb, and the actual number or claim — not a
   compressed keyword string. "SIGNOR: 0.77 acc, tools help" forces the reader to reconstruct

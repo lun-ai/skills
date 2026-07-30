@@ -117,9 +117,9 @@ Below is a general template that can be instantiated/extended depending on the a
 as the headline result; don't drop them once the question is answered>
 
 ### Results
-<facts only: tables, numbers, direct comparisons, links to notebooks/scripts that produced
-them. No causal language ("because", "suggests", "likely driven by") here — see
-references/writing-discipline.md>
+<facts only: markdown tables for any metric compared across reps/systems/datasets/variants —
+not narrated in prose — plus links to notebooks/scripts that produced them. No causal language
+("because", "suggests", "likely driven by") here — see references/writing-discipline.md>
 
 ### Takeaways (or situational sections based on the user-specific task)
 <interpretation only, and sparse: the 1-3 claims a reader needs to act on, not a running
