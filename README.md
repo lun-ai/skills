@@ -2,8 +2,7 @@
 
 [中文介绍](./README_zh.md).
 
-> Important Attribution
-> Most writing knowledge and methodology in this repository comes from Prof. Peng Sida (彭思达)'s open study notes:
+> Some skills in this repository came from Prof. Peng Sida (彭思达)'s notes:
 > https://pengsida.notion.site/c1a22465a0fa4b15a12985223916048e
 > Prof. Peng's original repository:
 > https://github.com/pengsida/learning_research
