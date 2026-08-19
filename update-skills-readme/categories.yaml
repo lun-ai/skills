@@ -32,17 +32,33 @@ categories:
       - programmatic-manuscript-pipeline
   - name: "Planning & Ideation"
     skills:
+      - decision-mapping
       - explain-concept
       - framework-design-alternatives
+      - grill-me
+      - grill-with-docs
+      - grilling
       - research-ideation
       - research-dashboard
   - name: "Presentation"
     skills:
       - nature-paper2ppt
+  - name: "Engineering & Prototyping"
+    skills:
+      - improve-codebase-architecture
+      - prototype
+      - setup-matt-pocock-skills
+  - name: "Notes & Knowledge"
+    skills:
+      - obsidian-vault
   - name: "Skill & Repo Tooling"
     skills:
+      - find-skills
+      - handoff
       - skill-improver
       - update-skills-readme
+      - writing-great-skills
   - name: "HPC & Infrastructure"
     skills:
       - slurm
+      - slurm-gpu-probe

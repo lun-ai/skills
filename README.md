@@ -11,7 +11,7 @@
 
 ## Repository Overview
 
-This repository currently provides **25 skills**, organized into the
+This repository currently provides **37 skills**, organized into the
 following groups. Each skill is a self-contained package: its directory
 contains a `SKILL.md` with the core workflow and usage rules, plus any
 supporting `references/`.
@@ -63,8 +63,12 @@ supporting `references/`.
 
 | Skill | Description |
 |---|---|
+| [decision-mapping](./decision-mapping/) | Turn a loose idea into a sequenced map of investigation tickets, then drive them to resolution one at a time. |
 | [explain-concept](./explain-concept/) | Explain a complex or technical concept in an easy-to-understand way using a fable or toy story. |
 | [framework-design-alternatives](./framework-design-alternatives/) | Brainstorm alternative architectures for a software framework, library, SDK, or protocol, with trade-offs for each option. |
+| [grill-me](./grill-me/) | Stress-test a plan or design through a relentless structured interview. |
+| [grill-with-docs](./grill-with-docs/) | Stress-test a plan through a relentless interview while producing ADRs and a glossary along the way. |
+| [grilling](./grilling/) | Interview the user relentlessly about a plan or design before building starts. |
 | [research-ideation](./research-ideation/) | Develop a research idea into a concrete proposal, paper plan, or experimental design through structured questioning. |
 | [research-dashboard](./research-dashboard/) | Track a multi-question research/engineering effort as a dashboard of areas, each with its own effort-scoped plan file, updated as work lands. |
 
@@ -74,18 +78,36 @@ supporting `references/`.
 |---|---|
 | [nature-paper2ppt](./nature-paper2ppt/) | Turn a paper, preprint, or reading notes into a Chinese PPTX deck for journal clubs, group meetings, or talks. |
 
+### Engineering & Prototyping
+
+| Skill | Description |
+|---|---|
+| [improve-codebase-architecture](./improve-codebase-architecture/) | Scan a codebase for architecture-deepening opportunities, presented as a visual HTML report with guided follow-up. |
+| [prototype](./prototype/) | Build a throwaway prototype — a runnable terminal app for logic questions or multiple toggleable UI variations. |
+| [setup-matt-pocock-skills](./setup-matt-pocock-skills/) | One-time repo setup for the engineering skills: issue tracker, triage labels, and domain doc layout. |
+
+### Notes & Knowledge
+
+| Skill | Description |
+|---|---|
+| [obsidian-vault](./obsidian-vault/) | Search, create, and organize notes in an Obsidian vault with wikilinks and index notes. |
+
 ### Skill & Repo Tooling
 
 | Skill | Description |
 |---|---|
+| [find-skills](./find-skills/) | Discover and install agent skills matching a capability the user is looking for. |
+| [handoff](./handoff/) | Compact the current conversation into a handoff document another agent can pick up. |
 | [skill-improver](./skill-improver/) | Analyze a session where a skill misfired and iteratively improve that skill's instructions. Use only when explicitly requested. |
 | [update-skills-readme](./update-skills-readme/) | Regenerate the categorized skills catalog in README.md and README_zh.md from the current skill directories in this repo. |
+| [writing-great-skills](./writing-great-skills/) | Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable. |
 
 ### HPC & Infrastructure
 
 | Skill | Description |
 |---|---|
 | [slurm](./slurm/) | General strategies for orchestrating HPC work through Slurm: job submission, resource requests, and lifecycle management. |
+| [slurm-gpu-probe](./slurm-gpu-probe/) | Probe Slurm GPU availability by type and node — free/used counts, start-time estimates — to plan GPU-heavy jobs. |
 <!-- SKILLS-CATALOG:END -->
 
 ## Installation
