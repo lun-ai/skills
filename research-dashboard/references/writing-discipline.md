@@ -5,8 +5,53 @@
 Apply this before every write-back (work loop step 9) and whenever revisiting a question that
 already has content in it.
 
+## Default: explain results, do not interpret them
+
+**When the user asks for an analysis, a result, an explanation of what was run, or an update on
+a question, the deliverable is the results and an explanation of the results — nothing else.
+Do not interpret unless interpretation was explicitly requested.** This is a hard default, not
+a preference to balance against others. It governs chat replies and document write-backs
+equally.
+
+The distinction is operational, not stylistic. Explaining a result describes *what is on the
+page*; interpreting it makes a claim about the world beyond the measurement.
+
+**Explaining results — always in scope, and expected:**
+
+- what was run: data, conditions, n, procedure, arms, seeds, folds
+- the numbers themselves, and comparisons/deltas between them
+- what a metric means *by definition* ("AUC 0.71 = the model ranks a positive above a negative
+  71% of the time")
+- the scope of what was measured, and what it did not cover
+- discrepancies, verification steps, sanity checks, and errors found in your own work
+
+**Interpreting — withhold unless asked:**
+
+- *why* a result came out that way; any mechanism or causal story
+- what it implies for the design, the architecture, the paper, or the research direction
+- whether something "works", "is viable", "is the largest lever", "is a dead end"
+- recommendations, rankings, priorities, or proposed next steps
+- generalization beyond the condition tested
+- "this validates / refutes / confirms / retires / rules out <hypothesis>"
+
+**Protocol when interpretation seems necessary.** It usually feels necessary; that feeling is
+not the trigger. Deliver the results, then offer in one line — "Happy to give my read on why,
+if useful." — and stop. The offer is not a place to smuggle in the interpretation. If the user
+asks, give it then, at whatever length the question deserves.
+
+**Do not front-load a verdict.** Opening an analysis with a bolded conclusion ("**The read-out,
+not the representation.**", "**Capacity helps in exactly one place.**") is interpretation in
+the position of a headline, where it frames every number that follows. Lead with what was run
+and what came out.
+
+**Why this is strict.** An interpretation offered alongside a result is not a neutral addition:
+it arrives with the authority of the measurement attached, and it pre-empts the reading the
+user was in the middle of forming. When they want it, they ask. Withholding costs one round
+trip; volunteering costs them the analysis they were doing themselves.
+
 ## Facts vs. interpretation
 
+Once interpretation *has* been requested, it still stays structurally separate from the facts.
 Results sections accumulate a mix of measured facts (a number, a direct comparison, an
 observed behavior) and interpretation (why it happened, what it implies, whether it
 generalizes). When the two blend sentence by sentence, a reader can no longer tell which
@@ -19,7 +64,9 @@ structurally separate, not just stylistically distinct:
   measurement plainly; don't wrap it in an evaluative lead-in.
 - **Interpretation lives in exactly one place per question: a dedicated section at the end**
   (the `Takeaways` section in the area-file template, or an area-level synthesis if the
-  interpretation spans questions). Don't scatter "this suggests...", "likely because...",
+  interpretation spans questions) — **and that section is written only when the user has asked
+  for interpretation.** Leave it absent otherwise; an empty or omitted Takeaways on a question
+  whose Results are complete is the correct state, not an unfinished one. Don't scatter "this suggests...", "likely because...",
   "probably driven by..." language through the Results section — collect it in Takeaways
   instead, so a reader can find every interpretive claim in one spot and weigh it as such.
 - **Use interpretation sparingly.** Takeaways should hold the 1-3 claims a reader actually needs

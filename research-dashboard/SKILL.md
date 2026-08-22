@@ -74,20 +74,20 @@ updated — an answer that only exists in chat is lost the moment the session en
 ```markdown
 ## Dashboard
 
-| # | Area | Q | Question | Status | Effort | One-line takeaway |
+| # | Area | Q | Question | Status | Effort | One-line result |
 |---|---|---|---|---|---|---|
-| 1 | [Area Name](area_file.md#q1-anchor) | Q1 | <question> | Not started / In progress / Done | ~X days | <finding, once done> |
+| 1 | [Area Name](area_file.md#q1-anchor) | Q1 | <question> | Not started / In progress / Done | ~X days | <what was measured, once done — a verdict here only if interpretation was requested> |
 
 Sequencing: <which areas are independent, which are blocked, which goes last>
 
 ## Areas
 
 ### [Area Name →](area_file.md)
-<what this area investigates, current state, and its headline finding(s). A short paragraph
-(2-4 sentences) if the area has one main finding so far; a short bulleted list — one
+<what this area investigates, current state, and what its questions measured. A short paragraph
+(2-4 sentences) if the area has one main result so far; a short bulleted list — one
 complete-sentence bullet per done question, each leading with "**Qn (status)**" then what was
-done then what it means — once the area covers several done questions each with their own
-number. Use the same three-part bullet order and the same paragraph-vs-list threshold in every
+done then what came out — once the area covers several done questions each with their own
+number. "What it means" belongs here only if interpretation was requested. Use the same three-part bullet order and the same paragraph-vs-list threshold in every
 area's summary within one document; a reader who has learned one area's pattern should be able
 to skim every other area the same way. See references/writing-discipline.md for the full
 format and why the order matters>
@@ -121,15 +121,16 @@ as the headline result; don't drop them once the question is answered>
 not narrated in prose — plus links to notebooks/scripts that produced them. No causal language
 ("because", "suggests", "likely driven by") here — see references/writing-discipline.md>
 
-### Takeaways (or situational sections based on the user-specific task)
-<interpretation only, and sparse: the 1-3 claims a reader needs to act on, not a running
-commentary on every row above>
+### Takeaways — WRITE ONLY IF THE USER ASKED FOR INTERPRETATION
+<omit this section entirely otherwise. When asked: interpretation only, and sparse — the 1-3
+claims a reader needs to act on, not a running commentary on every row above>
 
 ...
 ```
 
-Keep the dashboard's one-line takeaway and the area file's Takeaways section consistent —
-the dashboard line is the compressed version, not a different claim. This one pairing is a
+Keep the dashboard's one-line result and the area file consistent — the dashboard line is the
+compressed version of the question's Results (or of its Takeaways, where interpretation was
+requested), not a different claim. This one pairing is a
 sanctioned duplication (a summary is supposed to restate the detail, compressed); it's not an
 exception to the redundancy rules below, which target *unintentional* restatement.
 
@@ -178,8 +179,9 @@ when a split is warranted and what stays vs. moves once agreed.
    returns arbitrary URLs), don't collapse to one number — report both the raw count and the
    resolved/comparable count, with the resolution rate stated alongside so the gap is visible
    rather than silently baked in.
-9. **Write the result back** into the area file (Results + Takeaways) and update the
-   dashboard row (Status, Effort actuals if they moved, One-line takeaway). Disclose any
+9. **Write the result back** into the area file (Results; Takeaways only if the user asked for
+   interpretation) and update the dashboard row (Status, Effort actuals if they moved, and the
+   one-line column — which states *what was measured* unless an interpretation was requested). Disclose any
    exception to a stated cross-cutting invariant explicitly, in the Cross-cutting notes
    section — don't let a necessary core-library fix pass silently just because the plan said
    "no core-library changes." Before appending, apply
@@ -192,9 +194,11 @@ when a split is warranted and what stays vs. moves once agreed.
 Full rules: [references/writing-discipline.md](references/writing-discipline.md). Read it
 before the first write-back in a session, and re-check it whenever a question's section is
 growing (new run, new backbone, new dataset) rather than being answered for the first time.
-Covers: keeping measured facts and interpretation structurally separate (facts in
-Results/Findings, sparse interpretation confined to Takeaways), and keeping documents
-non-redundant as they grow (extend existing tables/caveats instead of cloning subsections;
+**The governing rule is the first section there: when asked for an analysis or a result,
+explain the results and do not interpret unless interpretation was explicitly requested.**
+Beyond that it covers: keeping measured facts and interpretation structurally separate once
+interpretation *has* been asked for (facts in Results/Findings, interpretation confined to
+Takeaways), and keeping documents non-redundant as they grow (extend existing tables/caveats instead of cloning subsections;
 propose — don't unilaterally do — a split into a companion `_detail.md` file once a question's
 section outgrows roughly one screen).
 
@@ -235,12 +239,16 @@ monitoring infrastructure and job infrastructure fail independently.
 - **Confirm the partition, not every step.** Get the area/question breakdown and priority
   order signed off once; after that, keep executing the work loop without re-asking at every
   turn, unless you hit one of the judgment calls above.
-- **A question needs its Takeaways stated as claims, not just its Results as a data dump.**
+- **Do not interpret unless asked — this overrides the urge to be helpful.** When the user
+  asks for an analysis, deliver the results and an explanation of the results: what was run,
+  the numbers, what the metrics mean by definition, what the measurement did and did not
+  cover. Withhold mechanism, implications, verdicts on whether something works, rankings and
+  next steps. Offer in one line ("happy to give my read, if useful") and stop. If they ask,
+  interpretation goes in Takeaways — see
+  [references/writing-discipline.md](references/writing-discipline.md), first section.
+- **When interpretation *has* been requested, state it as claims, not a data dump.**
   "Source access explains ~4.6x of the overlap gap; step budget explains almost none of the
-  remainder" is a takeaway. A table of eight numbers with no such sentence anywhere in the
-  question leaves the reader to do the interpretation themselves. This lives in Takeaways, not
-  Results — see [references/writing-discipline.md](references/writing-discipline.md) for where
-  each belongs.
+  remainder" is a takeaway. This lives in Takeaways, not Results.
 - **Keep the dashboard current enough to be trusted at a glance.** A stale Status column
   (says "Not started" after the work shipped) is worse than no dashboard — the next reader
   acts on it.
