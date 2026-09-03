@@ -2,7 +2,7 @@
 
 [← Back to SKILL.md](../SKILL.md)
 
-Apply this before every write-back (work loop step 9) and whenever revisiting a question that
+Apply this before every write-back (work loop step 10) and whenever revisiting a question that
 already has content in it.
 
 ## Default: explain results, do not interpret them
@@ -18,7 +18,9 @@ page*; interpreting it makes a claim about the world beyond the measurement.
 
 **Explaining results — always in scope, and expected:**
 
-- what was run: data, conditions, n, procedure, arms, seeds, folds
+- what was run: data, conditions, n, procedure, arms, seeds, folds, and the settings that
+  produced them (model, protocol variant, tools, budgets) — always stated before the numbers,
+  never on request only
 - the numbers themselves, and comparisons/deltas between them
 - what a metric means *by definition* ("AUC 0.71 = the model ranks a positive above a negative
   71% of the time")
@@ -48,6 +50,64 @@ and what came out.
 it arrives with the authority of the measurement attached, and it pre-empts the reading the
 user was in the middle of forming. When they want it, they ask. Withholding costs one round
 trip; volunteering costs them the analysis they were doing themselves.
+
+## Context is mandatory, and it is not interpretation
+
+The rule above is frequently over-applied into its opposite failure: a reply or a section that
+is *only* numbers, with no statement of what was run, on what, with which settings. That is not
+discipline, it is an under-delivered result — and it forces the user to ask for the setting
+every single time.
+
+**Every reported result — chat or document — leads with its context, in plain language, before
+the first number.** Concretely, and unprompted:
+
+- **What question this answers**, said in words.
+- **The settings**: model/backbone, prompt or protocol variant, tools available, dataset and
+  split, n, seeds or repeats, and any budget/cutoff (steps, tokens, wall-clock) that could bound
+  the outcome.
+- **The contrast**, if it is a comparison: which single variable changed, and what was held
+  fixed across arms.
+- **Each metric's definition**, in one clause, the first time it appears in a session — "macro-F1
+  = the unweighted mean of per-class F1, so rare classes count as much as common ones".
+- **The scope boundary**: what this run does not cover.
+
+All five are descriptions of the measurement, so all five sit squarely in the "explaining
+results" column above. None of them makes a claim about the world beyond the run, and none of
+them may be dropped on the grounds of avoiding interpretation.
+
+**Plain language is part of the contract.** Write for a competent colleague who has not read
+this codebase:
+
+- Expand internal shorthand and jargon on first use in a session; don't lean on a config
+  filename, a flag, or a class name to carry the meaning of a sentence.
+- Say what a setting *does* ("the arm where the agent had no literature search") rather than
+  what it is *called* ("the `--no-retrieval` config").
+- Put filenames, script paths, job IDs and commit hashes in a trailing artifacts line, not in
+  the sentence carrying the finding.
+- A reader should be able to paste any single paragraph into an email and have it stand alone.
+
+## Labels: descriptive names, not symbols
+
+Bare codes — `T2`, `C1`, `A3`, `run7` — are the main reason a multi-arm investigation stops
+being followable, especially when arms accumulate across sessions and some were created
+autonomously mid-run.
+
+- **Name every arm, condition, run and ablation descriptively when it is created**:
+  `no-retrieval`, `shared-step-budget`, `opus5-batchwise`, `signor-holdout`. The name should
+  need no lookup.
+- **Prose uses the name.** A code may trail it in parentheses once, as a table-matching anchor
+  (`the no-retrieval arm (T2)`), and never stand alone. If a sentence's meaning depends on the
+  reader recalling what `T2` meant, rewrite the sentence.
+- **`Qn` is the one sanctioned bare symbol**, because the Dashboard defines each `Qn` in exactly
+  one place and every area-summary bullet leads with it. Even so, pair it with the question's
+  subject on first mention in a reply.
+- **Tables key rows by the descriptive name**, with any code as a secondary column — not the
+  other way around.
+- **Register before you report.** An arm you spun up yourself — a smoke-test variant, a
+  confound-isolating third comparison point, a follow-up run — goes into the area file's
+  "Setup and arms" table (name, what it varies, what it holds fixed, why it was added) before
+  it appears in any result. An arm that exists only as a label in one chat message is exactly
+  what makes side arms untrackable.
 
 ## Facts vs. interpretation
 

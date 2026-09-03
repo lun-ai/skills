@@ -109,6 +109,13 @@ Below is a general template that can be instantiated/extended depending on the a
 ### Context / motivation
 <why this question, what's already known, what's missing>
 
+### Setup and arms
+<the settings a reader needs before any number: model/backbone, protocol or prompt variant,
+tools available, dataset and split, n, seeds, step/token budgets, and the scope boundary.
+Once an area has more than ~3 arms, make this a table keyed by the arm's descriptive name —
+name | what it varies | what it holds fixed | status — and register every arm created
+mid-investigation here before reporting it. See "Naming" in SKILL.md>
+
 ### Implementation plan
 <mechanism: what gets built or instrumented, what stays untouched, effort estimate>
 
@@ -117,9 +124,12 @@ Below is a general template that can be instantiated/extended depending on the a
 as the headline result; don't drop them once the question is answered>
 
 ### Results
-<facts only: markdown tables for any metric compared across reps/systems/datasets/variants —
-not narrated in prose — plus links to notebooks/scripts that produced them. No causal language
-("because", "suggests", "likely driven by") here — see references/writing-discipline.md>
+<facts only, but never context-free: open with a plain-language line naming what was run and
+under which settings (or point at Setup and arms above), define each metric once, then the
+numbers. Markdown tables for any metric compared across arms/systems/datasets/variants — not
+narrated in prose — with arms keyed by their descriptive names, plus links to the
+notebooks/scripts that produced them. No causal language ("because", "suggests", "likely
+driven by") here — see references/writing-discipline.md>
 
 ### Takeaways — WRITE ONLY IF THE USER ASKED FOR INTERPRETATION
 <omit this section entirely otherwise. When asked: interpretation only, and sparse — the 1-3
@@ -179,7 +189,10 @@ when a split is warranted and what stays vs. moves once agreed.
    returns arbitrary URLs), don't collapse to one number — report both the raw count and the
    resolved/comparable count, with the resolution rate stated alongside so the gap is visible
    rather than silently baked in.
-9. **Write the result back** into the area file (Results; Takeaways only if the user asked for
+9. **Name and register any arm you added** (including ones created autonomously during a
+   smoke test or a confound-isolating comparison) in the area file's Setup and arms table,
+   with a descriptive name — before reporting anything about it. See "Naming", below.
+10. **Write the result back** into the area file (Results; Takeaways only if the user asked for
    interpretation) and update the dashboard row (Status, Effort actuals if they moved, and the
    one-line column — which states *what was measured* unless an interpretation was requested). Disclose any
    exception to a stated cross-cutting invariant explicitly, in the Cross-cutting notes
@@ -189,14 +202,79 @@ when a split is warranted and what stays vs. moves once agreed.
    is new content or a restatement of something already written, and whether it's a fact or an
    interpretation dressed up as one.
 
+## Reporting contract: context first, in plain language
+
+**Every report of a result — in chat and in a document — opens with the context of that result
+before any number appears.** This is not optional, not "when it seems useful", and not
+something to wait for the user to ask for. A number with no setting attached is unreadable to
+anyone who wasn't inside the run with you, including the same user three days later.
+
+Before the first number, state, in a few plain sentences (or a small setup table when there are
+several arms):
+
+1. **The question this run was answering**, in words, not by its label.
+2. **The system and settings**: which model/backbone, which prompt or protocol variant, which
+   tools were available, which dataset and split, n, seeds/repeats, and any budget or cutoff
+   (step budget, token budget, timeout) that could bound the result.
+3. **What differs from the comparison point**, if this is a comparison — name the one variable
+   that changed, and confirm what was held fixed.
+4. **What each metric means by definition**, in one clause, the first time it appears in a
+   session ("agreement = fraction of items where the two verdicts match").
+5. **What the run did not cover** — the scope boundary.
+
+Then the numbers (in a table, per the writing discipline), then nothing else unless
+interpretation was requested.
+
+**Context and definitions are not interpretation.** The "do not interpret unless asked" default
+below restricts *why* a number came out that way and *what it implies*; it never licenses
+dropping bare numbers on the user. Explaining the context, the settings, and the metric is
+required by that same default, not in tension with it. If a report could be pasted into a
+stranger's inbox and leave them asking "on what, with what?", it is not finished.
+
+**Plain language, always.** Write for a collaborator who knows the field but not this
+codebase: expand jargon and internal shorthand on first use in a session, prefer "the run where
+the agent could search the literature" over an internal flag name, and say what a config *does*
+rather than quoting its filename. Filenames, flags and script paths belong in an artifacts line
+at the end of the section, not in the sentence carrying the finding.
+
+## Naming: descriptive labels, never bare symbols
+
+Short codes (`T2`, `C1`, `A3`, `run4`) are unreadable the moment there is more than a handful
+of them, and they are worst exactly when they matter most — when side arms have accumulated
+over sessions, several of them created autonomously mid-investigation.
+
+- **Give every area, question, arm, condition, run and ablation a short descriptive name** at
+  the moment it is created: `no-retrieval`, `opus5-batchwise`, `shared-step-budget`,
+  `signor-holdout`. The name says what the thing *is*, so it needs no lookup.
+- **In prose and in chat, use the descriptive name.** A symbolic tag may follow it once in
+  parentheses when it is the anchor a reader needs to match a table row or a Dashboard entry —
+  `the no-retrieval arm (T2)` — and never on its own. Never write a sentence whose meaning
+  depends on the reader remembering what `T2` was.
+- **`Qn` is the one sanctioned bare symbol**, because the Dashboard defines every `Qn` in one
+  place and the area-summary bullets lead with it. Even then, pair it with the question's
+  subject on first mention in a reply (`Q3, the retrieval-comparison question`).
+- **Table and figure labels use the descriptive name as the row/column key**, with any code as a
+  secondary column — not the reverse.
+- **An arm you created yourself mid-run must be registered before it is reported.** If a smoke
+  test, a confound-isolating third comparison point (work loop step 7), or a follow-up variant
+  produced an arm that is not yet in the plan, add it to the area file's arm table — name,
+  one-line description of what it holds fixed and what it varies, and why it was added — and
+  reference it by that name from then on. An arm that exists only as a label in one chat
+  message is the main source of the tracking problem this rule exists to prevent.
+- **Keep an arm glossary in the area file** once an area has more than about three arms: a small
+  table of name, what changed, what was held fixed, and status. Every later report points at
+  that table instead of re-explaining the arms.
+
 ## Writing discipline: facts vs. interpretation, length, redundancy
 
 Full rules: [references/writing-discipline.md](references/writing-discipline.md). Read it
-before the first write-back in a session, and re-check it whenever a question's section is
+before the first report or write-back in a session, and re-check it whenever a question's section is
 growing (new run, new backbone, new dataset) rather than being answered for the first time.
-**The governing rule is the first section there: when asked for an analysis or a result,
-explain the results and do not interpret unless interpretation was explicitly requested.**
-Beyond that it covers: keeping measured facts and interpretation structurally separate once
+**The governing rule is the first two sections there: when asked for an analysis or a result,
+explain the results — always leading with the settings they came from, in plain language — and
+do not interpret unless interpretation was explicitly requested.**
+Beyond that it covers: the mandatory context-and-settings preamble and descriptive naming of
+arms (the two sections above), keeping measured facts and interpretation structurally separate once
 interpretation *has* been asked for (facts in Results/Findings, interpretation confined to
 Takeaways), and keeping documents non-redundant as they grow (extend existing tables/caveats instead of cloning subsections;
 propose — don't unilaterally do — a split into a companion `_detail.md` file once a question's
@@ -239,10 +317,17 @@ monitoring infrastructure and job infrastructure fail independently.
 - **Confirm the partition, not every step.** Get the area/question breakdown and priority
   order signed off once; after that, keep executing the work loop without re-asking at every
   turn, unless you hit one of the judgment calls above.
+- **Always give the context and settings first, unprompted, in plain language.** The user
+  should never have to ask "on what data? which model? what does that metric mean?" after a
+  report. See "Reporting contract", above — this is a standing requirement on every result you
+  report, and it is not in tension with the no-interpretation default.
+- **Refer to things by descriptive name, not by code.** No sentence should depend on the reader
+  remembering what `T2` or `C1` stands for. See "Naming", above.
 - **Do not interpret unless asked — this overrides the urge to be helpful.** When the user
-  asks for an analysis, deliver the results and an explanation of the results: what was run,
-  the numbers, what the metrics mean by definition, what the measurement did and did not
-  cover. Withhold mechanism, implications, verdicts on whether something works, rankings and
+  asks for an analysis, deliver the results and a full explanation of the results: what was
+  run, under which settings, the numbers, what the metrics mean by definition, what the
+  measurement did and did not cover. Withholding interpretation never means withholding
+  context — a bare number is an under-delivery, not a disciplined one. Withhold mechanism, implications, verdicts on whether something works, rankings and
   next steps. Offer in one line ("happy to give my read, if useful") and stop. If they ask,
   interpretation goes in Takeaways — see
   [references/writing-discipline.md](references/writing-discipline.md), first section.
