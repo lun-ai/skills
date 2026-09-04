@@ -69,6 +69,7 @@ supporting `references/`.
 | [grill-me](./grill-me/) | Stress-test a plan or design through a relentless structured interview. |
 | [grill-with-docs](./grill-with-docs/) | Stress-test a plan through a relentless interview while producing ADRs and a glossary along the way. |
 | [grilling](./grilling/) | Interview the user relentlessly about a plan or design before building starts. |
+| [reflect](./reflect/) | Pause mid-task and offer a menu of reflection lenses — pivotal question, failure backtrace, real problem, standard-answer critique, contradicting variables, fact/interpretation/test split, act-as-me. |
 | [research-ideation](./research-ideation/) | Develop a research idea into a concrete proposal, paper plan, or experimental design through structured questioning. |
 | [research-dashboard](./research-dashboard/) | Track a multi-question research/engineering effort as a dashboard of areas, each with its own effort-scoped plan file, updated as work lands. |
 
