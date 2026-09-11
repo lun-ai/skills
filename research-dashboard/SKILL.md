@@ -104,7 +104,9 @@ Below is a general template that can be instantiated/extended depending on the a
 ```markdown
 # <Area Name>
 
-## Q1: <question>
+## Q1: <question> (job <id>)
+<!-- job ID(s) appended only once the job finished and the user approved its results;
+     see "Background job discipline" in SKILL.md -->
 
 ### Context / motivation
 <why this question, what's already known, what's missing>
@@ -194,7 +196,9 @@ when a split is warranted and what stays vs. moves once agreed.
    with a descriptive name — before reporting anything about it. See "Naming", below.
 10. **Write the result back** into the area file (Results; Takeaways only if the user asked for
    interpretation) and update the dashboard row (Status, Effort actuals if they moved, and the
-   one-line column — which states *what was measured* unless an interpretation was requested). Disclose any
+   one-line column — which states *what was measured* unless an interpretation was requested).
+   Once the producing job has finished and the user has approved its results, append its job
+   ID to the question/section title (see "Background job discipline", below). Disclose any
    exception to a stated cross-cutting invariant explicitly, in the Cross-cutting notes
    section — don't let a necessary core-library fix pass silently just because the plan said
    "no core-library changes." Before appending, apply
@@ -311,6 +315,16 @@ If a job-monitoring mechanism reports it lost track of a job ("no completion rec
 may have stopped"), that is a statement about the monitor, not the job. Check the job's actual
 state directly (queue status, output file, log tail) before reporting anything as failed —
 monitoring infrastructure and job infrastructure fail independently.
+
+**Record the job ID next to the title once a job is finished and approved.** For record
+keeping, when a job (Slurm job, batch API run, any scheduler-issued run) has finished *and* the
+user has approved its results, append its ID to the title of the question or section that
+reports those results — `## Q2: Does retrieval help on SIGNOR? (job 41873920)`; several jobs as
+`(jobs 41873920, 41874115)`. This makes every reported number traceable back to its logs and
+outputs without a separate lookup table. Do not add the ID while the job is still running or
+before approval — a title ID means "these are the accepted results of this job". If an approved
+result is later superseded by a rerun, replace the ID with the new one once that rerun is
+approved, rather than accumulating stale IDs.
 
 ## Interaction principles
 
