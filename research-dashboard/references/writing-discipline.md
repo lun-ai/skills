@@ -2,7 +2,7 @@
 
 [← Back to SKILL.md](../SKILL.md)
 
-Apply this before every write-back (work loop step 10) and whenever revisiting a question that
+Apply this before every write-back (work loop step 11) and whenever revisiting a question that
 already has content in it.
 
 ## Default: explain results, do not interpret them
@@ -62,9 +62,9 @@ every single time.
 the first number.** Concretely, and unprompted:
 
 - **What question this answers**, said in words.
-- **The settings**: model/backbone, prompt or protocol variant, tools available, dataset and
-  split, n, seeds or repeats, and any budget/cutoff (steps, tokens, wall-clock) that could bound
-  the outcome.
+- **The settings**: which model, which prompt or protocol variant, which tools were available,
+  which dataset and split, how many items, how many seeds or repeats, and any budget or cutoff
+  (steps, tokens, wall-clock) that could bound the outcome.
 - **The contrast**, if it is a comparison: which single variable changed, and what was held
   fixed across arms.
 - **Each metric's definition**, in one clause, the first time it appears in a session — "macro-F1
@@ -78,8 +78,18 @@ them may be dropped on the grounds of avoiding interpretation.
 **Plain language is part of the contract.** Write for a competent colleague who has not read
 this codebase:
 
+- Use short sentences and everyday words. If a simpler word says the same thing, use it.
 - Expand internal shorthand and jargon on first use in a session; don't lean on a config
   filename, a flag, or a class name to carry the meaning of a sentence.
+- **Never refer to an empirical setting by a single-word abbreviation.** Arms, conditions,
+  dataset variants, grading schemes, prompt variants and model configurations get a
+  descriptive phrase, not an acronym (`SR`, `OC`), a clipped word (`ctx`, `regrade`) or a
+  one-word nickname (`oracle`, `baseline`). Write "the run where the model is given the
+  gold-standard abstracts as context", not "oracle"; "answers re-scored against the SIGNOR
+  curated labels", not "regrade". Later mentions may use a multi-word descriptive name
+  (`gold-abstracts-in-context`). When the codebase or an existing document already uses the
+  abbreviation, translate it and give the code at most once, in parentheses, for matching to
+  files.
 - Say what a setting *does* ("the arm where the agent had no literature search") rather than
   what it is *called* ("the `--no-retrieval` config").
 - Put filenames, script paths, job IDs and commit hashes in a trailing artifacts line, not in
@@ -94,7 +104,8 @@ autonomously mid-run.
 
 - **Name every arm, condition, run and ablation descriptively when it is created**:
   `no-retrieval`, `shared-step-budget`, `opus5-batchwise`, `signor-holdout`. The name should
-  need no lookup.
+  need no lookup, so it is always several words — a single-word abbreviation or nickname does
+  not count as descriptive.
 - **Prose uses the name.** A code may trail it in parentheses once, as a table-matching anchor
   (`the no-retrieval arm (T2)`), and never stand alone. If a sentence's meaning depends on the
   reader recalling what `T2` meant, rewrite the sentence.
