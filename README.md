@@ -11,7 +11,7 @@
 
 ## Repository Overview
 
-This repository currently provides **37 skills**, organized into the
+This repository currently provides **38 skills**, organized into the
 following groups. Each skill is a self-contained package: its directory
 contains a `SKILL.md` with the core workflow and usage rules, plus any
 supporting `references/`.
@@ -53,6 +53,7 @@ supporting `references/`.
 
 | Skill | Description |
 |---|---|
+| [dataset-card](./dataset-card/) | Produce a Datasheets-for-Datasets card with a Hugging Face header whose statistics — scale, label noise ceiling, duplicates, group structure, leakage — are computed from the data files rather than quoted. |
 | [document-changes](./document-changes/) | Create a timestamped markdown note documenting recent implementation changes, derived from the codebase and git state. |
 | [nature-data](./nature-data/) | Prepare or audit Nature-ready Data Availability statements, repository plans, dataset citations, and FAIR metadata checklists. |
 | [nature-figure](./nature-figure/) | Create, audit, or polish submission-grade Nature-style multi-panel figures in Python (matplotlib/seaborn) or R (ggplot2). |
