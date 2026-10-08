@@ -341,7 +341,6 @@ def group_candidates(
                 "max_per_group": int(sizes.max()),
                 "instances_in_groups_above_one": in_multi,
                 "fraction_in_groups_above_one": round(in_multi / n, 4) if n else None,
-                "random_split_over_instances_safe": bool(sizes.max() <= 1),
             }
         )
     return sorted(rows, key=lambda r: -r["instances_in_groups_above_one"])
@@ -403,8 +402,19 @@ def target_coupling(frame: pd.DataFrame, targets: list[str]) -> dict:
 
 
 def stratum_shift(frame: pd.DataFrame, stratum: str, targets: list[str]) -> dict:
+    """Per-stratum distributions and their separation.
+
+    Falls back to every numeric field when no target is named, so an unlabelled
+    dataset still gets its stratum comparison instead of silently producing nothing.
+    """
     if stratum not in frame.columns:
         return {}
+    if not targets:
+        targets = [
+            c
+            for c in frame.columns
+            if c != stratum and pd.api.types.is_numeric_dtype(frame[c])
+        ]
     out: dict = {"field": stratum, "strata": {}}
     counts = frame[stratum].value_counts(dropna=True)
     reference = str(counts.index[0])
@@ -659,6 +669,8 @@ def main() -> None:
         report["design_space"] = design_space(frame, factors)
         report["level_balance"] = level_balance(frame, factors)
     if args.stratum:
+        if not targets:
+            print("note: no --target given; comparing strata on every numeric field instead")
         shift = stratum_shift(frame, args.stratum, targets)
         if shift:
             report["stratum_shift"] = shift

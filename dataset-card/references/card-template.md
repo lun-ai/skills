@@ -20,7 +20,15 @@ Copy the block below and fill it. Conventions:
 
 The Hugging Face header uses that hub's controlled vocabularies for `license`,
 `task_categories` and `size_categories`; leave a field out rather than inventing a value that
-is not in the vocabulary. The header is what makes the card publishable as-is; the sections
+is not in the vocabulary. Two cases come up constantly and both resolve by omission:
+
+- **No task.** An unlabelled corpus has no `task_categories`. Omit the field — naming a
+  plausible downstream task encodes a guess about future use, which is the one thing the card
+  is not for. `fill-mask` or `feature-extraction` are honest only if the files themselves are
+  already set up for that.
+- **Mixed rights.** When the inputs, the derived files and the describing publication travel
+  under different terms, `license` cannot express it. Give the term that governs *the files this
+  card distributes*, or omit it, and set out the layers in Distribution. The header is what makes the card publishable as-is; the sections
 below it are Datasheets for Datasets (Gebru et al., 2021), trimmed to the questions a training
 decision actually turns on.
 
@@ -141,7 +149,8 @@ Correlation among targets, with shared variance, and the nuisance-target risk it
 | Near-duplicates at <threshold> | | |
 | Candidate group keys | | |
 | Groups / median / max per group | | |
-| Random split over instances safe? | | |
+| Fraction of instances in groups larger than one | | |
+| Within-group similarity of the model input | | |
 
 ### Modality-specific statistics
 

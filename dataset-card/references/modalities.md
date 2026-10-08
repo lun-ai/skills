@@ -38,7 +38,11 @@ each type adds.
 - **Alphabet validity** — characters outside the expected alphabet, ambiguity codes (`N`, `X`),
   and their per-sequence fraction. Decide and record whether ambiguous sequences are kept.
 - **Redundancy at an identity threshold** — cluster at a stated identity (e.g. 90%) and report
-  cluster count against sequence count. Homologous sequences split at random across folds is
+  cluster count against sequence count. With no clustering tool installed, a k-mer Jaccard
+  proxy (MinHash with locality-sensitive hashing to screen pairs, then exact Jaccard on the
+  candidates) is an acceptable substitute as long as the card states the k and the threshold and
+  says alignment identity was not used; it finds somewhat less redundancy than alignment would,
+  so report it as a lower bound rather than leaving the aspect undetermined. Homologous sequences split at random across folds is
   the standard way sequence models get overrated, and the clustering is what a card needs so a
   later reader can split by cluster instead.
 - **Distinct sequences against distinct instances** — when instances reuse a small set of
