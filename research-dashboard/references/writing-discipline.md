@@ -2,7 +2,7 @@
 
 [← Back to SKILL.md](../SKILL.md)
 
-Apply this before every write-back (work loop step 11) and whenever revisiting a question that
+Apply this before every write-back (work loop step 12) and whenever revisiting a question that
 already has content in it.
 
 ## Default: explain results, do not interpret them
