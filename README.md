@@ -84,6 +84,7 @@ supporting `references/`.
 
 | Skill | Description |
 |---|---|
+| [excalidraw-diagram](./excalidraw-diagram/) | Create Excalidraw diagram JSON files that argue visually — workflows, architectures, repo layouts — with a Playwright render-and-check loop. Vendored from [coleam00/excalidraw-diagram-skill](https://github.com/coleam00/excalidraw-diagram-skill). |
 | [improve-codebase-architecture](./improve-codebase-architecture/) | Scan a codebase for architecture-deepening opportunities, presented as a visual HTML report with guided follow-up. |
 | [prototype](./prototype/) | Build a throwaway prototype — a runnable terminal app for logic questions or multiple toggleable UI variations. |
 | [setup-matt-pocock-skills](./setup-matt-pocock-skills/) | One-time repo setup for the engineering skills: issue tracker, triage labels, and domain doc layout. |
