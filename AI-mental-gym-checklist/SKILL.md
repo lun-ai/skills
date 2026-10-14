@@ -83,7 +83,7 @@ Keep the `DO NOT provide the answer directly` line and the AI-guidance paragraph
 ## After generating
 
 1. Write the file as `CHECKLIST.md` in the project root (ask where, if the project root is ambiguous).
-2. **Replace the template README.** Repos created from `lun-ai/mental-gym-template` ship a placeholder `README.md` (it says "Template placeholder" at the top and uses `TOPIC` stand-ins). If the project's README is that placeholder, rewrite it for the actual topic: the title, what is being built, the reference implementation, and remove the "Starting a new gym from this template" section. Keep the "How the gym works" and "Layout" sections and their diagram links as they are — they describe the gym, not the topic.
+2. **Replace the template README.** Repos created from `lun-ai/mental-gym` ship a placeholder `README.md` (it says "Template placeholder" at the top and uses `TOPIC` stand-ins). If the project's README is that placeholder, rewrite it for the actual topic: the title, what is being built, the reference implementation, and remove the "Starting a new gym from this template" section. Keep the "How the gym works" and "Layout" sections and their diagram links as they are — they describe the gym, not the topic.
 3. Walk the user through the phase list briefly and confirm scope/ordering before starting reps — getting this wrong means re-deriving the whole plan mid-gym.
 4. Once confirmed, hand off to `AI-mental-gym` to start Phase 1, Item 1.
 
