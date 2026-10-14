@@ -31,16 +31,18 @@ A diagram isn't formatted text. It's a visual argument that shows relationships,
 
 ## Depth Assessment (Do This First)
 
+**Default to simple and sparse.** The owner of this skill prefers diagrams with few words: one to four words per label, only the nodes needed to show the flow, and no subtitles, legends, step numbers, or evidence snippets unless they explicitly ask for a comprehensive diagram. When in doubt, cut a node or a word rather than add one.
+
 Before designing, determine what level of detail this diagram needs:
 
-### Simple/Conceptual Diagrams
+### Simple/Conceptual Diagrams (the default)
 Use abstract shapes when:
 - Explaining a mental model or philosophy
 - The audience doesn't need technical specifics
 - The concept IS the abstraction (e.g., "separation of concerns")
 
-### Comprehensive/Technical Diagrams
-Use concrete examples when:
+### Comprehensive/Technical Diagrams (only on request)
+Use concrete examples when the user asks for detail and:
 - Diagramming a real system, protocol, or architecture
 - The diagram will be used to teach or explain (e.g., YouTube video)
 - The audience needs to understand what things actually look like
