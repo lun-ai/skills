@@ -287,7 +287,7 @@ data during the writing process and delegates chart generation internally.
 **Variety is a preference, comparability wins** - vary chart types when the data
 differ, and repeat a type when the charts compare like with like. There is no
 chart quota: use as many charts as the evidence needs, including none. Give every
-chart on a page a unique `id` (see `skills/blog-chart/references/chart-input-schema.md`).
+chart on a page a unique `id` (see `skills/blog/skills/blog-chart/references/chart-input-schema.md`).
 
 ### Dark-Mode Compatible Styling
 

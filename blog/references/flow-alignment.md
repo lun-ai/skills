@@ -64,7 +64,7 @@ These additions implement the FLOW principles in production tooling; they do not
 ## 6. When to consult this doc vs. the synced FLOW source
 
 - This doc (`flow-alignment.md`): the orchestrator and any sub-skill loads this when the user asks "what does claude-blog do for AI citations / evidence / surfaces", to give a claude-blog-specific answer with skill names and routing.
-- The synced FLOW source (`skills/blog-flow/references/flow-framework.md` plus 30 prompts): load when applying a specific FLOW prompt or quoting the framework verbatim. CC BY 4.0 attribution is required for any quote.
-- The bibliography (`skills/blog-flow/references/bibliography.md`): load when verifying sources for a statistic.
+- The synced FLOW source (`skills/blog/skills/blog-flow/references/flow-framework.md` plus 30 prompts): load when applying a specific FLOW prompt or quoting the framework verbatim. CC BY 4.0 attribution is required for any quote.
+- The bibliography (`skills/blog/skills/blog-flow/references/bibliography.md`): load when verifying sources for a statistic.
 
 Last updated 2026-07-23 for claude-blog v2.1.0.

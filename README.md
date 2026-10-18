@@ -11,7 +11,7 @@
 
 ## Repository Overview
 
-This repository currently provides **38 skills**, organized into the
+This repository currently provides **41 skills**, organized into the
 following groups. Each skill is a self-contained package: its directory
 contains a `SKILL.md` with the core workflow and usage rules, plus any
 supporting `references/`.
@@ -31,6 +31,7 @@ supporting `references/`.
 | [ai-paper-writing](./ai-paper-writing/) | Rewrite ML/CV/NLP papers section-by-section for clarity, flow, and reviewer-facing presentation, with claim-evidence checks. |
 | [nature-polishing](./nature-polishing/) | Polish, restructure, or translate academic prose into Nature-leaning English, plus LaTeX layout/typesetting fixes. |
 | [nature-writing](./nature-writing/) | Draft or restructure Nature-style manuscript sections (abstract, intro, methods, etc.) from claims, results, and notes. |
+| [blog](./blog/) | Full-lifecycle blog engine from [claude-blog](https://github.com/AgriciDaniel/claude-blog) (MIT): one `/blog` entry routing to 31 bundled sub-skills (write, rewrite, analyze, SEO/GEO, schema, translate, audit, ...) under `blog/skills/`. |
 
 ### Reviewing & Feedback
 
