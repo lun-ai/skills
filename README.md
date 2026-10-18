@@ -167,11 +167,6 @@ git clone https://github.com/lun-ai/skills.git "$HOME/.gemini/skills"
 
 Then ask concrete tasks in Gemini (for example, rewriting an Abstract with claim-evidence checks).
 
-## Credits
-
-Again, this repository is primarily based on Prof. Peng Sida (彭思达)'s open notes, while my work focuses on curation and Skills adaptation.
-Prof. Peng's original repository: https://github.com/pengsida/learning_research
-
 ## License
 
 This project is licensed under the MIT License. See [LICENSE](./LICENSE).
