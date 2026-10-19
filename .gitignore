@@ -11,3 +11,6 @@ Thumbs.db
 # Python
 __pycache__/
 .pytest_cache/
+
+# claude.ai synced-skills bucket (machine-local)
+synced/

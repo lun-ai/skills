@@ -20,7 +20,7 @@ Before reviewing, establish:
 If the user has not specified a venue, ask them before proceeding.
 
 If the venue is `Nature`, `Science`, `Cell`, or another CNS-family journal,
-consider using the `nature-reviewer` skill instead (or in addition): it is
+consider using the `nature:reviewer` skill instead (or in addition): it is
 grounded in Nature's official editorial criteria and returns 3 reviewer
 reports plus a cross-review synthesis rather than this skill's single
 numeric-scored review.

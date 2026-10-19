@@ -23,7 +23,11 @@ in this repo.
    ```
 
    This prints a JSON array of `{name, dir, description, has_frontmatter}`
-   for every top-level directory containing a `SKILL.md`. Entries with
+   for every top-level directory containing a `SKILL.md`, and for every skill
+   inside a plugin group (a top-level dir with `.claude-plugin/plugin.json`
+   and `skills/<name>/SKILL.md`). Grouped skills are reported as
+   `<group>:<name>` with `dir` set to `<group>/skills/<name>` and a `group`
+   field; use `name` as the link text and `dir` as the link target. Entries with
    `"has_frontmatter": false` are missing a usable `name`/`description` in
    their frontmatter — flag these in your final report for manual attention.
 
