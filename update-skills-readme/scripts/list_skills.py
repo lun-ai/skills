@@ -62,13 +62,36 @@ def parse_skill_md(path: Path) -> dict:
 
 
 def discover(root: Path) -> list:
+    """Discover top-level skills and plugin-grouped skill families.
+
+    A top-level directory containing ``.claude-plugin/plugin.json`` plus a
+    ``skills/`` folder is a plugin group (e.g. ``nature/``). Each
+    ``skills/<name>/SKILL.md`` inside it is emitted with ``name`` prefixed by
+    the group (``nature:writing``), ``dir`` set to the repo-relative path
+    (``nature/skills/writing``), and ``group`` naming the plugin.
+    """
     results = []
     for entry in sorted(root.iterdir()):
         if not entry.is_dir():
             continue
         skill_md = entry / "SKILL.md"
         if skill_md.exists():
-            results.append(parse_skill_md(skill_md))
+            item = parse_skill_md(skill_md)
+            item["group"] = None
+            results.append(item)
+            continue
+        manifest = entry / ".claude-plugin" / "plugin.json"
+        skills_dir = entry / "skills"
+        if manifest.exists() and skills_dir.is_dir():
+            group = json.loads(manifest.read_text(encoding="utf-8")).get("name", entry.name)
+            for sub in sorted(skills_dir.iterdir()):
+                sub_md = sub / "SKILL.md"
+                if sub.is_dir() and sub_md.exists():
+                    item = parse_skill_md(sub_md)
+                    item["name"] = f"{group}:{item['name']}"
+                    item["dir"] = f"{entry.name}/skills/{sub.name}"
+                    item["group"] = group
+                    results.append(item)
     return results
 
 

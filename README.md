@@ -16,6 +16,12 @@ following groups. Each skill is a self-contained package: its directory
 contains a `SKILL.md` with the core workflow and usage rules, plus any
 supporting `references/`.
 
+Related skills are grouped as a plugin family: the `nature/` directory holds
+`.claude-plugin/plugin.json` and one skill per `skills/<name>/` folder. Claude
+Code loads such a folder as a group, so its skills are invoked with a prefix
+(`nature:writing`, `nature:polishing`, ...) and can be enabled or disabled
+together.
+
 <!-- SKILLS-CATALOG:START -->
 ### Learning & Skill-Building
 
@@ -29,8 +35,8 @@ supporting `references/`.
 | Skill | Description |
 |---|---|
 | [ai-paper-writing](./ai-paper-writing/) | Rewrite ML/CV/NLP papers section-by-section for clarity, flow, and reviewer-facing presentation, with claim-evidence checks. |
-| [nature-polishing](./nature-polishing/) | Polish, restructure, or translate academic prose into Nature-leaning English, plus LaTeX layout/typesetting fixes. |
-| [nature-writing](./nature-writing/) | Draft or restructure Nature-style manuscript sections (abstract, intro, methods, etc.) from claims, results, and notes. |
+| [nature:polishing](./nature/skills/polishing/) | Polish, restructure, or translate academic prose into Nature-leaning English, plus LaTeX layout/typesetting fixes. |
+| [nature:writing](./nature/skills/writing/) | Draft or restructure Nature-style manuscript sections (abstract, intro, methods, etc.) from claims, results, and notes. |
 | [blog](./blog/) | Full-lifecycle blog engine from [claude-blog](https://github.com/AgriciDaniel/claude-blog) (MIT): one `/blog` entry routing to 31 bundled sub-skills (write, rewrite, analyze, SEO/GEO, schema, translate, audit, ...) under `blog/skills/`. |
 
 ### Reviewing & Feedback
@@ -38,16 +44,16 @@ supporting `references/`.
 | Skill | Description |
 |---|---|
 | [ai-paper-reviewer](./ai-paper-reviewer/) | Simulate a venue-calibrated peer reviewer: numeric scores (novelty/clarity/soundness/impact), strengths/weaknesses, and a revision roadmap. |
-| [nature-response](./nature-response/) | Draft, audit, or revise point-by-point reviewer response letters and rebuttals for Nature-family manuscript revisions. |
-| [nature-reviewer](./nature-reviewer/) | Simulate 3 Nature-style referee reports plus a cross-review synthesis, grounded in Nature's official editorial criteria. |
+| [nature:response](./nature/skills/response/) | Draft, audit, or revise point-by-point reviewer response letters and rebuttals for Nature-family manuscript revisions. |
+| [nature:reviewer](./nature/skills/reviewer/) | Simulate 3 Nature-style referee reports plus a cross-review synthesis, grounded in Nature's official editorial criteria. |
 
 ### Literature, Reading & Citation
 
 | Skill | Description |
 |---|---|
-| [nature-academic-search](./nature-academic-search/) | Multi-source literature search, citation verification, and reference management (PubMed, CrossRef, arXiv, Scopus, BibTeX/RIS conversion). |
-| [nature-citation](./nature-citation/) | Add strict Nature/CNS-family citations to manuscript text, splitting passages into segments and exporting reference-manager files. |
-| [nature-reader](./nature-reader/) | Build full-paper Chinese-English side-by-side, figure/table-aware Markdown readers from a paper's PDF, DOI, or text. |
+| [nature:academic-search](./nature/skills/academic-search/) | Multi-source literature search, citation verification, and reference management (PubMed, CrossRef, arXiv, Scopus, BibTeX/RIS conversion). |
+| [nature:citation](./nature/skills/citation/) | Add strict Nature/CNS-family citations to manuscript text, splitting passages into segments and exporting reference-manager files. |
+| [nature:reader](./nature/skills/reader/) | Build full-paper Chinese-English side-by-side, figure/table-aware Markdown readers from a paper's PDF, DOI, or text. |
 | [paper-summarizer](./paper-summarizer/) | Summarize research papers with precise location references so readers can quickly find core ideas and navigate to relevant parts. |
 
 ### Manuscript Pipeline & Data
@@ -56,8 +62,9 @@ supporting `references/`.
 |---|---|
 | [dataset-card](./dataset-card/) | Produce a Datasheets-for-Datasets card with a Hugging Face header whose statistics — scale, label noise ceiling, duplicates, group structure, leakage — are computed from the data files rather than quoted. |
 | [document-changes](./document-changes/) | Create a timestamped markdown note documenting recent implementation changes, derived from the codebase and git state. |
-| [nature-data](./nature-data/) | Prepare or audit Nature-ready Data Availability statements, repository plans, dataset citations, and FAIR metadata checklists. |
-| [nature-figure](./nature-figure/) | Create, audit, or polish submission-grade Nature-style multi-panel figures in Python (matplotlib/seaborn) or R (ggplot2). |
+| [nature:data](./nature/skills/data/) | Prepare or audit Nature-ready Data Availability statements, repository plans, dataset citations, and FAIR metadata checklists. |
+| [lieflat-charts](./lieflat-charts/) | Template-driven HTML charts and full-page bilingual reports (Lupi, Basics, Glance, Maps, Interactive galleries) with semantic colour presets. |
+| [nature:figure](./nature/skills/figure/) | Create, audit, or polish submission-grade Nature-style multi-panel figures in Python (matplotlib/seaborn) or R (ggplot2). |
 | [paper-manuscript](./paper-manuscript/) | Generic LaTeX manuscript pipeline: regenerate tables/figures, audit numerical claims, check formatting, and verify cross-references. |
 | [programmatic-manuscript-pipeline](./programmatic-manuscript-pipeline/) | Set up a reproducible LaTeX paper pipeline where every figure, table, and number traces to curated source data. |
 
@@ -79,7 +86,7 @@ supporting `references/`.
 
 | Skill | Description |
 |---|---|
-| [nature-paper2ppt](./nature-paper2ppt/) | Turn a paper, preprint, or reading notes into a Chinese PPTX deck for journal clubs, group meetings, or talks. |
+| [nature:paper2ppt](./nature/skills/paper2ppt/) | Turn a paper, preprint, or reading notes into a Chinese PPTX deck for journal clubs, group meetings, or talks. |
 
 ### Engineering & Prototyping
 
@@ -122,6 +129,10 @@ copy out the directories you need (each skill is self-contained).
 
 ### 1) Codex
 
+> Grouped skills (`nature/skills/<name>/`) are nested one level deeper than Codex
+> and Gemini scan. If they are not picked up, copy or symlink the folders you
+> need to the top level: `ln -s nature/skills/writing "$CODEX_HOME/skills/nature-writing"`.
+
 ```bash
 git clone https://github.com/lun-ai/skills.git "$CODEX_HOME/skills"
 ```
@@ -156,6 +167,7 @@ git clone https://github.com/lun-ai/skills.git .claude/skills
 > merge instead: `git clone https://github.com/lun-ai/skills.git /tmp/skills && cp -R /tmp/skills/. "$HOME/.claude/skills/"`.
 
 In prompts, explicitly request a skill by name, for example: `Please use the ai-paper-writing skill`.
+Grouped skills take their group prefix: `Please use the nature:polishing skill`.
 
 ### 3) Gemini
 

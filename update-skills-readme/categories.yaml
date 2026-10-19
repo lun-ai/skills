@@ -2,6 +2,8 @@
 # update-skills-readme skill. Category order here determines the order
 # tables appear in README.md / README_zh.md. Skills are sorted
 # alphabetically within each category when rendered.
+# Skills inside a plugin group (a top-level dir with .claude-plugin/plugin.json
+# and skills/<name>/SKILL.md) are listed as <group>:<name>, e.g. nature:writing.
 categories:
   - name: "Learning & Skill-Building"
     skills:
@@ -10,39 +12,43 @@ categories:
   - name: "Writing & Polishing"
     skills:
       - ai-paper-writing
-      - nature-polishing
-      - nature-writing
+      - nature:polishing
+      - nature:writing
   - name: "Reviewing & Feedback"
     skills:
       - ai-paper-reviewer
-      - nature-response
-      - nature-reviewer
+      - nature:response
+      - nature:reviewer
   - name: "Literature, Reading & Citation"
     skills:
-      - nature-academic-search
-      - nature-citation
-      - nature-reader
+      - nature:academic-search
+      - nature:citation
+      - nature:reader
       - paper-summarizer
   - name: "Manuscript Pipeline & Data"
     skills:
+      - dataset-card
       - document-changes
-      - nature-data
-      - nature-figure
+      - nature:data
+      - lieflat-charts
+      - nature:figure
       - paper-manuscript
       - programmatic-manuscript-pipeline
   - name: "Planning & Ideation"
     skills:
       - decision-mapping
       - explain-concept
+      - excalidraw-diagram
       - framework-design-alternatives
       - grill-me
       - grill-with-docs
       - grilling
-      - research-ideation
+      - reflect
       - research-dashboard
+      - research-ideation
   - name: "Presentation"
     skills:
-      - nature-paper2ppt
+      - nature:paper2ppt
   - name: "Engineering & Prototyping"
     skills:
       - improve-codebase-architecture

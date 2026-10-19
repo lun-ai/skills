@@ -14,8 +14,8 @@ description: >
   Hugging-Face-publishable card, class-balance or split diagnostics, or train/test leakage
   checks — even if they never say the words "dataset card" or "datasheet". Prefer this skill
   over answering from a paper's own description, since the point is to measure the files.
-  Not for writing journal Data Availability statements (that is nature-data) and not for
-  plotting the data (that is nature-figure).
+  Not for writing journal Data Availability statements (that is nature:data) and not for
+  plotting the data (that is nature:figure).
 ---
 
 # Dataset card
