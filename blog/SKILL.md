@@ -185,6 +185,7 @@ Load on-demand as needed (22 references, load only what the task needs):
   updates, reporting anomalies, structured data, and API currentness
 - `${CLAUDE_SKILL_DIR}/references/geo-optimization.md`: AI search SEO techniques, AI citation factors, legacy GEO and AEO terminology
 - `${CLAUDE_SKILL_DIR}/references/content-rules.md`: Structure, readability, answer-first formatting
+- `${CLAUDE_SKILL_DIR}/references/anthropic-style.md`: Anthropic research-post house style — finding-first opening, first-person-plural voice, per-section italic *Limitations:* paragraphs, numbered bold-labelled figures, "Taken together" synthesis; use when the user asks for Anthropic blog style
 - `${CLAUDE_SKILL_DIR}/references/visual-media.md`: Image sourcing (Pixabay, Unsplash, Pexels), AI image generation, SVG chart integration
 - `${CLAUDE_SKILL_DIR}/references/quality-scoring.md`: Full 5-category scoring checklist (100 points)
 - `${CLAUDE_SKILL_DIR}/references/platform-guides.md`: Platform-specific output formatting (9 platforms)
