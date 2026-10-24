@@ -36,8 +36,8 @@
    structured", take it. A log-only capture beats a new schema field when nothing downstream
    queries it.
 6. **Run it**, respecting shared infrastructure limits (rate limits on shared egress IPs,
-   cluster off-peak windows) rather than assuming your process is the only consumer. Set the
-   map node to `running`.
+   cluster off-peak windows) rather than assuming your process is the only consumer. Set its
+   Status to `Running` and re-render the map page.
 7. **Analyze with verification, not assertion.** Build the analysis as an executable artifact
    (notebook, script) and actually run it, confirming zero errors, rather than hand-computing or
    eyeballing numbers into prose. Regenerate and re-run it whenever new data lands; never
@@ -60,8 +60,8 @@
 12. **Write the result back** in three places: the topic file (Results, and Limitations and
    what was not done; Takeaways only if interpretation was asked for), the experiment row
    (Status, Effort actuals if they moved, and the one-line column, which states *what was
-   measured* unless interpretation was requested), and the map (status class, Updated date,
-   approved job IDs). Append the producing job's ID to the experiment heading once that job
+   measured* unless interpretation was requested), and the registry (Updated date, approved
+   job IDs, and any new HTML page in Links). Re-render the map with `scripts/render_map.py`. Append the producing job's ID to the experiment heading once that job
    has finished and the user has approved its results. Run `scripts/check_map.py`. Disclose
    any exception to a stated cross-cutting invariant in Cross-cutting notes. Don't let a
    necessary core-library fix pass silently because the plan said "no core-library changes".

@@ -16,9 +16,6 @@ rather than deciding unilaterally when:
 - **An experiment's detail has outgrown its section.** Propose the split into a companion
   `_detail.md` (what moves, what stays, what it's called) rather than restructuring
   unprompted.
-- **An existing dashboard uses per-area numbering.** Propose the migration to global `E###`
-  ([research-map.md](research-map.md#migrating-an-existing-dashboard)), and do not do it
-  unasked.
 - **An experiment should move to a different topic, or two topics should merge.** The number
   stays the same, but the user navigates by topic.
 
@@ -37,8 +34,8 @@ priority order signed off once, then keep executing the work loop without re-ask
   mechanism, implications, verdicts on whether something works, rankings and next steps. Offer
   in one line ("happy to give my read, if useful") and stop. Withholding interpretation never
   means withholding context. A bare number is an under-delivery, not a disciplined one.
-- **Keep the dashboard current enough to be trusted at a glance.** A map node still styled
-  `planned`, or a Status column still saying "Not started", after the work shipped is worse
+- **Keep the dashboard current enough to be trusted at a glance.** A map page rendered
+  before the last status change, or a Status column still saying "Planned", after the work shipped is worse
   than no dashboard, because the next reader acts on it.
 - **When updating a document you didn't create this session, scope your edit to your
   experiments.** Read the whole file for coherence, but only touch the rows, nodes and

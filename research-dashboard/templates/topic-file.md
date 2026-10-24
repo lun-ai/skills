@@ -13,6 +13,9 @@ Instantiate or extend per task. Drop sections that would be empty, except Limita
 <!-- job ID(s) appended only once the job finished and the user approved its results.
      Lineage, if any: "From E001 (reuses its frozen v6 tree)." -->
 
+<Report page, only if one was made: [pages/e007-<slug>.html](pages/e007-<slug>.html), rendered
+with the answer-me-with-html skill into pages/ (references/reporting.md#html-pages)>
+
 ### Context / motivation
 <why this question, what's already known, what's missing>
 

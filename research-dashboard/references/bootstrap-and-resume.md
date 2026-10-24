@@ -40,7 +40,7 @@ this happen" investigations, a list of things to probe), don't start implementin
    the others produce (a failure-mode taxonomy that wants traces from everything else, for
    instance).
 6. **Write the dashboard (map first) and one file per topic**, then run
-   `scripts/check_map.py`. Confirm the partition, the numbering and the priority order with
+   `scripts/render_map.py` to build the map page and `scripts/check_map.py`. Confirm the partition, the numbering and the priority order with
    the user before any implementation. The grouping is a judgment call they may want to
    redirect. Every experiment then goes through grilling ([work-loop.md](work-loop.md) step 1)
    before anything is built for it.
@@ -54,13 +54,12 @@ between sessions. If the map shows experiments or implementations you don't reco
 someone else's stream: read enough to avoid colliding with it, but don't touch rows or
 sections outside the experiments you were asked about.
 
-If the dashboard predates global numbering (per-area `Q1, Q2...`, no research map), work in
-its existing scheme for this turn and **propose** the migration in
-[research-map.md](research-map.md#migrating-an-existing-dashboard). Do not migrate without
-agreement.
+If the dashboard predates global numbering (per-area `Q1, Q2...`, no research map), leave it
+as it is and keep working in its existing scheme.
 
 Then do one iteration of the work loop, and write results back into the topic file, the
-experiment row and the map (status class, Updated date) before ending the turn. An experiment
+experiment row and the registry (Updated date, approved job IDs), and re-render the map page,
+before ending the turn. An experiment
 is not "done" until all three are updated. An answer that only exists in chat is lost the
 moment the session ends.
 

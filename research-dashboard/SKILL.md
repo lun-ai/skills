@@ -43,13 +43,19 @@ The documents:
 
 ```
 DASHBOARD.md
-  ## Research map        ← counter line, Mermaid map, registry (timestamps + attributes)
+  ## Research map        ← counter line, link to the map page, registry (timestamps + attributes)
   ## Experiments         ← one row per E###: question, status, effort, one-line result
   ## Topics              ← 2-4 sentences or E###-led bullets per topic, linking its file
   ## Cross-cutting notes
 <topic>.md               ← one per topic; one `## E### — <question>` section per experiment
 <topic>_e###_detail.md   ← only after the user agrees to a split
+pages/research-map.html  ← map page, generated from the registry by scripts/render_map.py
+pages/e###-<slug>.html   ← any other HTML page for an experiment, linked from its section
 ```
+
+The map is an HTML page made with the **`answer-me-with-html`** skill (default). ASCII and
+Excalidraw are the alternatives. Pages are always written into `pages/` beside the
+dashboard, never left in the CLI's default folder.
 
 ## Routing
 
@@ -58,7 +64,8 @@ DASHBOARD.md
 | No dashboard exists yet; user hands over a batch of questions | [references/bootstrap-and-resume.md](references/bootstrap-and-resume.md), [templates/dashboard.md](templates/dashboard.md), [templates/topic-file.md](templates/topic-file.md) |
 | A dashboard exists; continue, check progress, update | [references/bootstrap-and-resume.md](references/bootstrap-and-resume.md) (Resume) |
 | Registering an experiment, numbering, drawing or updating the map | [references/research-map.md](references/research-map.md) |
-| Old dashboard with per-area `Q1, Q2` numbering | [references/research-map.md](references/research-map.md#migrating-an-existing-dashboard), propose only |
+| Old dashboard with per-area `Q1, Q2` numbering | Leave it as it is; keep its scheme |
+| Making any HTML page for an experiment (report, explainer) | [references/reporting.md](references/reporting.md#html-pages), then the `answer-me-with-html` skill |
 | Designing, building, running, analysing one experiment | [references/work-loop.md](references/work-loop.md) |
 | About to run any empirical test, including a free re-score | [references/setting-block.md](references/setting-block.md), [templates/setting-block.md](templates/setting-block.md) |
 | Steering by a small evaluation set | [references/small-eval-sets.md](references/small-eval-sets.md) |
@@ -67,10 +74,17 @@ DASHBOARD.md
 | Deciding whether to ask the user | [references/judgment-calls.md](references/judgment-calls.md) |
 | Slurm or batch jobs; recording job IDs | [references/background-jobs.md](references/background-jobs.md) |
 
-After any edit to the map or the experiment list, run
-`python3 <this skill's directory>/scripts/check_map.py <path/to/DASHBOARD.md>` and fix what it
-reports. It checks duplicate or missing numbers, the counter, map/registry/list agreement,
-status classes, and topic-file sections.
+After any edit to the registry or the experiment list, run both scripts from this skill's
+directory and fix what they report:
+
+```bash
+python3 <skill-dir>/scripts/render_map.py path/to/DASHBOARD.md   # rebuild pages/research-map.html and the Map section
+python3 <skill-dir>/scripts/check_map.py  path/to/DASHBOARD.md   # numbering, staleness, broken page links
+```
+
+`render_map.py` uses the CLI bundled with the sibling `answer-me-with-html` skill
+(`../answer-me-with-html/scripts/am.mjs`; override with `--am` or `AM_MJS`) and needs Node.js
+20 or newer. Pass `--format ascii` or `--format excalidraw` to switch formats.
 
 ## Non-negotiables
 
@@ -79,8 +93,9 @@ These hold in every situation. Each links to its full rule.
 1. **One counter.** Reserve the next `E###` (re-read the dashboard first, write the registry
    row, bump the counter) before designing or building anything. Never reuse or renumber.
    [research-map.md](references/research-map.md)
-2. **Map first.** The research map sits above the experiment list and is updated in the same
-   edit as the fact it records: registration, status change, new arm, new implementation.
+2. **Map first.** The research map sits above the experiment list. Update the registry in
+   the same edit as the fact it records (registration, status change, new arm, new
+   implementation), then re-render the map page. Never edit the page by hand.
 3. **Grill new experiments** with the `grilling` skill before building. A free offline
    re-analysis whose number the user might act on counts. [work-loop.md](references/work-loop.md)
 4. **Post the empirical setting block before the first command of any test.**
@@ -90,10 +105,11 @@ These hold in every situation. Each links to its full rule.
    [reporting.md](references/reporting.md)
 6. **Descriptive names, never one-word stand-ins.** `E###` is the only bare symbol allowed.
    [naming.md](references/naming.md)
-7. **Write back before ending the turn**: topic file, experiment row and map node. An answer
+7. **Write back before ending the turn**: topic file, experiment row, registry, and a
+   re-rendered map page. An answer
    that only exists in chat is lost. [work-loop.md](references/work-loop.md) step 12
-8. **Structural changes are proposed, not made.** This covers partitions, splits, migrations
-   and topic moves. [judgment-calls.md](references/judgment-calls.md)
+8. **Structural changes are proposed, not made.** This covers partitions, splits and topic
+   moves. [judgment-calls.md](references/judgment-calls.md)
 
 <!--
 CHANGE LOG
@@ -111,4 +127,9 @@ per component (bootstrap-and-resume, research-map, work-loop, setting-block, sma
 reporting, naming, judgment-calls, background-jobs, writing-discipline), document templates
 under templates/, and scripts/check_map.py for numbering/map consistency. The v3 outstanding
 issue (floor and budget invisible on the dashboard) is closed by registry attributes.
+v5 2026-10-24: Map is an answer-me-with-html page (pages/research-map.html) generated from
+the registry by scripts/render_map.py, replacing Mermaid; ASCII and Excalidraw are the
+alternatives. Pages live in pages/ beside the dashboard and are linked from it; check_map.py
+reports stale map pages (map-source hash) and broken .html links. Migration of per-area
+dashboards dropped: old dashboards are left as they are.
 -->

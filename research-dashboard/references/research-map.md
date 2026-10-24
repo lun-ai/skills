@@ -54,18 +54,20 @@ Three parts, in this order, under `## Research map` (full skeleton in
 [../templates/dashboard.md](../templates/dashboard.md)):
 
 1. **Counter line.** `Next experiment number: **E009**` and the date the map was last updated.
-2. **Map diagram** (`### Map`): the structure at a glance.
-3. **Registry** (`### Registry`): one row per node, with timestamps and attributes. The
-   diagram is drawn *from* this table, and the table wins whenever the two disagree.
+2. **Map** (`### Map`): a `Format:` line and a link to the map page (or, in the ASCII
+   format, the map itself). The whole section is written by `scripts/render_map.py`, never
+   by hand.
+3. **Registry** (`### Registry`): one row per node, with timestamps and attributes. The map
+   is generated *from* this table, so the table is the only place map facts are edited.
 
 ### Division of labour with the experiment list
 
 The registry records **identity and provenance**: what an experiment is, when it appeared, what
 it was built from, and what it runs on. The experiment list (`## Experiments`, directly below
 the map) records **progress**: the question, its status, its effort and its one-line result.
-No fact is kept in both. The one exception is status, which also appears as a style class on
-the map node so the diagram can be read without the list. `check_map.py` verifies that the
-two copies agree.
+No fact is kept in both. The map page reads status from the experiment list, so it can be
+read without the dashboard; `check_map.py` verifies that the page was rendered from the
+current registry and statuses.
 
 ## The registry
 
@@ -88,125 +90,104 @@ two copies agree.
 - **Attributes** are `key: value` pairs separated by ` · `. Use these keys where they apply,
   in this order, and add others only when a reader would filter on them:
   `data` (dataset and split, with n), `model` (backbone or backend), `uses` (implementation
-  IDs), `from` (parent experiment IDs), `jobs` (approved job IDs only, see
+  IDs), `from` (parent experiment IDs, each optionally followed by what changed, in two to
+  five words: `from: E001 (reuses tree v6), E004`), `jobs` (approved job IDs only, see
   [background-jobs.md](background-jobs.md)), `cost`, `owner` (only when work streams are
   split between people).
-- **Links**: the experiment's stable anchor in its topic file (`topic.md#e007`), the code
-  folder, or the implementation's source file.
+- **Links**: the experiment's stable anchor in its topic file (`topic.md#e007`), its HTML
+  report page if it has one (`pages/e007-signor-full.html`), the code folder, or the
+  implementation's source file.
+- Keep `,`, `:`, `|`, brackets and `*` out of Names: the map page uses Names as node text, and
+  `render_map.py` strips those characters.
 
-## The diagram
+## The map page
 
-**Default: Mermaid `flowchart LR`.** It renders in GitHub, GitLab, Obsidian and VS Code, it
-lives as text inside the dashboard, and it diffs cleanly.
+**Default format: `answer-me-with-html`.** `scripts/render_map.py` turns the registry and the
+experiment list into a draft (`pages/research-map.am.md`), renders it into
+`pages/research-map.html` with the bundled CLI of the `answer-me-with-html` skill, and rewrites
+the `### Map` section to link both:
 
-````markdown
+```markdown
 ### Map
 
-```mermaid
-flowchart LR
-  subgraph topic_signor["SIGNOR direct-regulation claims"]
-    E001["E001 · evidence tree vs one question vs Claude<br/>2026-10-20"]
-    E004["E004 · first-principles tree on d3<br/>2026-10-20"]
-    E007["E007 · trees trained on the full database<br/>2026-10-22"]
-  end
-  subgraph topic_connectomedb["connectomeDB2025 ligand–receptor claims"]
-    E002["E002 · evidence tree<br/>2026-10-20"]
-    E005["E005 · first-principles tree on d3<br/>2026-10-20"]
-    E008["E008 · trees trained on the full database<br/>2026-10-22"]
-  end
-  subgraph topic_scifact["SciFact"]
-    E003["E003 · evidence tree, sealed holdout<br/>2026-10-20"]
-  end
-  subgraph topic_synthetic["Synthetic tasks"]
-    E006["E006 · chains and criteria pilot<br/>2026-10-22"]
-  end
+Format: answer-me-with-html · open the map: [pages/research-map.html](pages/research-map.html) · draft: [pages/research-map.am.md](pages/research-map.am.md)
 
-  impl_tree{{"impl:evidence-tree<br/>hand-built JEV trees"}}
-  impl_fp{{"impl:first-principles-tree<br/>step-by-step tree with carried context"}}
-  impl_full{{"impl:full-database-sets<br/>training claims outside ProClaim"}}
-
-  impl_tree --> E001 & E002 & E003 & E007 & E008
-  impl_fp --> E004 & E005 & E007 & E008
-  impl_full --> E007 & E008
-  E001 -. "same data, new tree" .-> E004
-  E001 -. "carried to new dataset" .-> E002
-  E004 -. "carried to new dataset" .-> E005
-  E007 -. "carried to new dataset" .-> E008
-
-  classDef planned stroke-dasharray:4 3
-  classDef running stroke-width:3px
-  classDef done fill:#e6f4ea,stroke:#2e7d32
-  classDef abandoned fill:#eeeeee,stroke:#9e9e9e,color:#757575
-  class E001,E002,E003,E004,E005,E006 done
-  class E007,E008 running
+Generated from the registry by `scripts/render_map.py`; do not edit the page or the draft by hand.
 ```
-````
 
-(This is JevMaster's real experiment set; the statuses are illustrative.)
+```bash
+python3 <skill-dir>/scripts/render_map.py path/to/DASHBOARD.md              # keeps the declared format
+python3 <skill-dir>/scripts/render_map.py path/to/DASHBOARD.md --format ascii
+python3 <skill-dir>/scripts/render_map.py path/to/DASHBOARD.md --hide-uses  # fewer crossing arrows
+```
 
-Conventions:
+The page has three panels:
 
-- **One `subgraph` per topic**, holding that topic's experiments. Implementations sit outside
-  every subgraph, because they are shared, and use the hexagon shape `{{ }}`.
-- **Experiment node label:** `E### · <descriptive name, at most ~8 words><br/><created date>`.
-  The node ID is the bare number (`E007`), so edges read naturally.
-- **Edges:** a solid `impl --> E` means "this experiment uses that implementation". A dotted,
-  labelled `E -. "relation" .-> E` means lineage: what changed from the parent, in two to five
-  words. Draw lineage only where a later experiment reuses an earlier one's data, code, frozen
-  model or design. Do not draw it for experiments that merely came later.
-- **Status as a class** (`planned`, `running`, `done`, `abandoned`), matching the first
-  word of the experiment list's Status column. `Designing` (being grilled) uses `planned`.
-- **Tangle control.** Solid `uses` edges cross topics and tangle quickly. With more than
-  about three implementations, first group them in one `subgraph impls["Implementations"]`.
-  If the diagram is still hard to follow, drop the `uses` edges from the diagram. The
-  registry's `uses:` attribute already records them, and the dotted lineage edges carry more
-  information.
-- **Size.** Past about 25 experiments, collapse finished topics to a single summary node
-  (`topic_scifact_done["SciFact · E003, E011–E014 · all done"]`) and keep full detail only for
-  topics with open work. The registry still lists every experiment.
+- **A Map** is a left-to-right flow diagram. Each topic is a box holding its experiments, and
+  the implementations sit in their own box. A solid arrow runs from each implementation to
+  every experiment that uses it, and a dashed, labelled arrow marks each `from:` link. Each
+  experiment node reads `E### · <name> (<status>)`. Open experiments (planned, designing,
+  running) are highlighted.
+- **B Timeline** lists every experiment by creation date, with its topic and status, and
+  highlights the open ones.
+- **C Registry** repeats the registry table with status badges (✓ done, ! running,
+  ✗ abandoned).
 
-**Other formats** (only if the user asks):
+The page header carries `map-source: <hash>`, a hash of the counter, the registry and the
+statuses. `check_map.py` recomputes it, so it reports a page that was not re-rendered after a
+change as stale. If the solid arrows cross so much that the map is hard to read, render with
+`--hide-uses`. The registry's `uses:` attribute still records them, and the dashed lineage
+arrows carry more information.
 
-- **ASCII tree**, for users who read the dashboard in a terminal or for tools that don't
-  render Mermaid. Put it in a ```` ```text ```` block with the same content: topics as
-  branches, experiments as leaves, `uses:` and `from:` written inline on each leaf.
-- **Excalidraw**, for a presentation or a meeting, drawn with the `excalidraw-diagram`
-  skill. Save it beside the dashboard and link to it from the Map section. It is an export of
-  the registry, never the source of truth. Regenerate it from the registry rather than editing
-  it by hand.
+**Where pages live.** Write the map page and every other page made for the effort with `-o`
+into `pages/` next to the dashboard, and commit them with it. Never link a page in the CLI's
+default location (`~/.answer-me-with-html/pages`): it is outside the repository, other
+collaborators cannot open it, and `am clean` deletes it. Name per-experiment pages
+`pages/e###-<slug>.html` (see [reporting.md](reporting.md)), and link them from the
+experiment's topic-file section and from its registry Links cell. `check_map.py` reports any
+linked `.html` file that does not exist.
+
+The CLI needs Node.js 20 or newer. If `node` is missing or older, follow the
+`answer-me-with-html` skill's instructions, which ask the user before installing anything.
+Otherwise use the ASCII format for that session and say so.
+
+**Other formats.** Choose one with `--format`; later runs keep it:
+
+- **`ascii`** writes the map as a ```` ```text ```` tree directly in the Map section. Topics are
+  branches, experiments are leaves, and each leaf shows its `uses:` and `from:` inline. Use it
+  when the user reads the dashboard in a terminal or has no Node.js.
+- **`excalidraw`** links `pages/research-map.excalidraw` from the Map section. Draw the file
+  with the `excalidraw-diagram` skill from the registry, for presentations and meetings.
+  `render_map.py` writes only the link, so redraw the file after every registry change.
+  `check_map.py` warns when an experiment is missing from the drawing.
 
 ## When to update the map
 
-Update the map in the same edit that changes the underlying fact, never later:
+Change the registry and the experiment list in the same edit as the underlying fact, then run
+`render_map.py` and `check_map.py`:
 
-| Event | Registry | Diagram | Counter |
+| Event | Registry | Experiment list | Counter |
 |---|---|---|---|
-| New topic | add `topic:` row | add subgraph | — |
-| New implementation, or one is substantially rewritten | add or update `impl:` row | add node or edges | — |
-| Experiment registered | add `E###` row (Created = today) | add node with `planned` class, plus `uses`/`from` edges | bump |
-| Design agreed, run started, finished, abandoned | bump Updated | change class | — |
+| New topic | add `topic:` row | — | — |
+| New implementation, or one is substantially rewritten | add or update `impl:` row | — | — |
+| Experiment registered | add `E###` row (Created = today), with `uses:` and `from:` | add row, status Planned | bump |
+| Design agreed, run started, finished, abandoned | bump Updated | change Status | — |
 | New arm or rerun inside an experiment | bump Updated; add approved job IDs | — | — |
-| Experiment moved to another topic | change Topic | move node between subgraphs | — |
+| New HTML page for an experiment | add it to Links | — | — |
+| Experiment moved to another topic | change Topic | change Topic | — |
 
-Run `python3 <skill-dir>/scripts/check_map.py <path/to/DASHBOARD.md>` after any edit to the
-map or the experiment list. It reports duplicate or missing numbers, a counter at or below an
-existing number, experiments present in one part but missing from another, status mismatches
-between the map and the list, and topic-file headings that name an unregistered number.
+```bash
+python3 <skill-dir>/scripts/render_map.py path/to/DASHBOARD.md
+python3 <skill-dir>/scripts/check_map.py path/to/DASHBOARD.md
+```
 
-## Migrating an existing dashboard
+`check_map.py` reports:
 
-Older dashboards from this skill number questions per area (`Baseline transfer Q3`), so `Q1`
-recurs across areas. **Propose the migration and wait for the user's agreement before doing
-it.** It changes every reference the user has learned. Once it is agreed:
+- duplicate or missing numbers, and a counter at or below an existing number;
+- experiments in the registry but not in the list, or the reverse;
+- `uses:` or `from:` references to unregistered IDs;
+- a stale or missing map page, and linked HTML pages that do not exist;
+- topic-file headings that name an unregistered number.
 
-1. Order the existing questions by creation date (from git history or the dates in their
-   sections). If no dates are recoverable, use the dashboard's current row order. Assign
-   `E001...` in that order. If the project already has global experiment numbers (as
-   JevMaster's folders do), keep them and number only what they don't cover.
-2. In each topic file, change the heading to `## E### — <question>`, add the stable anchor
-   `<a id="e###"></a>` above it, and record the old label once:
-   `(formerly Baseline transfer Q3)`. Leave an anchor for the old slug as well, so existing
-   links keep working.
-3. Rebuild the experiment list keyed by `E###`, then build the registry and the diagram.
-   Run `check_map.py`.
-4. Note the migration and its date in Cross-cutting notes.
+Dashboards made before global numbering are left as they are. Keep working in their existing
+scheme. The numbering and the map apply to dashboards created from these templates.

@@ -1,7 +1,9 @@
 <!--
 Dashboard template. One per effort, usually DASHBOARD.md. Section order is fixed:
-map first, then the experiment list, then topic summaries. check_map.py locates the
-sections by these exact headings, so keep them verbatim.
+map first, then the experiment list, then topic summaries. render_map.py and check_map.py
+locate the sections by these exact headings, so keep them verbatim. Fill in the registry and
+the experiment list, then run render_map.py: it writes the ### Map section and the pages/
+files it links to. HTML pages for the effort live in pages/ beside this file.
 -->
 # <Effort name> — Dashboard
 
@@ -14,20 +16,9 @@ Next experiment number: **E001** · map updated <YYYY-MM-DD>
 
 ### Map
 
-```mermaid
-flowchart LR
-  subgraph topic_<slug>["<Topic name>"]
-    E001["E001 · <descriptive name><br/><YYYY-MM-DD>"]
-  end
-  impl_<slug>{{"impl:<slug><br/><what it is>"}}
-  impl_<slug> --> E001
+Format: answer-me-with-html · open the map: [pages/research-map.html](pages/research-map.html) · draft: [pages/research-map.am.md](pages/research-map.am.md)
 
-  classDef planned stroke-dasharray:4 3
-  classDef running stroke-width:3px
-  classDef done fill:#e6f4ea,stroke:#2e7d32
-  classDef abandoned fill:#eeeeee,stroke:#9e9e9e,color:#757575
-  class E001 planned
-```
+Generated from the registry by `scripts/render_map.py`; do not edit the page or the draft by hand.
 
 ### Registry
 
