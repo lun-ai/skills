@@ -109,13 +109,14 @@ autonomously mid-run.
 - **Prose uses the name.** A code may trail it in parentheses once, as a table-matching anchor
   (`the no-retrieval arm (T2)`), and never stand alone. If a sentence's meaning depends on the
   reader recalling what `T2` meant, rewrite the sentence.
-- **`Qn` is the one sanctioned bare symbol**, because the Dashboard defines each `Qn` in exactly
-  one place and every area-summary bullet leads with it. Even so, pair it with the question's
-  subject on first mention in a reply.
+- **`E###` is the one sanctioned bare symbol**, because the research map's registry defines
+  each experiment number in exactly one place, the number is global across topics, and every
+  topic-summary bullet leads with it. Even so, pair it with the experiment's subject on first
+  mention in a reply.
 - **Tables key rows by the descriptive name**, with any code as a secondary column — not the
   other way around.
 - **Register before you report.** An arm you spun up yourself — a smoke-test variant, a
-  confound-isolating third comparison point, a follow-up run — goes into the area file's
+  confound-isolating third comparison point, a follow-up run — goes into the experiment's
   "Setup and arms" table (name, what it varies, what it holds fixed, why it was added) before
   it appears in any result. An arm that exists only as a label in one chat message is exactly
   what makes side arms untrackable.
@@ -134,8 +135,8 @@ structurally separate, not just stylistically distinct:
   interpretation — even if true, it doesn't belong in the same bullet as the number. Report the
   measurement plainly; don't wrap it in an evaluative lead-in.
 - **Interpretation lives in exactly one place per question: a dedicated section at the end**
-  (the `Takeaways` section in the area-file template, or an area-level synthesis if the
-  interpretation spans questions) — **and that section is written only when the user has asked
+  (the `Takeaways` section in the topic-file template, or a topic-level synthesis if the
+  interpretation spans experiments) — **and that section is written only when the user has asked
   for interpretation.** Leave it absent otherwise; an empty or omitted Takeaways on a question
   whose Results are complete is the correct state, not an unfinished one. Don't scatter "this suggests...", "likely because...",
   "probably driven by..." language through the Results section — collect it in Takeaways
@@ -150,9 +151,9 @@ structurally separate, not just stylistically distinct:
   where a reviewer or collaborator will push back hardest — keeping it isolated and labeled
   makes it easy to find and easy to defend or retract.
 
-## Length and redundancy discipline as areas and questions grow
+## Length and redundancy discipline as topics and experiments grow
 
-Area files and the dashboard outlive many sessions. A question answered once often gets
+Topic files and the dashboard outlive many sessions. A question answered once often gets
 extended later — a new backbone, a new dataset, a rep, a follow-up run answering the same
 question under one changed variable. Left unchecked, each extension adds its own subsection
 that re-explains the same setup and re-lists the same caveats, and the file stops being
@@ -160,7 +161,7 @@ something a reader can skim. This is a routine failure mode, not an edge case �
 every time you write results back, not just when a document has visibly become unreadable.
 
 - **Reach for structure once a paragraph is carrying more than a couple of distinct facts.**
-  An area summary or a Takeaways block that narrates one finding per done question inside a
+  A topic summary or a Takeaways block that narrates one finding per done experiment inside a
   single run-on paragraph is the same failure as the caveat/setup duplication below, just at
   the sentence level — the reader has to parse a wall of text to pull out facts that would be
   obvious as a list. Once a paragraph would need more than about 3-4 sentences to say
@@ -184,10 +185,10 @@ every time you write results back, not just when a document has visibly become u
   but only 61% with Sonnet-4.6 under the same batch-wise protocol" doesn't. Comprehensibility
   comes before brevity: a slightly longer complete sentence beats a shorter fragment that only
   makes sense with context the reader doesn't have on that bullet alone.
-- **Every area-summary bullet follows the same three-part order: question and status, then
+- **Every topic-summary bullet follows the same three-part order: question and status, then
   action, then interpretation — in that order, every time.**
-  1. **Lead with `**Qn (status)**`** so the reader can match the bullet straight back to its
-     Dashboard row (e.g. `**Q3 (done)**`, `**Q1–Q2 (not started)**`).
+  1. **Lead with `**E### (status)**`** so the reader can match the bullet straight back to its
+     experiment row and map node (e.g. `**E003 (done)**`, `**E009–E010 (planned)**`).
   2. **State the action next** — what was actually run, measured, or compared, as fact (see
      Facts vs. interpretation, above). This is where the numbers live.
   3. **Close with the interpretation** — one trailing sentence stating what the result means.
@@ -196,17 +197,18 @@ every time you write results back, not just when a document has visibly become u
      before the reader knows what was measured, and don't tack a plain fact onto the end after
      the interpretation has already been stated — the final clause a reader lands on should be
      the takeaway, not a stray implementation detail.
-  Apply this order identically across every area's bullets within the same document, including
-  areas that group several sub-questions under one Dashboard row (e.g. `Q1–Q4` together) —
-  give each sub-question its own bullet with its own `Qn (status)` lead rather than folding
-  them into an unlabeled thematic list. Consistent structure is what lets a reader who has
-  learned one area's pattern skim every other area the same way, connecting each action
+  Apply this order identically across every topic's bullets within the same document,
+  including topics whose experiments form one lineage (e.g. `E004`–`E005` carried across two
+  datasets): give each experiment its own bullet with its own `E### (status)` lead rather than
+  folding them into an unlabeled thematic list. Consistent structure is what lets a reader who
+  has learned one topic's pattern skim every other topic the same way, connecting each action
   straight to its interpretation without re-learning the shape of the prose each time.
 - **Minimize redundancy for comprehensibility — the general rule the other bullets here apply.**
   State each fact once. Don't restate a number that's already in a table as a sentence of prose
   saying the same thing, don't repeat the same caveat or setup context in multiple places in
   the same document, and don't let the dashboard drift into holding content beyond its
-  sanctioned one-line compression of the area file. Every repeated fact is one more place a
+  sanctioned one-line compression of the topic file (cap the one-line result at about 40
+  words; anything longer belongs in the topic file). Every repeated fact is one more place a
   future edit can drift out of sync with the others.
 - **Extend the existing table, don't clone the section.** If a new run answers the same
   question with one more variable held constant (same protocol, new backbone; same protocol,
@@ -217,13 +219,13 @@ every time you write results back, not just when a document has visibly become u
   (e.g., "single pass, no repeats", "batch-wise not independent"), state it once, and reference
   it by name in later findings ("see caveat above") rather than re-writing the paragraph each
   time a new run is added.
-- **Budget roughly one screen per question in the area file** (~30-40 lines): a short setup
+- **Budget roughly one screen per experiment in the topic file** (~30-40 lines): a short setup
   note, one results table, a handful of bullet findings, one caveats list, one
   rebuttal-framing quote if applicable, one artifacts line.
 - **When writing back a new result would push a section past that budget, raise it with the
-  user before splitting** — don't split unprompted (this is a judgment call, see SKILL.md's
-  Judgment calls section). Say what you'd move (e.g. confusion matrices, per-run tables) into a
-  companion `<area>_<qN>_detail.md`, what stays (comparison table, compressed findings, a
+  user before splitting** — don't split unprompted (this is a judgment call, see
+  [judgment-calls.md](judgment-calls.md)). Say what you'd move (e.g. confusion matrices, per-run tables) into a
+  companion `<topic>_e###_detail.md`, what stays (comparison table, compressed findings, a
   one-line pointer to the detail file), and let them confirm or redirect before you restructure
   the document.
 - **Before adding to a question you didn't just answer for the first time, read its current
