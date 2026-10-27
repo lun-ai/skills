@@ -5,11 +5,12 @@
 
 `init` scaffolds blog.toml, one markdown file per post, fig/ and AUTHOR_GUIDE.md.
 Building writes <dir>/site/<out>/index.html for every post and prints checks.
-The author-facing rules (what is published, chart blocks, callouts) are in AUTHOR_GUIDE.md.
+The author-facing rules (what is published, chart blocks, figures) are in AUTHOR_GUIDE.md.
 """
 import argparse
 import html
 import importlib.util
+import math
 import re
 import shutil
 import sys
@@ -19,7 +20,6 @@ from pathlib import Path
 
 SKILL = Path(__file__).resolve().parent.parent
 SKIP_SECTIONS = ("important notes", "open points", "notes for the build")
-CALLOUT_KINDS = {"positive", "negative", "null", "caveat", "preliminary", "note"}
 SERIES_CLS = ["s1", "s2", "s3", "s4", "s0"]
 
 
@@ -31,9 +31,24 @@ def _t(x, y, s, cls="tick", anchor="start"):
     return f'<text class="{cls}" x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}">{html.escape(str(s))}</text>'
 
 
-def _fmt(v):
-    s = f"{v:.2f}" if abs(v) < 10 else f"{v:.0f}"
-    return s.lstrip("0") if s.startswith("0.") else s
+def _fmt(v, step=None):
+    if step is not None:
+        frac = f"{step:.10f}".rstrip("0").split(".")[1]
+        return f"{v:.{len(frac)}f}"
+    return f"{v:.2f}" if abs(v) < 10 else f"{v:.0f}"
+
+
+def _ticks(lo, hi, target=5):
+    """Round tick values inside [lo, hi], about `target` of them."""
+    mag = 10 ** math.floor(math.log10((hi - lo) / target))
+    best = None
+    for step in (m * mag for m in (1, 2, 2.5, 5, 10, 20)):
+        first = math.ceil(lo / step - 1e-9) * step
+        vals = [round(first + k * step, 10) for k in range(int((hi - first) / step + 1e-9) + 1)]
+        score = (abs(len(vals) - target), -step)
+        if best is None or score < best[0]:
+            best = (score, vals, step)
+    return best[1], best[2]
 
 
 def _legend(series):
@@ -62,10 +77,10 @@ def chart_bars(spec):
     gw = (right - left) / len(groups)
     bw = min(46, gw * 0.72 / len(series))
     p = []
-    for k in range(5):
-        v = lo + k * (hi - lo) / 4
+    ticks, step = _ticks(lo, hi)
+    for v in ticks:
         p.append(f'<line class="grid" x1="{left}" x2="{right}" y1="{Y(v):.1f}" y2="{Y(v):.1f}"/>')
-        p.append(_t(left - 8, Y(v) + 4, _fmt(v), "tick", "end"))
+        p.append(_t(left - 8, Y(v) + 4, _fmt(v, step), "tick", "end"))
     for val, label in spec.get("ref", []):
         p.append(f'<line class="ref" x1="{left}" x2="{right}" y1="{Y(val):.1f}" y2="{Y(val):.1f}"/>')
         if label:
@@ -108,11 +123,11 @@ def chart_lines(spec):
         X = lambda j, x0=x0: x0 + 16 + j * (pw - 32) / max(1, len(xs) - 1)
         if title:
             p.append(_t(x0, 14, title, "label"))
-        for k in range(5):
-            v = lo + k * (hi - lo) / 4
+        ticks, step = _ticks(lo, hi)
+        for v in ticks:
             p.append(f'<line class="grid" x1="{x0}" x2="{x0 + pw:.1f}" y1="{Y(v):.1f}" y2="{Y(v):.1f}"/>')
             if i == 0:
-                p.append(_t(x0 - 8, Y(v) + 4, _fmt(v), "tick", "end"))
+                p.append(_t(x0 - 8, Y(v) + 4, _fmt(v, step), "tick", "end"))
         for val, label in spec.get("ref", []):
             p.append(f'<line class="ref" x1="{x0}" x2="{x0 + pw:.1f}" y1="{Y(val):.1f}" y2="{Y(val):.1f}"/>')
             if label and i == n - 1:
@@ -130,47 +145,13 @@ def chart_lines(spec):
     return _figure(svg, spec.get("caption", ""), _legend([(nm, cls_of[nm]) for nm in names]))
 
 
-DATE = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
-
-
-def chart_timeline(spec):
-    rows = []
-    for label, when in spec["rows"]:
-        ds = [date(int(a), int(b), int(c)) for a, b, c in DATE.findall(when)]
-        if ds:
-            rows.append((label, ds[0], ds[-1]))
-    d0 = min(r[1] for r in rows).toordinal() - 2
-    d1 = max(r[2] for r in rows).toordinal() + 2
-    L, R, top, rh = 230, 708, 34, 28
-    X = lambda d: L + (d.toordinal() - d0) / (d1 - d0) * (R - L)
-    h = top + rh * len(rows) + 8
-    p = []
-    t = d0 + (7 - date.fromordinal(d0).weekday()) % 7
-    while t <= d1:
-        dt = date.fromordinal(t)
-        p.append(f'<line class="grid" x1="{X(dt):.1f}" x2="{X(dt):.1f}" y1="{top - 8}" y2="{h - 6}"/>')
-        p.append(_t(X(dt), top - 14, f"{dt.day} {dt:%b}", "tick", "middle"))
-        t += 7
-    for i, (label, a, b) in enumerate(rows):
-        y = top + i * rh
-        p.append(_t(L - 10, y + rh / 2 + 4, label, "label", "end"))
-        if a == b:
-            cx, cy = X(a), y + rh / 2
-            p.append(f'<path class="bar s2" d="M{cx:.1f} {cy - 7:.1f} l7 7 l-7 7 l-7 -7 z"/>')
-        else:
-            x2 = X(date.fromordinal(b.toordinal() + 1))
-            p.append(f'<rect class="bar s1" x="{X(a):.1f}" y="{y + 7}" width="{max(x2 - X(a), 6):.1f}" height="{rh - 14}" rx="3"/>')
-    svg = f'<svg class="chart" viewBox="0 0 720 {h}" role="img" aria-label="timeline">{"".join(p)}</svg>'
-    return _figure(svg, spec.get("caption", ""), wide=True)
-
-
-RENDERERS = {"bars": chart_bars, "lines": chart_lines, "timeline": chart_timeline}
+RENDERERS = {"bars": chart_bars, "lines": chart_lines}
 
 
 def parse_chart_block(body):
     """key: value lines. Repeatable keys: series (`name = values`), ref (`value label`),
-    row (`label | 2026-08-23 .. 2026-08-24`), panel (starts a new small multiple)."""
-    spec = {"series": [], "ref": [], "rows": [], "panels": []}
+    panel (starts a new small multiple)."""
+    spec = {"series": [], "ref": [], "panels": []}
     current = None
     for raw in body.splitlines():
         line = raw.strip()
@@ -187,9 +168,6 @@ def parse_chart_block(body):
         elif key == "ref":
             num, _, label = val.partition(" ")
             spec["ref"].append((float(num), label.strip()))
-        elif key == "row":
-            label, _, when = val.partition("|")
-            spec["rows"].append((label.strip(), when.strip()))
         else:
             spec[key] = val
     kind = spec.get("type", "bars")
@@ -255,21 +233,7 @@ def preprocess(md_text, src_dir, custom):
     md_text = re.sub(r"<!--.*?-->", "", md_text, flags=re.S)
     md_text = re.sub(r"``(.+?)''", r"“\1”", md_text)
 
-    out, lines, i = [], md_text.splitlines(), 0
-    while i < len(lines):
-        m = re.match(r"^>\s*\[!(\w+)\]\s*(.*)$", lines[i])
-        if m and m.group(1).lower() in CALLOUT_KINDS:
-            kind, head, inner = m.group(1).lower(), m.group(2), []
-            i += 1
-            while i < len(lines) and lines[i].startswith(">"):
-                inner.append(lines[i][1:].lstrip())
-                i += 1
-            out.append(f'\n<div class="callout {kind}" markdown="1">\n<span class="tag {kind}">{kind}</span> '
-                       f"**{head}**\n\n" + "\n".join(inner) + "\n</div>\n")
-            continue
-        out.append(lines[i])
-        i += 1
-    return "\n".join(out), ph
+    return md_text, ph
 
 
 def render(md_text, src_dir, custom):
@@ -388,9 +352,16 @@ Working notes (not published): everything between the title and the first `##` h
 
 <!-- Requests for the next build go here. This section is never published. -->
 
-## 1. First step of the story (dates)
+## 0. Motivation
 
-Write in paragraphs. See AUTHOR_GUIDE.md for charts, figures and callouts.
+Why this question, in a few paragraphs. No date in this heading.
+
+## 1. First thing tried (6–7 Sep 2026)
+
+What was set out to test, how it was set up, what came out, what led to the next step.
+At most one table or chart for the key result. See AUTHOR_GUIDE.md.
+
+## References
 """
 
 

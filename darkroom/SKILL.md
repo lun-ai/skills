@@ -1,6 +1,6 @@
 ---
 name: darkroom
-description: Develop a technical project's notes, plans and results into a blog post or a series of linked posts that the author keeps editing in markdown. Use when the user wants to turn research or engineering work into a blog, write up what they tried and what went wrong, or says "rebuild" on an existing darkroom series.
+description: Develop a technical project's notes, plans and results into a blog post or a series of linked posts that the author keeps editing in markdown. Use when the user wants to turn research or engineering work into a blog, write up what they tried, or says "rebuild" on an existing darkroom series.
 ---
 
 # Darkroom
@@ -18,31 +18,48 @@ uv run --no-project --with markdown==3.7 python "$SKILL_DIR/scripts/build.py" <s
 **Resume first.** If a `blog.toml` for this work exists (check memory and the project), skip to
 step 6.
 
+## The post
+
+Every print has the same plain shape, in the manner of a research post on anthropic.com: a light
+page, a meta line, a question for a title, and prose carrying the results.
+
+- Title: the question the post answers. Above it, the meta line ("Research diary · Part 2 of 3 ·
+  date"); below it, the series name when it differs from the title.
+- An undated opening section that says why the question matters, then numbered sections in the
+  order the work happened, **each with its dates in the heading**:
+  `## 4. Steering the model's internal state (6–12 Sep 2026)`.
+- Paragraphs, not bullets. Each step's key result sits in **one** plain table or **one** chart,
+  with a caption that says what to see. Most sections need neither.
+- Unfinished work: `status: unfinished`, and a short closing teaser rather than a result.
+- A `## References` list, the series cards, and one link to the public repo in the footer.
+
+The post carries no timeline chart, no boxed findings, no "what went wrong" lists, and no
+internal paths. Those belong in the working notes.
+
 ## 1. Gather the negatives
 
 Find everything the project tried: dashboards, plan files, result folders, commits, deleted plans.
-For a large project, send a read-only subagent to sweep for pieces you have not read. Write a
-**contact sheet**, `retrospective.md` in the series folder: chapters in date order, each with its
-setup, results, and "what went wrong" in plain words. Re-derive one headline number from raw
-outputs.
+For a large project, send a read-only subagent to sweep for pieces you have not read. Write
+`retrospective.md` in the series folder. It is a **working file, never published**: pieces in date
+order, each with its setup, results and plain-words problems, so the author can recall the work.
+Re-derive one headline number from raw outputs.
 
-Done when every piece of work has a date, a setup, a result and a "what went wrong"; one number
-has been re-derived; and nothing new was run. Offer to turn the contact sheet into a page with the
-answer-me-with-html skill.
+Done when every piece of work has a date, a setup and a result; one number has been re-derived;
+and nothing new was run.
 
 ## 2. Choose the story
 
-Use the grilling skill. One question at a time, each with a recommendation: format (a research
-diary is the default), audience, where it opens, which pieces go in, how to cite flawed or
-superseded results, what to do with unfinished work. If the author states their own narrative,
-take it. Split into one post per question the work asked.
+Use the grilling skill. One question at a time, each with a recommendation: audience, where it
+opens, which pieces go in, how to cite flawed or superseded results, what to do with unfinished
+work. If the author states their own narrative, take it. Split into one post per question the work
+asked.
 
 Done when the decisions are recorded as a table in `retrospective.md`, and each post has a question
 as its title and an assigned list of sections.
 
 ## 3. Develop the drafts
 
-Run `build.py init <series> --series "Series name" --parts N`. Write each post in the order agreed,
+Run `build.py init <series> --series "Series name" --parts N`. Write each post in the shape above,
 following [references/writing.md](references/writing.md). Read it now, in full.
 
 Done when every number in the drafts traces to a source, no file path or internal name remains in

@@ -37,14 +37,13 @@ caption: Objections helped true claims a little and broke false ones.
 
 | Key | Used by | Meaning |
 |---|---|---|
-| `type` | all | `bars`, `lines` or `timeline` |
+| `type` | all | `bars` or `lines` |
 | `series: name = v1, v2, …` | bars, lines | one per series; a legend appears only for two or more |
 | `groups: a, b, c` | bars | category labels under the bars |
 | `x: a, b, c` | lines | labels along the bottom |
 | `panel: name` | lines | starts a small multiple; the `series` lines after it belong to it |
 | `y: low, high` | bars, lines | value range; automatic if left out |
 | `ref: value label` | bars, lines | dashed reference line, label optional |
-| `row: label \| 2026-08-23 .. 2026-08-24` | timeline | one bar per row; a single date draws a diamond |
 | `values: off` | bars | hide the numbers above bars |
 | `xlabel: text` | lines | only when the x values are ambiguous without it |
 | `caption: text` | all | the sentence under the chart |
@@ -54,12 +53,3 @@ caption: Objections helped true claims a little and broke false ones.
 - `![caption](fig/name.png)` on its own line becomes a framed figure with that caption.
 - `<!-- svg: fig/name.svg | caption -->` inlines an SVG file, for charts made with another tool.
 - Keep text inside figures to a minimum: no titles, short labels. The caption does the talking.
-
-## Boxes
-
-```
-> [!negative] One-line headline
-> One or two sentences of detail.
-```
-
-Kinds: `positive`, `negative`, `null`, `caveat`, `preliminary`, `note`.
