@@ -53,3 +53,6 @@ caption: Objections helped true claims a little and broke false ones.
 - `![caption](fig/name.png)` on its own line becomes a framed figure with that caption.
 - `<!-- svg: fig/name.svg | caption -->` inlines an SVG file, for charts made with another tool.
 - Keep text inside figures to a minimum: no titles, short labels. The caption does the talking.
+- Each post opens on a question map (`fig/<name>.png`). To change it, edit `fig/<name>.toml`
+  (question, branches, short lines) and ask for a rebuild, or nudge `fig/<name>.excalidraw` on
+  excalidraw.com and export the PNG over the old one.

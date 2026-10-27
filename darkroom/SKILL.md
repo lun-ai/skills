@@ -25,8 +25,9 @@ page, a meta line, a question for a title, and prose carrying the results.
 
 - Title: the question the post answers. Above it, the meta line ("Research diary · Part 2 of 3 ·
   date"); below it, the series name when it differs from the title.
-- An undated opening section that says why the question matters, then numbered sections in the
-  order the work happened, **each with its dates in the heading**:
+- An undated opening section that says why the question matters and ends on the post's
+  **question map** (see step 4), then numbered sections in the order the work happened, **each
+  with its dates in the heading**:
   `## 4. Steering the model's internal state (6–12 Sep 2026)`.
 - Paragraphs, not bullets. Each step's key result sits in **one** plain table or **one** chart,
   with a caption that says what to see. Most sections need neither.
@@ -68,11 +69,18 @@ author knows the reasoning has a `<!-- YOUR THINKING -->` prompt.
 
 ## 4. Make the figures
 
-Follow [references/figures.md](references/figures.md): built-in chart blocks first, then
-lieflat-charts, excalidraw-diagram or answer-me-with-html, always with minimal text.
+Follow [references/figures.md](references/figures.md). Every figure is simple and minimal: few
+marks, few words, the series palette, nothing decorative.
 
-Done when each figure makes one point, carries no title or source text, has a caption saying what
-to see, and matches the numbers in the text.
+First, one **question map** per post, drawn with `scripts/mindmap.py`: the post's question in
+the centre, 3 to 7 one- or two-word concepts around it, one or two short concrete lines under
+each, and an optional "→ what we did" line. It is the post at one glance, one level above the
+sections. Then the result figures: built-in chart blocks first, then lieflat-charts,
+excalidraw-diagram or answer-me-with-html.
+
+Done when each post opens on a question map whose branches the sections answer, each figure makes
+one point, carries no title or source text, has a caption saying what to see, and matches the
+numbers in the text.
 
 ## 5. Print
 
@@ -97,3 +105,10 @@ change you made is listed in your reply.
 Run the checks in [references/publishing.md](references/publishing.md) (sharing, leaks,
 double-blind, collaborators, where the sources live), and give the author anything that is their
 call to decide.
+
+<!--
+CHANGE LOG
+v2 2026-10-27: question map (mindmap.py) as each post's opening figure, abstraction ladder,
+  minimal-figure limits; taken from the metacognition-drift series maps the author liked.
+Outstanding minor issues: mindmap.py has no top slot (max 7 branches); text widths are estimated.
+-->
