@@ -11,7 +11,7 @@
 
 ## Repository Overview
 
-This repository currently provides **41 skills**, organized into the
+This repository currently provides **44 skills**, organized into the
 following groups. Each skill is a self-contained package: its directory
 contains a `SKILL.md` with the core workflow and usage rules, plus any
 supporting `references/`.
@@ -86,6 +86,7 @@ together.
 
 | Skill | Description |
 |---|---|
+| [darkroom](./darkroom/) | Develop a project's notes and results into a linked blog series the author edits in markdown, with minimal-text figures. |
 | [nature:paper2ppt](./nature/skills/paper2ppt/) | Turn a paper, preprint, or reading notes into a Chinese PPTX deck for journal clubs, group meetings, or talks. |
 
 ### Engineering & Prototyping
