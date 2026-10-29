@@ -174,7 +174,7 @@ def main(path):
             continue
         body = f.read_text()
         pages |= {(link, str(Path(link).parent / l)) for l in HTML_LINK.findall(body)}
-        if f.name.endswith("_detail.md"):
+        if f.name.endswith("_detail.md") or re.fullmatch(r"e\d{3,}", f.parent.name):
             continue
         for n in re.findall(r"^##\s+E(\d{3,})\b", body, re.M):
             seen_in.setdefault(f"E{n}", []).append(link)

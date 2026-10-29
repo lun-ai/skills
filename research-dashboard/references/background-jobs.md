@@ -17,10 +17,11 @@ E007-signor-full-cv`), so the queue itself shows which experiment each job belon
 ## Record the job ID once a job is finished and approved
 
 When a job (Slurm, batch API, any scheduler-issued run) has finished *and* the user has
-approved its results, record its ID in two places. Append it to the experiment's heading in
+approved its results, record its ID in three places. Append it to the experiment's heading in
 the topic file, as in `## E002 — Does retrieval help on SIGNOR? (job 41873920)` or
-`(jobs 41873920, 41874115)`. Also add it to the `jobs:` attribute of the experiment's registry
-row. Every reported number then traces to its logs without a separate lookup table.
+`(jobs 41873920, 41874115)`. Add it to the `jobs:` attribute of the experiment's registry
+row. The run's section heading in `e###/results.md` carries it from submission, with the
+review state (`not yet reviewed` until the user approves). Every reported number then traces to its logs without a separate lookup table.
 
 Do not add an ID while the job is still running or before approval: a recorded ID means
 "these are the accepted results of this job". If a rerun later supersedes an approved result,

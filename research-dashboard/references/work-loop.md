@@ -12,8 +12,9 @@
    ([research-map.md](research-map.md)). A new *arm* inside an already-agreed experiment is
    grilled the same way but does not take a new number. Let grilling interview the user about
    the hypothesis, the arms and what each holds fixed, the dataset, the metric, the budget and
-   the stopping point. Then write the agreed design into the experiment's "Setup and arms" and
-   "Implementation plan" before implementing. Reruns, resumes and bug-fix restarts of an
+   the stopping point. Then write the agreed design into `e###/setup.md`
+   ([experiment-files.md](experiment-files.md)), with a Source for every value, before
+   implementing. Set the status to Designing once the file exists. Reruns, resumes and bug-fix restarts of an
    already-agreed design need neither grilling nor a number.
 2. **Decide implementation strategy with the user before building.** If there's more than one
    reasonable way to instrument or measure something, say so and let them pick, especially
@@ -55,20 +56,26 @@
    URLs), don't collapse to one number. Report the raw count and the resolved or comparable
    count, with the resolution rate alongside, so the gap is visible rather than baked in.
 11. **Name and register any arm you added**, including ones created autonomously during a
-   smoke test or a confound-isolating comparison, in the experiment's arm table with a
+   smoke test or a confound-isolating comparison, in the Arms table of `e###/setup.md` with a
    descriptive name, *before* reporting anything about it.
-12. **Write the result back** in three places: the topic file (Results, and Limitations and
-   what was not done; Takeaways only if interpretation was asked for), the experiment row
+12. **Write the result back** in three places: `e###/results.md` (a run section with its job
+   IDs and review state, a `Produced by:` line under every table, the Current results table,
+   Execution notes, and Limitations and what was not done; `interpretation.md` only if
+   interpretation was asked for), with any change to the design recorded in `setup.md`'s
+   Changes during execution, then the experiment row
    (Status, Effort actuals if they moved, and the one-line column, which states *what was
    measured* unless interpretation was requested), and the registry (Updated date, approved
-   job IDs, and any new HTML page in Links). Re-render the map with `scripts/render_map.py`. Append the producing job's ID to the experiment heading once that job
-   has finished and the user has approved its results. Run `scripts/check_map.py`. Disclose
+   job IDs, and any new HTML page in Links). Re-render the map with `scripts/render_map.py`. Append the producing job's ID to the
+   experiment heading once that job has finished and the user has approved its results. Run
+   `scripts/check_map.py` and `scripts/check_experiments.py`. When the status becomes Done,
+   or a rerun superseded a run, run the dashboard-checker
+   ([../skills/dashboard-checker/SKILL.md](../skills/dashboard-checker/SKILL.md)). Disclose
    any exception to a stated cross-cutting invariant in Cross-cutting notes. Don't let a
    necessary core-library fix pass silently because the plan said "no core-library changes".
 13. **A finding from a scratch analysis is written back like any other.** A test run from a
    scratch directory with nothing committed still produced a number the user may act on, so it
-   gets a home: its own `E###` if its design was new, otherwise a named subsection under the
-   experiment it re-analyses, with its setting block, its limitations and the path to the
+   gets a home: its own `E###` if its design was new, otherwise a run section in the `results.md`
+   of the experiment it re-analyses, with its setting block, its limitations and the path to the
    scratch script. Never end a turn offering to record it "if useful". Offer the
    *interpretation*, never the record. If you genuinely cannot place it, say where the script
    lives and that it is unfiled, so it stays findable.

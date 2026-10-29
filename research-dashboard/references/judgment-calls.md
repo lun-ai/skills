@@ -13,9 +13,11 @@ rather than deciding unilaterally when:
 - **A smoke test surfaced a finding that changes the planned scope**: "one config, or split
   into two step-budget variants?" If the split changes the design, the second variant becomes
   a new experiment with its own number.
-- **An experiment's detail has outgrown its section.** Propose the split into a companion
-  `_detail.md` (what moves, what stays, what it's called) rather than restructuring
-  unprompted.
+- **An old dashboard keeps setup and results inside topic files.** Propose moving them into
+  `e###/` files ([experiment-files.md](experiment-files.md)) rather than restructuring
+  unprompted. A sibling file inside an existing `e###/` folder is not a structural change.
+- **The checker found a mismatch between a document and the evidence.** Ask which side is
+  right before editing: the document may be wrong, or the run may have been launched wrongly.
 - **An experiment should move to a different topic, or two topics should merge.** The number
   stays the same, but the user navigates by topic.
 

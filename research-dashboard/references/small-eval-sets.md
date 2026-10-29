@@ -17,7 +17,7 @@ When inflation at your intended *k* approaches the floor, the set cannot referee
 iteration: selection alone manufactures a difference the size of the smallest one you would
 believe. Say so plainly and propose a split. Iterate on a larger in-distribution view, and
 **spend the small set once, at the end**, under an explicit consultation budget written into
-the experiment's section of the topic file ("this set may inform zero decisions before the
+the experiment's `setup.md`, under Decision rules ("this set may inform zero decisions before the
 final comparison"). A budget that is not written down erodes one glance at a time. Record the
 floor and budget in the registry's Attributes as well (`floor: 0.08 · budget: 1 look`), so
 they are visible on the dashboard.

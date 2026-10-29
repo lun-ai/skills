@@ -4,7 +4,8 @@ description: >
   Manage an ongoing multi-question research or engineering effort as a dashboard: a research
   map of every topic, implementation and experiment (one global experiment number, E001,
   E002, ..., shared across all topics, with timestamps and attributes), an experiment list,
-  and one detail file per topic. Covers rebuttals, feature investigations, technical
+  one file per topic, and separate setup, results and interpretation files per experiment,
+  with a checker that fact-checks setup and results against code and run artifacts. Covers rebuttals, feature investigations, technical
   probing/testing, or any work where a user has several open questions to answer by building
   something and running it. Use when a user has multiple open research questions to track
   together, asks to "make a plan" or "partition this into topics/areas", asks how much effort
@@ -15,6 +16,8 @@ description: >
   "smoke test this before the full run" and similar pre-scale-up validation requests, and for
   any empirical test run against an existing research effort, including offline re-analysis,
   re-scoring stored predictions, resampling and simulation, which are tests, not bookkeeping.
+  Also trigger to fact-check or verify an experiment's setup or results ("check E002", "is the
+  dashboard accurate"), and before a paper, report or blog post describes an experiment.
 ---
 
 # Research Dashboard
@@ -38,6 +41,10 @@ needs, listed under Routing below, not all of them.
   renumbered. `E007` means one thing everywhere: dashboard, topic file, chat, folder name,
   commit message. Arms, seeds and reruns live inside an experiment. A changed design gets a
   new number linked to its parent.
+- **Each experiment's setup, results and interpretation are separate files** in `e###/`
+  beside the dashboard, each linked from the registry. A write-up rebuilds the methods from
+  `setup.md`, the numbers from `results.md` and the claims from `interpretation.md`, and the
+  **dashboard-checker** sub-skill verifies the first two against the code and the runs.
 
 The documents:
 
@@ -47,10 +54,13 @@ DASHBOARD.md
   ## Experiments         ← one row per E###: question, status, effort, one-line result
   ## Topics              ← 2-4 sentences or E###-led bullets per topic, linking its file
   ## Cross-cutting notes
-<topic>.md               ← one per topic; one `## E### — <question>` section per experiment
-<topic>_e###_detail.md   ← only after the user agrees to a split
+<topic>.md               ← one per topic; per experiment: anchor, question, links, context
+e###/setup.md            ← the experiment as run; a Source for every value
+e###/results.md          ← one section per run; every table has a "Produced by:" line
+e###/interpretation.md   ← only once the user asks for interpretation
+e###/checks.md           ← fact-check log, written by the dashboard-checker
 pages/research-map.html  ← map page, generated from the registry by scripts/render_map.py
-pages/e###-<slug>.html   ← any other HTML page for an experiment, linked from its section
+pages/e###-<slug>.html   ← any other HTML page for an experiment, linked from results.md
 ```
 
 The map is an HTML page made with the **`answer-me-with-html`** skill (default). ASCII and
@@ -64,6 +74,9 @@ dashboard, never left in the CLI's default folder.
 | No dashboard exists yet; user hands over a batch of questions | [references/bootstrap-and-resume.md](references/bootstrap-and-resume.md), [templates/dashboard.md](templates/dashboard.md), [templates/topic-file.md](templates/topic-file.md) |
 | A dashboard exists; continue, check progress, update | [references/bootstrap-and-resume.md](references/bootstrap-and-resume.md) (Resume) |
 | Registering an experiment, numbering, drawing or updating the map | [references/research-map.md](references/research-map.md) |
+| Writing or updating an experiment's setup, results or interpretation file | [references/experiment-files.md](references/experiment-files.md), [templates/experiment-setup.md](templates/experiment-setup.md), [templates/experiment-results.md](templates/experiment-results.md), [templates/experiment-interpretation.md](templates/experiment-interpretation.md) |
+| User asks to check, verify or audit an experiment; or a trigger point in the checker is reached (write-up about to use E###, status becomes Done, a rerun supersedes a run) | [skills/dashboard-checker/SKILL.md](skills/dashboard-checker/SKILL.md) |
+| Old dashboard with setup and results inside topic files | Leave it; propose the move ([references/experiment-files.md](references/experiment-files.md#dashboards-that-keep-setup-and-results-in-topic-files)) |
 | Old dashboard with per-area `Q1, Q2` numbering | Leave it as it is; keep its scheme |
 | Making any HTML page for an experiment (report, explainer) | [references/reporting.md](references/reporting.md#html-pages), then the `answer-me-with-html` skill |
 | Designing, building, running, analysing one experiment | [references/work-loop.md](references/work-loop.md) |
@@ -80,6 +93,13 @@ directory and fix what they report:
 ```bash
 python3 <skill-dir>/scripts/render_map.py path/to/DASHBOARD.md   # rebuild pages/research-map.html and the Map section
 python3 <skill-dir>/scripts/check_map.py  path/to/DASHBOARD.md   # numbering, staleness, broken page links
+```
+
+After any edit to an `e###/` file, also run the structural check (no arguments checks every
+experiment):
+
+```bash
+python3 <skill-dir>/scripts/check_experiments.py path/to/DASHBOARD.md E007   # files, links, sources, produced-by lines
 ```
 
 `render_map.py` uses the CLI bundled with the sibling `answer-me-with-html` skill
@@ -105,11 +125,17 @@ These hold in every situation. Each links to its full rule.
    [reporting.md](references/reporting.md)
 6. **Descriptive names, never one-word stand-ins.** `E###` is the only bare symbol allowed.
    [naming.md](references/naming.md)
-7. **Write back before ending the turn**: topic file, experiment row, registry, and a
-   re-rendered map page. An answer
+7. **Write back before ending the turn**: `e###/results.md` (and `setup.md` if anything
+   changed during execution), experiment row, registry, and a re-rendered map page. An answer
    that only exists in chat is lost. [work-loop.md](references/work-loop.md) step 12
-8. **Structural changes are proposed, not made.** This covers partitions, splits and topic
-   moves. [judgment-calls.md](references/judgment-calls.md)
+8. **Structural changes are proposed, not made.** This covers partitions, topic moves and
+   moving an old dashboard to `e###/` files. [judgment-calls.md](references/judgment-calls.md)
+9. **Setup, results and interpretation stay in separate files**, and `setup.md` describes the
+   runs as they were actually run, with a source for every value.
+   [experiment-files.md](references/experiment-files.md)
+10. **Fact-check before a write-up uses an experiment**, and when it becomes Done, with the
+   dashboard-checker. It reports mismatches; documents are corrected only once the user says
+   which side is right. [skills/dashboard-checker/SKILL.md](skills/dashboard-checker/SKILL.md)
 
 <!--
 CHANGE LOG
@@ -132,4 +158,13 @@ the registry by scripts/render_map.py, replacing Mermaid; ASCII and Excalidraw a
 alternatives. Pages live in pages/ beside the dashboard and are linked from it; check_map.py
 reports stale map pages (map-source hash) and broken .html links. Migration of per-area
 dashboards dropped: old dashboards are left as they are.
+v6 2026-10-29: Per-experiment files. Each experiment gets e###/ beside the dashboard with
+setup.md (as run, Source column for every value, Changes during execution log), results.md
+(one section per run with review state, "Produced by:" under every table, limitations), and
+interpretation.md (only on request, each claim linked to its result). Topic-file sections keep
+only context and links; <topic>_e###_detail.md retired (large results go in a sibling file
+inside e###/). New sub-skill skills/dashboard-checker fact-checks setup against code and run
+artifacts and results against producing scripts, on request and automatically before
+write-ups and on Done; logs to e###/checks.md. New scripts/check_experiments.py for the
+structural layer; check_map.py skips e###/ files when scanning topic headings.
 -->

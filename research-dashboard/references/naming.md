@@ -36,4 +36,4 @@ artifacts line at the end of a section, not in the sentence carrying the finding
   ([work-loop.md](work-loop.md) step 11), with what it varies, what it holds fixed, and why it
   was added. An arm that exists only as a label in one chat message is the main source of the
   tracking problem this rule prevents. Once an experiment has more than about three arms, keep
-  the arm table as a glossary and point later reports at it instead of re-explaining the arms.
+  the Arms table in `e###/setup.md` as a glossary and point later reports at it instead of re-explaining the arms.

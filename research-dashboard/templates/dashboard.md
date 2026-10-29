@@ -3,7 +3,9 @@ Dashboard template. One per effort, usually DASHBOARD.md. Section order is fixed
 map first, then the experiment list, then topic summaries. render_map.py and check_map.py
 locate the sections by these exact headings, so keep them verbatim. Fill in the registry and
 the experiment list, then run render_map.py: it writes the ### Map section and the pages/
-files it links to. HTML pages for the effort live in pages/ beside this file.
+files it links to. HTML pages for the effort live in pages/ beside this file. Each experiment's
+setup, results and interpretation live in e###/ beside this file
+(references/experiment-files.md); link every one that exists from the registry's Links cell.
 -->
 # <Effort name> — Dashboard
 
@@ -26,7 +28,7 @@ Generated from the registry by `scripts/render_map.py`; do not edit the page or 
 |---|---|---|---|---|---|---|---|
 | topic:<slug> | topic | <Topic name> | — | <date> | <date> | data: <datasets, n> | [topic file](<topic>.md) |
 | impl:<slug> | implementation | <what it is> | — | <date> | <date> | code: <path> | [source](<path>) |
-| E001 | experiment | <descriptive name> | topic:<slug> | <date> | <date> | data: <set, split, n> · model: <backbone> · uses: impl:<slug> · from: — · jobs: — | [E001](<topic>.md#e001) |
+| E001 | experiment | <descriptive name> | topic:<slug> | <date> | <date> | data: <set, split, n> · model: <backbone> · uses: impl:<slug> · from: — · jobs: — | [topic](<topic>.md#e001) · [setup](e001/setup.md) · [results](e001/results.md) |
 
 ## Experiments
 

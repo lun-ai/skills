@@ -1,6 +1,6 @@
 <!--
 The empirical setting block: posted in chat before the first command of any empirical test,
-and kept in the experiment's "Setup and arms" section. Rules: references/setting-block.md.
+and kept in the experiment's e###/setup.md (references/experiment-files.md). Rules: references/setting-block.md.
 -->
 **Empirical setting — E### / <short descriptive name of the test>**
 

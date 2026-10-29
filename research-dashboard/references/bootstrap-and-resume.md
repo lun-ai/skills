@@ -5,15 +5,16 @@
 - **One dashboard** ([template](../templates/dashboard.md)), usually `DASHBOARD.md`: the
   research map, then the experiment list, then a short summary per topic. This is what the
   user reads to get oriented in five seconds.
-- **One topic file per topic** ([template](../templates/topic-file.md)): the detail
-  (mechanism, effort, results, limitations) for every experiment under that topic, in E#
-  order. Linked from the dashboard, never duplicated into it.
-- **Optional detail files** ([template](../templates/experiment-detail.md)), only once a split
-  has been agreed (see below).
+- **One topic file per topic** ([template](../templates/topic-file.md)): per experiment, in
+  E# order, the anchor, the question, links to its files and why it was asked. Linked from the
+  dashboard, never duplicated into it.
+- **One folder per experiment**, `e###/` beside the dashboard, with `setup.md`, `results.md`
+  and, on request, `interpretation.md` ([experiment-files.md](experiment-files.md)). Created
+  when the experiment enters design; linked from the registry and the topic-file section.
 
-The dashboard's one-line result and the topic file must agree. The one-line result is the
-compressed version of the experiment's Results (or of its Takeaways, where interpretation was
-requested), not a different claim. This is the one sanctioned duplication. It is not an
+The dashboard's one-line result and `e###/results.md` must agree. The one-line result is the
+compressed version of the Current results table (or of `interpretation.md`, where
+interpretation was requested), not a different claim. This is the one sanctioned duplication. It is not an
 exception to the redundancy rules, which target *unintentional* restatement.
 
 ## Bootstrap: partition questions into topics
@@ -57,19 +58,18 @@ sections outside the experiments you were asked about.
 If the dashboard predates global numbering (per-area `Q1, Q2...`, no research map), leave it
 as it is and keep working in its existing scheme.
 
-Then do one iteration of the work loop, and write results back into the topic file, the
-experiment row and the registry (Updated date, approved job IDs), and re-render the map page,
-before ending the turn. An experiment
-is not "done" until all three are updated. An answer that only exists in chat is lost the
+Then do one iteration of the work loop, and write results back into `e###/results.md` (and
+`e###/setup.md` if anything changed during execution), the experiment row and the registry
+(Updated date, approved job IDs, links), and re-render the map page, before ending the turn.
+An experiment is not "done" until all three are updated and the dashboard-checker has run on
+it. An answer that only exists in chat is lost the
 moment the session ends.
 
-## When an experiment's detail outgrows its section
+## When an experiment's results outgrow one file
 
-When an experiment's own detail outgrows its section (many per-run tables, confusion matrices,
-per-class breakdowns, raw per-item numbers), the usual fix is a companion
-`<topic>_e###_detail.md`. Link it from the experiment's section ("Full numbers: [...]") and
-link back up from the top of the companion file. **Propose the split rather than doing it
-unprompted.** It changes the structure the user navigates, and they may prefer a different
-split point, a different file, or no split at all.
-[writing-discipline.md](writing-discipline.md) covers when a split is warranted and what moves
-once agreed.
+Per-run tables, confusion matrices, per-class breakdowns and raw per-item numbers go in a
+sibling file inside the experiment's folder (`e007/per-item.md`), linked from the run's
+section of `results.md`. The folder already belongs to the experiment, so this needs no prior
+agreement; say in chat that you did it. Dashboards from before the `e###/` layout keep their
+`<topic>_e###_detail.md` files; see
+[experiment-files.md](experiment-files.md#dashboards-that-keep-setup-and-results-in-topic-files).

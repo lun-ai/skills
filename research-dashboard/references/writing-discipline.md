@@ -117,7 +117,7 @@ autonomously mid-run.
   other way around.
 - **Register before you report.** An arm you spun up yourself — a smoke-test variant, a
   confound-isolating third comparison point, a follow-up run — goes into the experiment's
-  "Setup and arms" table (name, what it varies, what it holds fixed, why it was added) before
+  Arms table in `e###/setup.md` (name, what it varies, what it holds fixed, why it was added) before
   it appears in any result. An arm that exists only as a label in one chat message is exactly
   what makes side arms untrackable.
 
@@ -135,13 +135,13 @@ structurally separate, not just stylistically distinct:
   interpretation — even if true, it doesn't belong in the same bullet as the number. Report the
   measurement plainly; don't wrap it in an evaluative lead-in.
 - **Interpretation lives in exactly one place per question: a dedicated section at the end**
-  (the `Takeaways` section in the topic-file template, or a topic-level synthesis if the
+  (the experiment's `e###/interpretation.md`, or the topic file's Topic synthesis if the
   interpretation spans experiments) — **and that section is written only when the user has asked
-  for interpretation.** Leave it absent otherwise; an empty or omitted Takeaways on a question
+  for interpretation.** Leave it absent otherwise; an absent `interpretation.md` on a question
   whose Results are complete is the correct state, not an unfinished one. Don't scatter "this suggests...", "likely because...",
-  "probably driven by..." language through the Results section — collect it in Takeaways
+  "probably driven by..." language through `results.md` — collect it in `interpretation.md`
   instead, so a reader can find every interpretive claim in one spot and weigh it as such.
-- **Use interpretation sparingly.** Takeaways should hold the 1-3 claims a reader actually needs
+- **Use interpretation sparingly.** `interpretation.md` should hold the 1-3 claims a reader actually needs
   in order to act — not a running commentary on every row of a table. If every result seems to
   need its own explanatory sentence, that usually means the table needs a clearer shape, not
   more prose.
@@ -161,7 +161,7 @@ something a reader can skim. This is a routine failure mode, not an edge case �
 every time you write results back, not just when a document has visibly become unreadable.
 
 - **Reach for structure once a paragraph is carrying more than a couple of distinct facts.**
-  A topic summary or a Takeaways block that narrates one finding per done experiment inside a
+  A topic summary or an interpretation that narrates one finding per done experiment inside a
   single run-on paragraph is the same failure as the caveat/setup duplication below, just at
   the sentence level — the reader has to parse a wall of text to pull out facts that would be
   obvious as a list. Once a paragraph would need more than about 3-4 sentences to say
@@ -207,8 +207,8 @@ every time you write results back, not just when a document has visibly become u
   State each fact once. Don't restate a number that's already in a table as a sentence of prose
   saying the same thing, don't repeat the same caveat or setup context in multiple places in
   the same document, and don't let the dashboard drift into holding content beyond its
-  sanctioned one-line compression of the topic file (cap the one-line result at about 40
-  words; anything longer belongs in the topic file). Every repeated fact is one more place a
+  sanctioned one-line compression of `e###/results.md` (cap the one-line result at about 40
+  words; anything longer belongs in `results.md`). Every repeated fact is one more place a
   future edit can drift out of sync with the others.
 - **Extend the existing table, don't clone the section.** If a new run answers the same
   question with one more variable held constant (same protocol, new backbone; same protocol,
@@ -219,19 +219,16 @@ every time you write results back, not just when a document has visibly become u
   (e.g., "single pass, no repeats", "batch-wise not independent"), state it once, and reference
   it by name in later findings ("see caveat above") rather than re-writing the paragraph each
   time a new run is added.
-- **Budget roughly one screen per experiment in the topic file** (~30-40 lines): a short setup
-  note, one results table, a handful of bullet findings, one caveats list, one
-  rebuttal-framing quote if applicable, one artifacts line.
-- **When writing back a new result would push a section past that budget, raise it with the
-  user before splitting** — don't split unprompted (this is a judgment call, see
-  [judgment-calls.md](judgment-calls.md)). Say what you'd move (e.g. confusion matrices, per-run tables) into a
-  companion `<topic>_e###_detail.md`, what stays (comparison table, compressed findings, a
-  one-line pointer to the detail file), and let them confirm or redirect before you restructure
-  the document.
+- **Keep each topic-file section short** (a links line and a context paragraph): the setup,
+  the numbers and the interpretation live in `e###/`, never in the topic file.
+- **Keep `results.md` readable**: the Current results table, then one section per run with
+  its table and a few bullet findings, one caveats list, one artifacts line. When per-run
+  tables, confusion matrices or per-item numbers make it long, move them into a sibling file
+  in the same `e###/` folder, linked from the run's section, and say in chat that you did.
 - **Before adding to a question you didn't just answer for the first time, read its current
   length first.** If it already reads dense, flag that to the user and propose a consolidation
-  (merge duplicate caveats, fold repeated setup paragraphs into one, move numeric detail to a
-  companion file) before writing the new result in. Don't wait for the user to flag it as
+  (merge duplicate caveats, fold repeated setup paragraphs into `setup.md`, move numeric
+  detail to a sibling file in `e###/`) before writing the new result in. Don't wait for the user to flag it as
   dense; treat that feedback, once given, as a standing bar to hold on every future edit — but
   the cleanup itself, if it involves restructuring into new files, is still something to
   propose, not just do.

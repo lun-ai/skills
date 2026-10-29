@@ -94,9 +94,12 @@ current registry and statuses.
   five words: `from: E001 (reuses tree v6), E004`), `jobs` (approved job IDs only, see
   [background-jobs.md](background-jobs.md)), `cost`, `owner` (only when work streams are
   split between people).
-- **Links**: the experiment's stable anchor in its topic file (`topic.md#e007`), its HTML
-  report page if it has one (`pages/e007-signor-full.html`), the code folder, or the
-  implementation's source file.
+- **Links**: for an experiment, its stable anchor in its topic file (`topic.md#e007`) and
+  each of its files that exists (`e007/setup.md`, `e007/results.md`,
+  `e007/interpretation.md`; see [experiment-files.md](experiment-files.md)), its HTML report
+  page if it has one (`pages/e007-signor-full.html`) and the code folder. For an
+  implementation, its source file. `check_experiments.py` reports an `e###/` file that exists
+  but is not linked.
 - Keep `,`, `:`, `|`, brackets and `*` out of Names: the map page uses Names as node text, and
   `render_map.py` strips those characters.
 
@@ -174,6 +177,7 @@ Change the registry and the experiment list in the same edit as the underlying f
 | Design agreed, run started, finished, abandoned | bump Updated | change Status | — |
 | New arm or rerun inside an experiment | bump Updated; add approved job IDs | — | — |
 | New HTML page for an experiment | add it to Links | — | — |
+| `setup.md`, `results.md` or `interpretation.md` created | add it to Links | — | — |
 | Experiment moved to another topic | change Topic | change Topic | — |
 
 ```bash

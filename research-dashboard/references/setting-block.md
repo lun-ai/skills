@@ -7,7 +7,10 @@ number exists to argue about. Writing it is also the cheapest design review ther
 you cannot fill in is a test you have not finished designing.
 
 Template: [../templates/setting-block.md](../templates/setting-block.md). Head it with the
-experiment number, `E### / <test name>`, so the block can be matched to its map node.
+experiment number, `E### / <test name>`, so the block can be matched to its map node. For a
+new experiment, the agreed block becomes the first version of `e###/setup.md`
+([experiment-files.md](experiment-files.md)); for a test inside an existing experiment, its
+differences from `setup.md` open the run's section in `results.md`.
 
 ## What counts as an empirical test
 
