@@ -40,6 +40,11 @@ figure copied from the project.
 **The caption** has at most one clause on how to read anything the figure could not label, then what
 to see. If it is mostly definitions, move them onto the axes.
 
+**Text comes first.** When a figure explains a result, the paragraph explaining it sits directly
+above the figure: what was measured and what to look for, then the figure, then the caption beneath
+it. The reader never meets a chart before knowing why it is there. Prose after the figure may build
+on it, but does not introduce it.
+
 **The cold read.** View the rendered figure and cover the caption and the prose. Pick one mark and
 say in a full sentence what it means ("in quarter 20, Gemma without thinking had drifted about 0.8
 from the profit goal, where 1 means..."). If you cannot, or you need a word that only the methods
@@ -103,6 +108,7 @@ looked into for each issue."
   `ylabel`, a lines chart with no `xlabel`, or an unlabelled `ref`; a chart made with another tool
   has no such check, so read those by eye.
 - One idea per figure. Split a figure making two points.
+- The explaining text sits above the figure, not only below it.
 - Count the words: a diagram over ~40 words, or a label over four words, is too busy. Cut it. Axis
   titles do not count.
 - Colours follow the post template (`--s1` sienna, `--s2` slate blue, `--s3` olive, `--s0` grey).

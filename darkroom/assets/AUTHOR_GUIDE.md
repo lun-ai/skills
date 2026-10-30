@@ -59,6 +59,7 @@ caption: Objections helped true claims a little and broke false ones.
 - `<!-- svg: fig/name.svg | caption -->` inlines an SVG file, for charts made with another tool.
 - Keep text inside figures to a minimum: no titles, short labels, but keep the axis titles. The
   figure says how to read it; the caption says what to see.
+- Put the text explaining a result above its figure, with the caption beneath the figure.
 - Each post opens on a question map (`fig/<name>.png`). To change it, edit `fig/<name>.toml`
   (question, branches, short lines) and ask for a rebuild, or nudge `fig/<name>.excalidraw` on
   excalidraw.com and export the PNG over the old one.
