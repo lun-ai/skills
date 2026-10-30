@@ -86,7 +86,7 @@ together.
 
 | Skill | Description |
 |---|---|
-| [darkroom](./darkroom/) | Develop a project's notes and results into a linked blog series the author edits in markdown, with minimal-text figures. |
+| [darkroom](./darkroom/) | Develop a project's notes and results into a linked blog series the author edits in markdown, with minimal figures whose axes are explained in plain language. |
 | [nature:paper2ppt](./nature/skills/paper2ppt/) | Turn a paper, preprint, or reading notes into a Chinese PPTX deck for journal clubs, group meetings, or talks. |
 
 ### Engineering & Prototyping

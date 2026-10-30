@@ -30,7 +30,7 @@ page, a meta line, a question for a title, and prose carrying the results.
   with its dates in the heading**:
   `## 4. Steering the model's internal state (6–12 Sep 2026)`.
 - Paragraphs, not bullets. Each step's key result sits in **one** plain table or **one** chart,
-  with a caption that says what to see. Most sections need neither.
+  with axes a newcomer can read and a caption that says what to see. Most sections need neither.
 - Unfinished work: `status: unfinished`, and a short closing teaser rather than a result.
 - A `## References` list, the series cards, and one link to the public repo in the footer.
 
@@ -70,7 +70,8 @@ author knows the reasoning has a `<!-- YOUR THINKING -->` prompt.
 ## 4. Make the figures
 
 Follow [references/figures.md](references/figures.md). Every figure is simple and minimal: few
-marks, few words, the series palette, nothing decorative.
+marks, few words, the series palette, nothing decorative. Minimal never costs the readout: every
+data chart names its axes in plain language, so a reader can make their own observations from it.
 
 First, one **question map** per post, drawn with `scripts/mindmap.py`: the post's question in
 the centre, 3 to 7 one- or two-word concepts around it, one or two short concrete lines under
@@ -80,7 +81,7 @@ excalidraw-diagram or answer-me-with-html.
 
 Done when each post opens on a question map whose branches the sections answer, each figure makes
 one point, carries no title or source text, has a caption saying what to see, and matches the
-numbers in the text.
+numbers in the text, and each data chart passes the cold read in references/figures.md.
 
 ## 5. Print
 
@@ -108,6 +109,8 @@ call to decide.
 
 <!--
 CHANGE LOG
+v3 2026-10-30: readout rules and cold read replace "no axis titles"; ylabel/xlabel on chart blocks,
+  and the build fails an unreadable chart block. The author found figures hard to read without them.
 v2 2026-10-27: question map (mindmap.py) as each post's opening figure, abstraction ladder,
   minimal-figure limits; taken from the metacognition-drift series maps the author liked.
 Outstanding minor issues: mindmap.py has no top slot (max 7 branches); text widths are estimated.

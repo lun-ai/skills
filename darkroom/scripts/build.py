@@ -14,6 +14,7 @@ import math
 import re
 import shutil
 import sys
+import textwrap
 import tomllib
 from datetime import date
 from pathlib import Path
@@ -24,8 +25,8 @@ SERIES_CLS = ["s1", "s2", "s3", "s4", "s0"]
 
 
 # ------------------------------------------------------------------ chart primitives
-# Minimal text by design: no chart titles, no axis titles unless asked, tick labels only,
-# a legend only when there is more than one series. The caption carries the message.
+# Minimal marks, clear readouts: no chart titles, a legend only when there is more than one
+# series, and axes named in plain words. The caption carries the message, not the axis definitions.
 
 def _t(x, y, s, cls="tick", anchor="start"):
     return f'<text class="{cls}" x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}">{html.escape(str(s))}</text>'
@@ -51,6 +52,32 @@ def _ticks(lo, hi, target=5):
     return best[1], best[2]
 
 
+def _axis_space(spec):
+    """Wrapped y-axis title lines, and the height they and the x-axis title add to the chart."""
+    ylines = textwrap.wrap(spec.get("ylabel", ""), 100)
+    return ylines, 18 * len(ylines), 20 if spec.get("xlabel") else 0
+
+
+def _axis_titles(spec, ylines, h):
+    """The y-axis title reads horizontally above the plot, so nobody tilts their head."""
+    p = [_t(0, 13 + 18 * i, line, "axis") for i, line in enumerate(ylines)]
+    if spec.get("xlabel"):
+        p.append(_t(360, h - 3, spec["xlabel"], "axis", "middle"))
+    return p
+
+
+def _unread(spec, x_required):
+    """What stops a reader taking a value off this chart; `check` fails the post on it."""
+    gaps = []
+    if not spec.get("ylabel"):
+        gaps.append("ylabel")
+    if x_required and not spec.get("xlabel"):
+        gaps.append("xlabel")
+    if any(not label for _, label in spec.get("ref", [])):
+        gaps.append("ref label")
+    return f' data-unread="{", ".join(gaps)}"' if gaps else ""
+
+
 def _legend(series):
     if len(series) < 2:
         return ""
@@ -71,12 +98,13 @@ def chart_bars(spec):
     groups = [g.strip() for g in spec["groups"].split(",")]
     series = [(n, SERIES_CLS[i % len(SERIES_CLS)], _nums(v)) for i, (n, v) in enumerate(spec["series"])]
     lo, hi = _nums(spec.get("y", "")) or [0, max(max(v) for _, _, v in series) * 1.15]
-    w, h = 720, int(spec.get("height", 260))
-    left, right, top, bot = 48, w - 12, 18, h - 34
+    ylines, ypad, xpad = _axis_space(spec)
+    w, h = 720, int(spec.get("height", 260)) + ypad + xpad
+    left, right, top, bot = 48, w - 12, 18 + ypad, h - 34 - xpad
     Y = lambda v: bot - (v - lo) / (hi - lo) * (bot - top)
     gw = (right - left) / len(groups)
     bw = min(46, gw * 0.72 / len(series))
-    p = []
+    p = _axis_titles(spec, ylines, h)
     ticks, step = _ticks(lo, hi)
     for v in ticks:
         p.append(f'<line class="grid" x1="{left}" x2="{right}" y1="{Y(v):.1f}" y2="{Y(v):.1f}"/>')
@@ -96,7 +124,7 @@ def chart_bars(spec):
                 p.append(_t(x + (bw - 3) / 2, Y(v) - 5, _fmt(v), "val", "middle"))
             x += bw
         p.append(_t(cx, bot + 20, g, "tick", "middle"))
-    svg = f'<svg class="chart" viewBox="0 0 {w} {h}" role="img" aria-label="{html.escape(spec.get("caption", "bar chart"))}">{"".join(p)}</svg>'
+    svg = f'<svg class="chart" viewBox="0 0 {w} {h}" role="img"{_unread(spec, False)} aria-label="{html.escape(spec.get("caption", "bar chart"))}">{"".join(p)}</svg>'
     return _figure(svg, spec.get("caption", ""), _legend(series))
 
 
@@ -112,17 +140,18 @@ def chart_lines(spec):
     allv = [v for _, ser in panels for _, vals in ser for v in _nums(vals)]
     lo, hi = _nums(spec.get("y", "")) or [min(allv) * 0.95, max(allv) * 1.05]
     n = len(panels)
-    w, h = 720, int(spec.get("height", 280))
+    ylines, ypad, xpad = _axis_space(spec)
+    w, h = 720, int(spec.get("height", 280)) + ypad + xpad
     gap, left0 = 40, 50
     pw = (w - left0 - 12 - gap * (n - 1)) / n
-    top, bot = 26 if any(t for t, _ in panels) else 12, h - 34
+    top, bot = (26 if any(t for t, _ in panels) else 12) + ypad, h - 34 - xpad
     Y = lambda v: bot - (v - lo) / (hi - lo) * (bot - top)
-    p = []
+    p = _axis_titles(spec, ylines, h)
     for i, (title, ser) in enumerate(panels):
         x0 = left0 + i * (pw + gap)
         X = lambda j, x0=x0: x0 + 16 + j * (pw - 32) / max(1, len(xs) - 1)
         if title:
-            p.append(_t(x0, 14, title, "label"))
+            p.append(_t(x0, 14 + ypad, title, "label"))
         ticks, step = _ticks(lo, hi)
         for v in ticks:
             p.append(f'<line class="grid" x1="{x0}" x2="{x0 + pw:.1f}" y1="{Y(v):.1f}" y2="{Y(v):.1f}"/>')
@@ -139,9 +168,7 @@ def chart_lines(spec):
             c = cls_of[name]
             p.append(f'<polyline class="line {c}" points="{" ".join(f"{X(j):.1f},{Y(v):.1f}" for j, v in enumerate(pts))}"/>')
             p += [f'<circle class="dot {c}" cx="{X(j):.1f}" cy="{Y(v):.1f}" r="3.6"/>' for j, v in enumerate(pts)]
-    if spec.get("xlabel"):
-        p.append(_t(w / 2, h - 2, spec["xlabel"], "tick", "middle"))
-    svg = f'<svg class="chart" viewBox="0 0 {w} {h}" role="img" aria-label="{html.escape(spec.get("caption", "line chart"))}">{"".join(p)}</svg>'
+    svg = f'<svg class="chart" viewBox="0 0 {w} {h}" role="img"{_unread(spec, True)} aria-label="{html.escape(spec.get("caption", "line chart"))}">{"".join(p)}</svg>'
     return _figure(svg, spec.get("caption", ""), _legend([(nm, cls_of[nm]) for nm in names]))
 
 
@@ -281,6 +308,8 @@ def check(page, src, root):
     for img in re.findall(r'<img src="([^"]+)"', page):
         if not img.startswith(("http", "data:")) and not (root / img).exists():
             problems.append(f"missing figure {img}")
+    for gaps in re.findall(r'data-unread="([^"]+)"', page):
+        problems.append(f"chart without {gaps}")
     print(f"  {src}: " + ("ok" if not problems else "CHECK " + "; ".join(problems)))
     return not problems
 
