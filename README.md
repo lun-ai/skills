@@ -11,7 +11,7 @@
 
 ## Repository Overview
 
-This repository currently provides **44 skills**, organized into the
+This repository currently provides **45 skills**, organized into the
 following groups. Each skill is a self-contained package: its directory
 contains a `SKILL.md` with the core workflow and usage rules, plus any
 supporting `references/`.
@@ -75,6 +75,7 @@ together.
 | [decision-mapping](./decision-mapping/) | Turn a loose idea into a sequenced map of investigation tickets, then drive them to resolution one at a time. |
 | [explain-concept](./explain-concept/) | Explain a complex or technical concept in an easy-to-understand way using a fable or toy story. |
 | [framework-design-alternatives](./framework-design-alternatives/) | Brainstorm alternative architectures for a software framework, library, SDK, or protocol, with trade-offs for each option. |
+| [grill-experiment](./grill-experiment/) | Interview that walks an experimental design through fourteen aspects, from prior beliefs to decision rules, until each is settled or open. |
 | [grill-me](./grill-me/) | Stress-test a plan or design through a relentless structured interview. |
 | [grill-with-docs](./grill-with-docs/) | Stress-test a plan through a relentless interview while producing ADRs and a glossary along the way. |
 | [grilling](./grilling/) | Interview the user relentlessly about a plan or design before building starts. |
