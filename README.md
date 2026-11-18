@@ -11,7 +11,7 @@
 
 ## Repository Overview
 
-This repository currently provides **45 skills**, organized into the
+This repository currently provides **46 skills**, organized into the
 following groups. Each skill is a self-contained package: its directory
 contains a `SKILL.md` with the core workflow and usage rules, plus any
 supporting `references/`.
@@ -54,6 +54,7 @@ together.
 | [nature:academic-search](./nature/skills/academic-search/) | Multi-source literature search, citation verification, and reference management (PubMed, CrossRef, arXiv, Scopus, BibTeX/RIS conversion). |
 | [nature:citation](./nature/skills/citation/) | Add strict Nature/CNS-family citations to manuscript text, splitting passages into segments and exporting reference-manager files. |
 | [nature:reader](./nature/skills/reader/) | Build full-paper Chinese-English side-by-side, figure/table-aware Markdown readers from a paper's PDF, DOI, or text. |
+| [paper-library](./paper-library/) | Keep a local library of papers as parsed markdown with comparable notes and a generated topic index, and find research gaps against it on demand. |
 | [paper-summarizer](./paper-summarizer/) | Summarize research papers with precise location references so readers can quickly find core ideas and navigate to relevant parts. |
 
 ### Manuscript Pipeline & Data

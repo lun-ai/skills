@@ -24,6 +24,7 @@ categories:
       - nature:academic-search
       - nature:citation
       - nature:reader
+      - paper-library
       - paper-summarizer
   - name: "Manuscript Pipeline & Data"
     skills:
