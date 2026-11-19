@@ -1,6 +1,6 @@
 ---
 name: darkroom
-description: Develop a technical project's notes, plans and results into a blog post or a series of linked posts that the author keeps editing in markdown. Use when the user wants to turn research or engineering work into a blog, write up what they tried, or says "rebuild" on an existing darkroom series.
+description: Develop a technical project's notes, plans and results into a blog post or a series of linked posts that the author keeps editing in markdown. Use when the user wants to turn research or engineering work into a blog, write up what they tried, or says "rebuild" on an existing darkroom series. Also when the user wants slides, a talk or a presentation built or revised as a deck they edit in the browser, with or without an existing PowerPoint or Google Slides deck to start from.
 ---
 
 # Darkroom
@@ -17,6 +17,11 @@ uv run --no-project --with markdown==3.7 python "$SKILL_DIR/scripts/build.py" <s
 
 **Resume first.** If a `blog.toml` for this work exists (check memory and the project), skip to
 step 6.
+
+**Slides, not a post?** When the request is for a deck, a talk or a presentation, or names a
+`.pptx` or Google Slides file, follow [skills/slides/SKILL.md](skills/slides/SKILL.md) instead of
+the steps below. It works on its own, and after a series exists it reuses the series' negatives
+and figures.
 
 ## The post
 
@@ -111,6 +116,8 @@ call to decide.
 
 <!--
 CHANGE LOG
+v5 2026-11-19: skills/slides now builds a browser-edited web deck (Slides artifact), exported to .pptx at the end.
+v4 2026-11-18: new sub-skill skills/slides (markdown deck -> template-styled .pptx / Google Slides).
 v3 2026-10-30: readout rules and cold read replace "no axis titles"; ylabel/xlabel on chart blocks,
   and the build fails an unreadable chart block. The author found figures hard to read without them.
   Explaining text goes above its figure, made explicit at the author's request.
