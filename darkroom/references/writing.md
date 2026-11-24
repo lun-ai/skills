@@ -44,7 +44,8 @@ Read before drafting and before every edit pass. Every rule here was a correctio
 ## References
 
 - **No code in posts.** No file paths, line numbers, script, plan or job names, "Source:" captions
-  or row IDs. One link to the public repo, in the footer and where the project is first named.
+  or row IDs. The exception is the experiment number (`E004`): it stays on the idea map and where a
+  section reports that experiment, so the author can track it. One link to the public repo, in the footer and where the project is first named.
 - **Citations are checked, never recalled.** Take metadata from the project's own bibliography,
   the DOI or ACL Anthology page, arXiv, or the publisher. If a page cannot be read, keep the
   author's link and leave an unpublished TODO for the title. Do not guess.

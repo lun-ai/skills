@@ -50,45 +50,92 @@ say in a full sentence what it means ("in quarter 20, Gemma without thinking had
 from the profit goal, where 1 means..."). If you cannot, or you need a word that only the methods
 explain, fix the figure.
 
-## The question map (one per post)
+## The idea map (one per post)
 
-Every post opens on a radial map of its own question, placed at the end of the undated opening
-section, right after the paragraph that poses the question (no other figure comes before the
-first numbered section). The author liked these for their **level of abstraction**: three levels,
-each one step more concrete than the last.
+Every post opens on a map that places it in the series, at the end of the undated opening section,
+right after the paragraph that poses the question (no other figure comes before the first numbered
+section). The author wants it for **continuity**: a reader coming from the previous post should see
+at once how this one follows from it, instead of having to load a new mental context. This matters
+most when explaining the work to people.
 
-| Level | What goes there | Example (probe post) |
+**It is a graph, not a list.** Think of the commit graph of a codebase. Time runs left to right,
+one band per post, and the current post's band is tinted. Each node is one idea or experiment, and
+a lane is a thread of work. The shape tells the story, so a reader sees it before reading a word:
+
+| What happened | How it is drawn | In the spec |
 |---|---|---|
-| Centre | the post's `#` title question, shortened to ≤ 2 lines of ≤ 22 chars | What could go wrong with the probe? |
-| Branch | a concept named in one or two words: a noun, never a sentence | Labels · Sign · Transfer · Memory |
-| Detail | one or two lines that make it concrete: the worry, the setup, the model names | needs ground truth? |
-| → line (optional) | what the work did about it, or `open`; drawn in the branch colour | → contrast pairs |
+| One idea led to the next | a line along a lane | `after = ["id"]` |
+| The work split into two threads | a line stepping to another lane | `after` plus a different `lane` |
+| Two threads fed one experiment | two lines meeting at a node | `after = ["a", "b"]` |
+| An idea held up | a filled node with a tick | `status = "held"` |
+| An idea was refuted, a dead end | a filled node with a cross, and no line onward | `status = "refuted"` |
+| An idea was replaced by a better version | a dashed ring, and a dashed arrow into the idea that replaced it | `status = "revised"`, and `revises = "id"` on the new idea |
+| A question is not settled yet | a ring with a question mark | `status = "open"` |
+| A result sent the work back to an earlier idea | a dashed arrow arcing back | `back_to = "id"` |
+| The ideas this post is about | a dark ring around each node, inside the tinted band | nodes of the last `[[page]]` |
+| How belief moved | a meter filled to the credence now, with a tick at the credence before | `credence`, `credence_was` |
 
-- **3 to 7 branches**, read anticlockwise from top-left. Each numbered section should answer one
-  or more branches; a branch nobody answers is either cut or shown with `→ open`.
-- **Colour groups the branches by role**, not by decoration: at most three groups
-  (`group = 1` sienna, `2` slate, `3` olive), such as *why / how / where tested*, or *done /
-  partly / open*. Neighbouring branches of a group sit next to each other.
-- **Use a → line** when the post is about issues and responses (a planning or "what could go
-  wrong" post). Leave it out when the post is about scope (why, definition, models).
-- No numbers, citations, paths or internal names in a map. Model names are fine.
+**Show first, write last**, the way a paper's abstract gives an easy way in with very little text.
+Before writing any words on a map, ask whether a mark, a line or the position already says it:
 
-✓ `Labels` / `needs ground truth?` / `→ contrast pairs`
-✗ `Label requirement for CCS-style probe training` / `Burns et al. 2022 showed...`
+- **A node carries a name, never a sentence**: one to four words, in the words the posts use for
+  it (`Linear probe`, `Long run`). The earlier posts already explained it, and the mark shows how
+  it turned out.
+- **A node carries its experiment number** (`exp = "E004"`) whenever the project numbers its
+  experiments, as the research-dashboard skill does. The author wants it as a callback to the
+  experiment they remember and as a tracker across posts. Use the project's own number exactly,
+  give a range for a node that covers several runs (`E004-E006`), leave it off an idea that was
+  never run, and never invent a number. The same number appears where the post's section reports
+  that experiment, so the map and the text point at each other.
+- **Full sentences are kept for the two things no mark can say**, both about the current post
+  only: the question it asks (1 or 2) and the result that would refute it (1 or 2). Each is one
+  complete, short sentence of at most 110 characters, never a fragment or a noun label.
+- Nothing else is written: no "what this post does" line (the tinted band and the lines into it
+  say that), no list of focuses (they are the ringed nodes), no reason for the credence (the post
+  gives it), no numbers besides the credence and the experiment numbers, no citations, paths or
+  other internal names.
+
+✓ node `Steer middle layers` with a tick · question `Does the steered goal still hold at the end of a long run?`
+✗ node `Steering along the probe direction changed what the model chose` · question `Long-run stability`
+
+What goes in:
+
+- **Only the ideas the current post builds on or answers**, plus the dead ends and revisions that
+  explain why the work took this path. At most 12 nodes, 7 columns and 3 lanes; an earlier post
+  usually shrinks to one to three nodes. The map stops at the current post: nothing from later
+  posts.
+- **The same idea keeps the same id, name and lane in every post's map**, so the series reads as
+  one growing graph. Each map is the previous one plus this post's band, with older detail trimmed.
+  A node's status is what the reader knows by the end of the current post, so an idea shown open
+  in its own post turns to held or refuted in the next one's map.
+- **A map with no branch, dead end, revision or loop is suspect.** Work rarely runs in a straight
+  line; go back to the retrospective for what was tried and dropped before accepting one lane.
+  Never invent a branch to make a map look richer: every node and line traces to the record.
+- The first post may open with a band labelled `Before`, holding the one or two ideas the work
+  started from.
+- **A refuting condition is a result that could have come out**, stated so a reader could check it
+  against the post's own figures. "The idea fails if the results are bad" refutes nothing.
+- **Credence belongs to the author**, like the refuting conditions: take them from the record (a
+  plan file, a decision note) or ask. Never guess. A percentage draws the meter; a word such as
+  `likely` is shown as text.
 
 Draw it:
 
 ```
-# fig/<name>.toml  (format in the header of scripts/mindmap.py)
-python3 "$SKILL_DIR/scripts/mindmap.py" fig/<name>.toml          # -> fig/<name>.excalidraw
+# fig/<name>.toml  (format in the header of scripts/ideamap.py)
+python3 "$SKILL_DIR/scripts/ideamap.py" fig/<name>.toml          # -> fig/<name>.excalidraw
 cd <excalidraw-diagram skill>/references && uv run python render_excalidraw.py <abs path>.excalidraw
 ```
 
-`mindmap.py` fixes the layout, font (monospace), sizes and palette to match the posts, and warns
-on long lines and names; fix every warning. View the PNG before it goes in. Commit the `.toml`,
-the `.excalidraw` (the author can open and nudge it on excalidraw.com) and the `.png`. Caption:
-what the map lays out, in one sentence, e.g. "What could go wrong with the probe, and what we have
-looked into for each issue."
+`ideamap.py` places the nodes, routes the lines, fixes the font (monospace), sizes and palette to
+match the posts, and adds a key for the marks used. It warns on a line running through a node
+(move one to another lane), names that are sentences, experiment numbers that wrap, sentences that are labels, too many nodes
+and a missing credence; fix every warning. Then view the PNG and give it the cold read: cover the
+text strip and say, from the drawing alone, what was tried, what failed, what was revised and what
+this post takes on. If you cannot, fix the lanes or the statuses, not the wording. Commit the
+`.toml`, the `.excalidraw` (the author can open and nudge it on excalidraw.com) and the `.png`.
+Caption: one sentence on what the map shows, e.g. "How the long-run test follows from the first
+two posts, and what would prove it wrong."
 
 ## Which tool
 
@@ -96,8 +143,8 @@ looked into for each issue."
 |---|---|---|
 | Bars, lines, dose curves, small multiples | built-in `chart` block (see AUTHOR_GUIDE.md) | inline SVG; the data stays editable in the markdown |
 | Any richer data chart: scatter, heatmap, dumbbell, distribution, waterfall | **lieflat-charts** skill: chart mode, Mono palette unless the series needs colour, a pure-SVG template | extract the `<svg>` into `fig/name.svg`, delete its title, subtitle and source text, keep or add the axis titles, then `<!-- svg: fig/name.svg \| caption -->` |
-| The post's question map | `scripts/mindmap.py`, then the excalidraw-diagram renderer | `![caption](fig/name.png)` |
-| A mechanism, pipeline, architecture or a before/after concept | **excalidraw-diagram** skill, in its default simple and sparse mode, with the map's style: `roughness: 0`, `fontFamily: 3`, background `#fffdf9`, the `--s1/--s2/--s3` colours, grey `#aaa498` connectors, ≤ 8 nodes | render to PNG with its renderer into `fig/name.png`, then `![caption](fig/name.png)` |
+| The post's idea map | `scripts/ideamap.py`, then the excalidraw-diagram renderer | `![caption](fig/name.png)` |
+| A mechanism, pipeline, architecture or a before/after concept | **excalidraw-diagram** skill, in its default simple and sparse mode, with the idea map's style: `roughness: 0`, `fontFamily: 3`, background `#fffdf9`, the `--s1/--s2/--s3` colours, grey `#aaa498` connectors, ≤ 8 nodes | render to PNG with its renderer into `fig/name.png`, then `![caption](fig/name.png)` |
 | A standalone explainer of a mechanism, too large for one figure (rare) | **answer-me-with-html** skill (`am render`) | its own page, published separately and linked from a post |
 | An existing result figure from the project | copy into `fig/` | `![caption](fig/name.png)`. Redraw it as a chart block when its own title or annotations are heavy, or when its axes fail the readout rules |
 
@@ -110,7 +157,7 @@ looked into for each issue."
 - One idea per figure. Split a figure making two points.
 - The explaining text sits above the figure, not only below it.
 - Count the words: a diagram over ~40 words, or a label over four words, is too busy. Cut it. Axis
-  titles do not count.
+  titles do not count, and the idea map follows its own limits above.
 - Colours follow the post template (`--s1` sienna, `--s2` slate blue, `--s3` olive, `--s0` grey).
   When lieflat-charts produces its own palette, keep one palette per post.
 - The numbers in a figure match the text and the tables. A figure is a number too.

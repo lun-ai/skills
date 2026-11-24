@@ -30,9 +30,9 @@ page, a meta line, a question for a title, and prose carrying the results.
 
 - Title: the question the post answers. Above it, the meta line ("Research diary · Part 2 of 3 ·
   date"); below it, the series name when it differs from the title.
-- An undated opening section that says why the question matters and ends on the post's
-  **question map** (see step 4), then numbered sections in the order the work happened, **each
-  with its dates in the heading**:
+- An undated opening section that picks up where the previous post stopped, says why the question
+  matters and ends on the post's **idea map** (see step 4), then numbered sections in the order
+  the work happened, **each with its dates in the heading**:
   `## 4. Steering the model's internal state (6–12 Sep 2026)`.
 - Paragraphs, not bullets. Each step's key result sits in **one** plain table or **one** chart,
   with axes a newcomer can read and a caption that says what to see. The text explaining a result
@@ -41,7 +41,8 @@ page, a meta line, a question for a title, and prose carrying the results.
 - A `## References` list, the series cards, and one link to the public repo in the footer.
 
 The post carries no timeline chart, no boxed findings, no "what went wrong" lists, and no
-internal paths. Those belong in the working notes.
+internal paths. Those belong in the working notes. The one internal id it keeps is the experiment
+number (`E004`), on the idea map and where a section reports that experiment.
 
 ## 1. Gather the negatives
 
@@ -61,8 +62,17 @@ opens, which pieces go in, how to cite flawed or superseded results, what to do 
 work. If the author states their own narrative, take it. Split into one post per question the work
 asked.
 
-Done when the decisions are recorded as a table in `retrospective.md`, and each post has a question
-as its title and an assigned list of sections.
+Then settle the idea map. Lay the work out as a graph, the way a commit graph lays out a codebase:
+each idea or experiment is a node, and for each one record its experiment number where the
+project has one, what it followed from, whether it held
+up, was refuted, was revised into another idea or is still open, and whether its result sent the
+work back to an earlier idea. For each post add what result would refute its idea and the author's
+credence, before and after. Take these from the record where it states them. Ask the author for
+the rest: a refuting condition or a credence is never guessed.
+
+Done when the decisions are recorded as a table in `retrospective.md`, each post has a question
+as its title and an assigned list of sections, and the graph of ideas and each post's refuting
+conditions and credence are recorded.
 
 ## 3. Develop the drafts
 
@@ -79,13 +89,18 @@ Follow [references/figures.md](references/figures.md). Every figure is simple an
 marks, few words, the series palette, nothing decorative. Minimal never costs the readout: every
 data chart names its axes in plain language, so a reader can make their own observations from it.
 
-First, one **question map** per post, drawn with `scripts/mindmap.py`: the post's question in
-the centre, 3 to 7 one- or two-word concepts around it, one or two short concrete lines under
-each, and an optional "→ what we did" line. It is the post at one glance, one level above the
-sections. Then the result figures: built-in chart blocks first, then lieflat-charts,
-excalidraw-diagram or answer-me-with-html.
+First, one **idea map** per post, drawn with `scripts/ideamap.py`. It exists for continuity: a
+reader arriving from the previous post sees where this one picks up, without loading a new
+context. It is a graph, like a commit graph: the series' ideas as nodes on lanes, one band per
+post, with branches, dead ends, revisions and loops drawn as such, and the current post's nodes
+marked. Like a paper's abstract it is an easy way in with very little text: marks and lines carry
+everything they can, and full sentences are kept for the current post's question and what would
+refute it. A meter shows the credence. Then the result figures: built-in chart blocks first, then
+lieflat-charts, excalidraw-diagram or answer-me-with-html.
 
-Done when each post opens on a question map whose branches the sections answer, each figure makes
+Done when each post opens on an idea map whose shape shows how the post follows from the earlier
+ones, with no sentence a mark could replace, whose question the sections answer and whose
+refuting conditions and credence came from the record or the author, each figure makes
 one point, carries no title or source text, has a caption saying what to see, and matches the
 numbers in the text, each data chart passes the cold read in references/figures.md, and the text explaining each result
 figure sits above it.
@@ -105,6 +120,10 @@ The author edits the markdown and says "rebuild". Run the edit loop in
 [references/publishing.md](references/publishing.md): commit the author's edits on their own,
 check what they changed, apply only what was asked plus factual fixes, rebuild, republish, commit.
 
+A post that still opens on a radial question map (a centre question with one-word branches) gets
+an idea map in its place on the next rebuild, as step 4 describes. When a post's result changes,
+its node's status in every later post's map and the credence are checked too.
+
 Done when the author's commit and yours are separate, every changed number was checked, and every
 change you made is listed in your reply.
 
@@ -116,6 +135,14 @@ call to decide.
 
 <!--
 CHANGE LOG
+v8 2026-11-24: nodes carry the experiment number (exp), at the author's request, as a callback
+  and a tracker; it is the one internal id allowed in a post.
+v7 2026-11-24: the idea map is a graph (lanes, branches, dead ends, revisions, loops, post bands)
+  with status marks and a credence meter; sentences only for the question and the refuter. The
+  author found v6 a list, not a map, and too dense: "use visual cues, revert to complete and
+  concise text when have to".
+v6 2026-11-24: idea map (ideamap.py) replaces the radial question map (mindmap.py, removed) as each
+  post's opening figure. The author disliked the radial map: it made each post a fresh context.
 v5 2026-11-19: skills/slides now builds a browser-edited web deck (Slides artifact), exported to .pptx at the end.
 v4 2026-11-18: new sub-skill skills/slides (markdown deck -> template-styled .pptx / Google Slides).
 v3 2026-10-30: readout rules and cold read replace "no axis titles"; ylabel/xlabel on chart blocks,
@@ -123,5 +150,5 @@ v3 2026-10-30: readout rules and cold read replace "no axis titles"; ylabel/xlab
   Explaining text goes above its figure, made explicit at the author's request.
 v2 2026-10-27: question map (mindmap.py) as each post's opening figure, abstraction ladder,
   minimal-figure limits; taken from the metacognition-drift series maps the author liked.
-Outstanding minor issues: mindmap.py has no top slot (max 7 branches); text widths are estimated.
+Outstanding minor issues: ideamap.py takes lanes from the spec, it does not untangle crossings itself; text widths are estimated.
 -->

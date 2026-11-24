@@ -60,6 +60,11 @@ caption: Objections helped true claims a little and broke false ones.
 - Keep text inside figures to a minimum: no titles, short labels, but keep the axis titles. The
   figure says how to read it; the caption says what to see.
 - Put the text explaining a result above its figure, with the caption beneath the figure.
-- Each post opens on a question map (`fig/<name>.png`). To change it, edit `fig/<name>.toml`
-  (question, branches, short lines) and ask for a rebuild, or nudge `fig/<name>.excalidraw` on
-  excalidraw.com and export the PNG over the old one.
+- Each post opens on an idea map (`fig/<name>.png`): a graph of the series' ideas up to that post,
+  with what held up, what was refuted or revised, where the work looped back, and under it the
+  post's question, what would refute it and your credence. To change it, edit `fig/<name>.toml`
+  (each node has a name, its experiment number `exp`, a `status`, a `lane` and the ids it comes
+  `after`) and ask for a rebuild,
+  or nudge `fig/<name>.excalidraw` on excalidraw.com and export the PNG over the old one. The
+  refuting conditions and the credence are yours: correct them whenever they are not what you
+  believe.
