@@ -137,6 +137,76 @@ this post takes on. If you cannot, fix the lanes or the statuses, not the wordin
 Caption: one sentence on what the map shows, e.g. "How the long-run test follows from the first
 two posts, and what would prove it wrong."
 
+## The work history (one per post)
+
+Every post closes on a diagram of the work it reports, in a last section titled
+`## How the work unfolded`, after the last numbered section and before any teaser and the
+references. The author asked for it in these words: for each task, why the work was done, what it
+found, and why that prompted follow-up work, in a connected diagram. They like it because it
+summarises the actions taken to complete the investigation, so a reader can check and recall them.
+
+It pairs with the idea map and does a different job:
+
+| | Idea map (opens the post) | Work history (closes the post) |
+|---|---|---|
+| Scope | the series up to this post | this post only |
+| A node is | an idea: a name and a status mark | a task: why it was done and what it found |
+| An arrow says | this followed from that | why that finding prompted this task |
+| Text | minimal, marks first | three short lines per task, by design |
+| The reader uses it to | orient before reading | check and recall what was done |
+
+Each task is a numbered box with three kinds of line, each in its own colour:
+
+| Line | Colour | Says | Example |
+|---|---|---|---|
+| title | ink | the action, as a verb phrase, then its experiment number and date | `4  Compare two halves of the texts · E023 · 20 Nov` |
+| `why` | slate | the reason the task was done | `a lens should not depend on which texts it saw` |
+| `found` | sienna | what was measured: one finding, or two when they differ by model or setting | `Gemma: none below layer 27; one text 9,000x too large` |
+| `so`, on the arrow | olive | why that finding prompted the next task | `Gemma: is that one text the cause?` |
+
+- **One box per task the post reports**, numbered in the order of the post's sections, at most 12.
+  Join steps that share one finding. A task the post does not report has no box.
+- **Every task but the first hangs from the finding that prompted it** (`after`), and its arrow
+  says why (`so`). When one finding prompted two tasks the chain forks; the script keeps the first
+  follow-up in the column and moves the others to the right. The boxes where the work started
+  and where it has got to are tinted.
+- **Lines are short and plain, not full sentences**: a clause of at most 90 characters, lower
+  case, no full stop, in the words of the post. A `so` line is often the question the finding
+  raised.
+- **`found` reports what was measured**, with the numbers the section gives. Numbers are welcome
+  here and must match the text and tables exactly.
+- **`why` and `so` are reasons, so they are sourced or asked for.** Take them from the plan files,
+  decision notes and commit messages gathered in the retrospective. Where the record does not say
+  why a task was done or why it led to the next, ask the author. Never invent a motive to make the
+  chain connect.
+- **It agrees with the idea map.** The tasks carry the same experiment numbers as the map's nodes
+  for this post, and a branch on one appears on the other.
+- This figure is exempt from the word count and the no-boxes rule in this file. It keeps the
+  others: no title or source line, the series palette, no paths or internal names besides the
+  experiment number.
+
+✓ why `know the cost before a full fit` · found `about two minutes per text` · so `1,000 texts is about 35 GPU-hours: try 100 first`
+✗ why `Timing` · found `The results were informative` · so `next step`
+
+Above the figure goes one short paragraph saying how to read it: what a box is, what the three
+colours mean, and where the chain forks. Caption: what the chain shows as a whole, in one or two
+sentences, e.g. "Each finding is the reason for the next task. Gemma needed three further checks
+before a first reading; Qwen needed only more text."
+
+Draw it:
+
+```
+# fig/<name>-history.toml  (format in the header of scripts/history.py)
+python3 "$SKILL_DIR/scripts/history.py" fig/<name>-history.toml  # -> fig/<name>-history.excalidraw
+cd <excalidraw-diagram skill>/references && uv run python render_excalidraw.py <abs path>.excalidraw
+```
+
+`history.py` numbers and places the boxes, wraps the lines, routes the forks and warns on a task
+with no `why`, no `after` or no `so`, on long lines, and on more than two columns; fix every
+warning. View the PNG, then read it against the post: every box has a section, every number
+matches, and every `why` and `so` traces to the record or the author. Commit the `.toml`, the
+`.excalidraw` and the `.png`.
+
 ## Which tool
 
 | Need | Use | Lands in the post as |
@@ -144,6 +214,7 @@ two posts, and what would prove it wrong."
 | Bars, lines, dose curves, small multiples | built-in `chart` block (see AUTHOR_GUIDE.md) | inline SVG; the data stays editable in the markdown |
 | Any richer data chart: scatter, heatmap, dumbbell, distribution, waterfall | **lieflat-charts** skill: chart mode, Mono palette unless the series needs colour, a pure-SVG template | extract the `<svg>` into `fig/name.svg`, delete its title, subtitle and source text, keep or add the axis titles, then `<!-- svg: fig/name.svg \| caption -->` |
 | The post's idea map | `scripts/ideamap.py`, then the excalidraw-diagram renderer | `![caption](fig/name.png)` |
+| The post's work history | `scripts/history.py`, then the excalidraw-diagram renderer | `![caption](fig/name-history.png)` |
 | A mechanism, pipeline, architecture or a before/after concept | **excalidraw-diagram** skill, in its default simple and sparse mode, with the idea map's style: `roughness: 0`, `fontFamily: 3`, background `#fffdf9`, the `--s1/--s2/--s3` colours, grey `#aaa498` connectors, ≤ 8 nodes | render to PNG with its renderer into `fig/name.png`, then `![caption](fig/name.png)` |
 | A standalone explainer of a mechanism, too large for one figure (rare) | **answer-me-with-html** skill (`am render`) | its own page, published separately and linked from a post |
 | An existing result figure from the project | copy into `fig/` | `![caption](fig/name.png)`. Redraw it as a chart block when its own title or annotations are heavy, or when its axes fail the readout rules |
@@ -157,7 +228,7 @@ two posts, and what would prove it wrong."
 - One idea per figure. Split a figure making two points.
 - The explaining text sits above the figure, not only below it.
 - Count the words: a diagram over ~40 words, or a label over four words, is too busy. Cut it. Axis
-  titles do not count, and the idea map follows its own limits above.
+  titles do not count, and the idea map and the work history follow their own limits above.
 - Colours follow the post template (`--s1` sienna, `--s2` slate blue, `--s3` olive, `--s0` grey).
   When lieflat-charts produces its own palette, keep one palette per post.
 - The numbers in a figure match the text and the tables. A figure is a number too.

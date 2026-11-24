@@ -38,9 +38,12 @@ page, a meta line, a question for a title, and prose carrying the results.
   with axes a newcomer can read and a caption that says what to see. The text explaining a result
   comes before its figure. Most sections need neither.
 - Unfinished work: `status: unfinished`, and a short closing teaser rather than a result.
+- A closing section, `## How the work unfolded`, that holds the post's **work history** (see
+  step 4) under one short paragraph saying how to read it. It comes after the last numbered
+  section and before any teaser and the references. Every post has one.
 - A `## References` list, the series cards, and one link to the public repo in the footer.
 
-The post carries no timeline chart, no boxed findings, no "what went wrong" lists, and no
+The post carries no dated timeline chart, no boxed findings, no "what went wrong" lists, and no
 internal paths. Those belong in the working notes. The one internal id it keeps is the experiment
 number (`E004`), on the idea map and where a section reports that experiment.
 
@@ -49,10 +52,12 @@ number (`E004`), on the idea map and where a section reports that experiment.
 Find everything the project tried: dashboards, plan files, result folders, commits, deleted plans.
 For a large project, send a read-only subagent to sweep for pieces you have not read. Write
 `retrospective.md` in the series folder. It is a **working file, never published**: pieces in date
-order, each with its setup, results and plain-words problems, so the author can recall the work.
+order, each with its setup, results and plain-words problems, why it was done and what its
+finding prompted next, so the author can recall the work.
 Re-derive one headline number from raw outputs.
 
-Done when every piece of work has a date, a setup and a result; one number has been re-derived;
+Done when every piece of work has a date, a setup, a result, a reason and a note of what it led
+to (or a mark that the record does not say); one number has been re-derived;
 and nothing new was run.
 
 ## 2. Choose the story
@@ -95,12 +100,21 @@ context. It is a graph, like a commit graph: the series' ideas as nodes on lanes
 post, with branches, dead ends, revisions and loops drawn as such, and the current post's nodes
 marked. Like a paper's abstract it is an easy way in with very little text: marks and lines carry
 everything they can, and full sentences are kept for the current post's question and what would
-refute it. A meter shows the credence. Then the result figures: built-in chart blocks first, then
-lieflat-charts, excalidraw-diagram or answer-me-with-html.
+refute it. A meter shows the credence.
+
+Second, one **work history** per post, drawn with `scripts/history.py`, in the post's closing
+section. The idea map opens the post on the series; the work history closes it on the actions
+taken in this post. It is one connected diagram that says, for each task, why it was done, what
+it found, and why that finding prompted the follow-up work.
+
+Then the result figures: built-in chart blocks first, then lieflat-charts, excalidraw-diagram or
+answer-me-with-html.
 
 Done when each post opens on an idea map whose shape shows how the post follows from the earlier
 ones, with no sentence a mark could replace, whose question the sections answer and whose
-refuting conditions and credence came from the record or the author, each figure makes
+refuting conditions and credence came from the record or the author, each post closes on a work
+history whose tasks match its sections and whose reasons came from the record or the author,
+each figure makes
 one point, carries no title or source text, has a caption saying what to see, and matches the
 numbers in the text, each data chart passes the cold read in references/figures.md, and the text explaining each result
 figure sits above it.
@@ -121,7 +135,8 @@ The author edits the markdown and says "rebuild". Run the edit loop in
 check what they changed, apply only what was asked plus factual fixes, rebuild, republish, commit.
 
 A post that still opens on a radial question map (a centre question with one-word branches) gets
-an idea map in its place on the next rebuild, as step 4 describes. When a post's result changes,
+an idea map in its place on the next rebuild, as step 4 describes. A post with no work history
+gets one, and one that sits anywhere but the closing section moves there. When a post's result changes,
 its node's status in every later post's map and the credence are checked too.
 
 Done when the author's commit and yours are separate, every changed number was checked, and every
@@ -135,6 +150,10 @@ call to decide.
 
 <!--
 CHANGE LOG
+v9 2026-11-24: work history (history.py) required as every post's closing figure: task boxes with
+  why and found, arrows with the reason for the follow-up. Taken from the lens-history figure in
+  part 5 of the metacognition series, which the author liked for summarising the actions taken;
+  the author chose "end only" and "every post".
 v8 2026-11-24: nodes carry the experiment number (exp), at the author's request, as a callback
   and a tracker; it is the one internal id allowed in a post.
 v7 2026-11-24: the idea map is a graph (lanes, branches, dead ends, revisions, loops, post bands)

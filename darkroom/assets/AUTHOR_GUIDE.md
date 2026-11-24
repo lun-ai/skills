@@ -68,3 +68,8 @@ caption: Objections helped true claims a little and broke false ones.
   or nudge `fig/<name>.excalidraw` on excalidraw.com and export the PNG over the old one. The
   refuting conditions and the credence are yours: correct them whenever they are not what you
   believe.
+- Each post closes on a work history (`fig/<name>-history.png`) under `## How the work unfolded`:
+  one box per task with why it was done and what it found, and on each arrow why that finding led
+  to the next task. To change it, edit the `why`, `found` and `so` lines in
+  `fig/<name>-history.toml` and ask for a rebuild. The `why` and `so` lines are your reasons:
+  correct any that are not why you did it.
