@@ -29,7 +29,6 @@ categories:
   - name: "Manuscript Pipeline & Data"
     skills:
       - dataset-card
-      - document-changes
       - nature:data
       - lieflat-charts
       - nature:figure

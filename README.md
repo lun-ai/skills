@@ -62,7 +62,6 @@ together.
 | Skill | Description |
 |---|---|
 | [dataset-card](./dataset-card/) | Produce a Datasheets-for-Datasets card with a Hugging Face header whose statistics — scale, label noise ceiling, duplicates, group structure, leakage — are computed from the data files rather than quoted. |
-| [document-changes](./document-changes/) | Create a timestamped markdown note documenting recent implementation changes, derived from the codebase and git state. |
 | [nature:data](./nature/skills/data/) | Prepare or audit Nature-ready Data Availability statements, repository plans, dataset citations, and FAIR metadata checklists. |
 | [lieflat-charts](./lieflat-charts/) | Template-driven HTML charts and full-page bilingual reports (Lupi, Basics, Glance, Maps, Interactive galleries) with semantic colour presets. |
 | [nature:figure](./nature/skills/figure/) | Create, audit, or polish submission-grade Nature-style multi-panel figures in Python (matplotlib/seaborn) or R (ggplot2). |
